@@ -1,0 +1,326 @@
+/*
+Theme Name:   Theme Name
+Theme URI:    http://example.com/
+Description:  Description
+Version:      1.0
+Author:       Your Name
+Author        URI: http://example.com/
+Tags:         one, two
+*/
+
+
+
+
+
+
+/* ==============================================================================
+	CSS RESET
+============================================================================= */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del,  dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody ,tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	margin: 0;
+	padding: 0;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+
+
+
+
+
+
+/* ==============================================================================
+	GENERAL
+============================================================================= */
+
+*, *::before, *::after {
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+}
+
+body {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  display: block;
+}
+
+a:hover,
+a:focus {
+
+}
+
+
+
+
+
+
+
+
+
+
+/* ==============================================================================
+	WORDPRESS
+============================================================================= */
+
+p > img {
+  display: inline-block;
+}
+
+img.aligncenter {
+  display: block; margin: 0 auto;
+}
+
+img.alignleft {
+  float: left;
+  margin-right: 1em;
+}
+
+img.alignright {
+  float: right;
+  margin-left: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+/* ==============================================================================
+	FONTS & TEXT
+============================================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+}
+
+h1 {
+
+}
+
+h2 {
+
+}
+
+h3 {
+
+}
+
+h4 {
+
+}
+
+h5 {
+
+}
+
+h6 {
+
+}
+
+p {
+
+}
+
+p > a {
+  display: inline;
+}
+
+strong {
+
+}
+
+em {
+
+}
+
+q {
+
+}
+
+blockquote {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* ==============================================================================
+	FORMS
+============================================================================= */
+
+form {
+
+}
+
+fieldset {
+
+}
+
+fieldset legend {
+
+}
+
+label {
+
+}
+
+input:focus {
+
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
+input::-moz-placeholder,
+textarea::-moz-placeholder,
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
+input::placeholder,
+textarea::placeholder {
+
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="search"],
+input[type="url"],
+input[type="tel"],
+textarea {
+
+}
+
+input[type="checkbox"] {
+
+}
+
+input[type="checkbox"]:checked {
+
+}
+
+input[type="checkbox"]:checked::before {
+
+}
+
+input[type="radio"] {
+
+}
+
+input[type="radio"]:checked {
+
+}
+
+input[type="radio"]:checked::before {
+
+}
+
+textarea {
+
+}
+
+select {
+
+}
+
+input[type="submit"],
+input[type="button"] {
+
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus,
+input[type="button"]:hover,
+input[type="button"]:focus {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ==============================================================================
+	MEDIA QUERIES
+============================================================================= */
+
+/* Tablet and above */
+@media all and (min-width: 48em) {
+
+}
+
+/* Large tablet / Laptop and above */
+@media all and (min-width: 62em) {
+
+}
+
+/* Laptop and above */
+@media all and (min-width: 90em) {
+  
+}
