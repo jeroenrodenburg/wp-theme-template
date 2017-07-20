@@ -55,6 +55,12 @@ function theme_scripts() {
   // wp_register_script( 'isotope', '//unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', false, '3.0', true );
   // wp_enqueue_script( 'isotope' );
 
+  // wp_register_script( 'spotter', get_template_directory_uri() . '/js/spotter/spotter.min.js', false, false, true );
+  // wp_enqueue_script( 'spotter' );
+  //
+  // wp_register_script( 'slider', get_template_directory_uri() . '/js/slider/slider.min.js', false, false, true );
+  // wp_enqueue_script( 'slider' );
+
   wp_register_script( 'script', get_template_directory_uri() . '/js/script.js', false, false, true );
   wp_enqueue_script( 'script' );
 
