@@ -1,7 +1,7 @@
 /**
  *	Flexgrid.css
  *	Flebox 12 column grid with flexible layouts
- *	Version: 0.9
+ *	Version: 1.0
  *	Author: Control
  *	License: Licensed under the MIT/X11 License (http://opensource.org/licenses/MIT)
  */
@@ -258,6 +258,60 @@
 	-webkit-box-flex: 3;
 	-ms-flex: 3 1 auto;
 	flex: 3 1 auto;
+}
+
+.box-flex-4 {
+	-webkit-box-flex: 4;
+	-ms-flex: 4 1 auto;
+	flex: 4 1 auto;
+}
+
+.box-flex-5 {
+	-webkit-box-flex: 5;
+	-ms-flex: 5 1 auto;
+	flex: 5 1 auto;
+}
+
+.box-flex-6 {
+	-webkit-box-flex: 6;
+	-ms-flex: 6 1 auto;
+	flex: 6 1 auto;
+}
+
+.box-flex-7 {
+	-webkit-box-flex: 7;
+	-ms-flex: 7 1 auto;
+	flex: 7 1 auto;
+}
+
+.box-flex-8 {
+	-webkit-box-flex: 8;
+	-ms-flex: 8 1 auto;
+	flex: 8 1 auto;
+}
+
+.box-flex-9 {
+	-webkit-box-flex: 9;
+	-ms-flex: 9 1 auto;
+	flex: 9 1 auto;
+}
+
+.box-flex-10 {
+	-webkit-box-flex: 10;
+	-ms-flex: 10 1 auto;
+	flex: 10 1 auto;
+}
+
+.box-flex-11 {
+	-webkit-box-flex: 11;
+	-ms-flex: 11 1 auto;
+	flex: 11 1 auto;
+}
+
+.box-flex-12 {
+	-webkit-box-flex: 12;
+	-ms-flex: 12 1 auto;
+	flex: 12 1 auto;
 }
 
 .box-static {
@@ -699,6 +753,60 @@
 		flex: 3 1 auto;
 	}
 
+	.box-sm-flex-4 {
+		-webkit-box-flex: 4;
+		-ms-flex: 4 1 auto;
+		flex: 4 1 auto;
+	}
+
+	.box-sm-flex-5 {
+		-webkit-box-flex: 5;
+		-ms-flex: 5 1 auto;
+		flex: 5 1 auto;
+	}
+
+	.box-sm-flex-6 {
+		-webkit-box-flex: 6;
+		-ms-flex: 6 1 auto;
+		flex: 6 1 auto;
+	}
+
+	.box-sm-flex-7 {
+		-webkit-box-flex: 7;
+		-ms-flex: 7 1 auto;
+		flex: 7 1 auto;
+	}
+
+	.box-sm-flex-8 {
+		-webkit-box-flex: 8;
+		-ms-flex: 8 1 auto;
+		flex: 8 1 auto;
+	}
+
+	.box-sm-flex-9 {
+		-webkit-box-flex: 9;
+		-ms-flex: 9 1 auto;
+		flex: 9 1 auto;
+	}
+
+	.box-sm-flex-10 {
+		-webkit-box-flex: 10;
+		-ms-flex: 10 1 auto;
+		flex: 10 1 auto;
+	}
+
+	.box-sm-flex-11 {
+		-webkit-box-flex: 11;
+		-ms-flex: 11 1 auto;
+		flex: 11 1 auto;
+	}
+
+	.box-sm-flex-12 {
+		-webkit-box-flex: 12;
+		-ms-flex: 12 1 auto;
+		flex: 12 1 auto;
+	}
+
 	.box-sm-static {
 		-webkit-box-flex: 0;
 		-ms-flex: 0 0 auto;
@@ -1099,6 +1207,60 @@
 		-webkit-box-flex: 3;
 		-ms-flex: 3 1 auto;
 		flex: 3 1 auto;
+	}
+
+	.box-md-flex-4 {
+		-webkit-box-flex: 4;
+		-ms-flex: 4 1 auto;
+		flex: 4 1 auto;
+	}
+
+	.box-md-flex-5 {
+		-webkit-box-flex: 5;
+		-ms-flex: 5 1 auto;
+		flex: 5 1 auto;
+	}
+
+	.box-md-flex-6 {
+		-webkit-box-flex: 6;
+		-ms-flex: 6 1 auto;
+		flex: 6 1 auto;
+	}
+
+	.box-md-flex-7 {
+		-webkit-box-flex: 7;
+		-ms-flex: 7 1 auto;
+		flex: 7 1 auto;
+	}
+
+	.box-md-flex-8 {
+		-webkit-box-flex: 8;
+		-ms-flex: 8 1 auto;
+		flex: 8 1 auto;
+	}
+
+	.box-md-flex-9 {
+		-webkit-box-flex: 9;
+		-ms-flex: 9 1 auto;
+		flex: 9 1 auto;
+	}
+
+	.box-md-flex-10 {
+		-webkit-box-flex: 10;
+		-ms-flex: 10 1 auto;
+		flex: 10 1 auto;
+	}
+
+	.box-md-flex-11 {
+		-webkit-box-flex: 11;
+		-ms-flex: 11 1 auto;
+		flex: 11 1 auto;
+	}
+
+	.box-md-flex-12 {
+		-webkit-box-flex: 12;
+		-ms-flex: 12 1 auto;
+		flex: 12 1 auto;
 	}
 
 	.box-md-static {
