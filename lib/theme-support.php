@@ -30,4 +30,7 @@ function theme_features()  {
   // Add theme support for Image Size
 	// add_image_size( 'title', 0, 0, true );
 
+	// Add theme support for Woocommerce
+	add_theme_support( 'woocommerce' );
+
 }
