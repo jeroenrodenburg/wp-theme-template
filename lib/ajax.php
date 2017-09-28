@@ -16,6 +16,8 @@ function load_ajax() {
   header("Content-Type: text/html");
 	global $post;
 
+  // get_template_part( '' );
+
   exit();
 
 }

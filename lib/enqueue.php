@@ -62,6 +62,7 @@ function theme_scripts() {
   // wp_enqueue_script( 'slider' );
 
   wp_register_script( 'script', get_template_directory_uri() . '/js/script.js', false, false, true );
+  wp_localize_script( 'script', 'ajax', array( 'url' => admin_url( 'admin-ajax.php' ) ) );
   wp_enqueue_script( 'script' );
 
 }
