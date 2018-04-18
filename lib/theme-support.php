@@ -8,6 +8,7 @@
 
 /**
  *  Register Theme Features
+ * 
  */
 add_action( 'after_setup_theme', 'theme_features' );
 function theme_features()  {
@@ -27,7 +28,7 @@ function theme_features()  {
 		'header-text' => array( 'site-title', 'site-description' ),
 	) );
 
-  // Add theme support for Image Size
+  	// Add theme support for Image Size
 	// add_image_size( 'title', 0, 0, true );
 
 	// Add theme support for Woocommerce

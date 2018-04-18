@@ -9,6 +9,7 @@
 /**
  *  Register custom post type
  *  Uncomment to create the post type
+ * 
  */
 // add_action( 'init', 'custom_post_type', 0 );
 // function custom_post_type() {

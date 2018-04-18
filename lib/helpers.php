@@ -1,8 +1,8 @@
 <?php
 /**
  *	Theme:
- *	Template:			  helpers.php
- *	Description:	  Custom functions to use around the theme
+ *	Template:			helpers.php
+ *	Description:		Custom functions to use around the theme
 */
 
 
@@ -14,36 +14,72 @@
 function get_the_logo() {
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
 	$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-	if ( !empty( $image ) ) {
-		return $image[0];
-	} else {
-		return false;
-	}
+	return !empty( $image ) ? $image[0] : false;
 }
 
 /**
  *	Print the logo in the document
  *	Echoes an URL if the logo is present
  *
- *	@uses get_the_logo to get the logo if it is present
+ *	@uses 	get_the_logo() to get the logo if it is present
  *	@return null
  */
 function the_logo() {
 	$logo = get_the_logo();
-	if ($logo) {
-		echo $logo;
-	}
+	if ($logo) echo $logo;
 	return null;
 }
 
+/**
+ *	Outputs the post taxonomy terms, seperated with comma's
+ *
+ *	@param 	object $post
+ * 	@param 	string $category
+ *	@param 	array $args
+ *	@param 	string $delimiter
+ */
+function the_post_terms( $post, $category, $args = array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all'), $delimiter = ', ' ) {
+    $terms = wp_get_post_terms( $post->ID, $category, $args );
+    if ( $terms && ! is_wp_error( $terms )) {
+        $subjects_list = array();
+        foreach( $terms as $term ) {
+            $subjects_list[] = $term->name;
+        }
+        array_splice($subjects_list, 2);
+        $subjects = join($delimiter, $subjects_list);
+        echo $subjects;
+    }
+}
+
+/**
+ *	Output a taxonomy inside <option> elements
+ *
+ *	@param 	string $taxonomy
+ *	@param 	string $orderby
+ *	@param 	boolean $hide_empty
+ *	@return boolean
+ */
+function the_option_terms( $taxonomy, $orderby = 'menu_order', $hide_empty = false ) {
+	$terms = get_terms( array(
+		'taxonomy'			=> $taxonomy,
+		'orderby'			=> $orderby,
+		'hide_empty'		=> $hide_empty
+	) );
+    if ( $terms && ! is_wp_error( $terms )) {
+	    foreach( $terms as $term ) {
+		    echo '<option value="' . $term->slug . '" ' . selected( $_GET[ $taxonomy ], $term->slug ) . '>' . $term->name . '</option>';
+	    }
+	}
+	return true;
+}
 
 /**
  *	Returns a new array with all the children of a taxonomy
  *
- *	@param string $tax The taxonomy to get all the terms from.
- *	@param string $orderby The order in which the terms are ordered.
- *	@param boolean $hide_empty True: only show terms with posts. False: show all terms.
- *	@returns array().
+ *	@param 	string $tax - The taxonomy to get all the terms from
+ *	@param 	string $orderby - The order in which the terms are ordered
+ *	@param 	boolean $hide_empty - True: only show terms with posts. False: show all terms
+ *	@return (array|boolean)
  */
 function get_children_terms( $tax, $orderby = 'menu_order', $hide_empty = false ) {
 	$result = array();
@@ -75,28 +111,37 @@ function get_children_terms( $tax, $orderby = 'menu_order', $hide_empty = false 
 	}
 }
 
-
 /**
- *	Custom excerpt length.
- *	@return integer
+ *	Echoes custom output based on the post type
+ *
+ * @param 	string $post
  */
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
-function custom_excerpt_length( $length ) {
-	return 18;
+function the_post_type( $post = null ) {
+	$p = get_post_type( $post );
+	if ( $p === 'page' ) {
+		echo 'pagina';
+	} else if ( $p === 'post' ) {
+		echo 'nieuws';
+	} else {
+		echo $p;
+	}
 }
 
 /**
- *	Custom excerpt more string.
- *	@return string
+ *	Get a cookie
+ * 
+ *	@param	string $name
+ *	@return	string
  */
-add_filter('excerpt_more', 'custom_excerpt_more');
-function custom_excerpt_more($excerpt) {
-	return '...';
+function get_cookie( $name ) {
+	if ( !$name ) return false;
+	return isset( $_COOKIE[ $name ] ) ? explode( ',', $_COOKIE[ $name ] ) : '';
 }
-
 
 /**
  *	Get IP from client
+ *
+ *	@return	string $ip;
  */
 function get_the_user_ip() {
 	if (!empty( $_SERVER['HTTP_CLIENT_IP'])) {
@@ -110,29 +155,10 @@ function get_the_user_ip() {
 }
 
 /**
- *    Outputs the post taxonomy terms, seperated with comma's
- *    @param Object $post
- *    @param String $category
- *		@param Array $args
- *		@param String $delimiter
- */
-function the_post_terms( $post, $category, $args = array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all'), $delimiter = ', ' ) {
-    $terms = wp_get_post_terms( $post->ID, $category, $args );
-    if ( $terms && ! is_wp_error( $terms )) {
-        $subjects_list = array();
-        foreach( $terms as $term ) {
-            $subjects_list[] = $term->name;
-        }
-        array_splice($subjects_list, 2);
-        $subjects = join($delimiter, $subjects_list);
-        echo $subjects;
-    }
-}
-
-
-/**
  *	Get Woocommerce excerpt
- *	@param Integer $limit
+ *
+ *	@param 	integer $limit
+ *	@return string
  */
  function woo_get_excerpt( $limit = 20 ) {
       $excerpt = explode(' ', get_the_excerpt(), $limit);
@@ -148,7 +174,8 @@ function the_post_terms( $post, $category, $args = array('orderby' => 'name', 'o
 
 /**
  *	Echo Woocommerce excerpt
- *	@param Integer $limit
+ *
+ *	@param 	integer $limit
  */
 function woo_the_excerpt( $limit = 20 ) {
 	$excerpt = woo_get_excerpt( $limit );
@@ -159,7 +186,9 @@ function woo_the_excerpt( $limit = 20 ) {
 
 /**
  *	Get Woocommerce content
- *	@param Integer $limit
+ *
+ *	@param 	integer $limit
+ *	@return string
  */
 function woo_get_content( $limit = 20 ) {
     $content = explode(' ', get_the_content(), $limit);
@@ -177,7 +206,8 @@ function woo_get_content( $limit = 20 ) {
 
 /**
  *	Echo Woocommerce content
- *	@param Integer $limit
+ *
+ *	@param 	integer $limit
  */
 function woo_the_content( $limit = 20 ) {
 	$content = woo_get_content( $limit );

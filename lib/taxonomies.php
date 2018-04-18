@@ -9,6 +9,7 @@
 /**
  *  Register Custom Taxonomy
  *  Uncomment to create the post type
+ * 
  */
 // add_action( 'init', 'custom_taxonomy', 0 );
 // function custom_taxonomy() {
