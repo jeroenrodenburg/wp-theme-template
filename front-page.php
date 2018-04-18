@@ -1,9 +1,11 @@
 <?php
 /**
- *  Theme:
- *  Template:       category.php
- *  Description:
- */
+ *
+ *	Theme:				
+ *	Template:			front-page.php
+ *	Template Name:		Frontpage
+ *	Description:		Template for front-page of theme
+*/
 
 get_header();
 ?>

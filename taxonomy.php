@@ -1,7 +1,7 @@
 <?php
 /**
  *  Theme:
- *  Template:       category.php
+ *  Template:       taxonomy.php
  *  Description:
  */
 
