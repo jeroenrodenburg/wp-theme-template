@@ -7,9 +7,9 @@
 
 
 /**
- *	Get the logo from theme mods and return it if it is present
+ * Get the logo from theme mods and return it if it is present
  *
- *	@return string Returns an URL if the logo is present
+ * @return	string Returns an URL if the logo is present
  */
 function get_the_logo() {
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
@@ -18,11 +18,11 @@ function get_the_logo() {
 }
 
 /**
- *	Print the logo in the document
- *	Echoes an URL if the logo is present
+ * Print the logo in the document
+ * Echoes an URL if the logo is present
  *
- *	@uses 	get_the_logo() to get the logo if it is present
- *	@return null
+ * @uses 	get_the_logo() to get the logo if it is present
+ * @return	null
  */
 function the_logo() {
 	$logo = get_the_logo();
@@ -31,12 +31,12 @@ function the_logo() {
 }
 
 /**
- *	Outputs the post taxonomy terms, seperated with comma's
+ * Outputs the post taxonomy terms, seperated with comma's
  *
- *	@param 	object $post
- * 	@param 	string $category
- *	@param 	array $args
- *	@param 	string $delimiter
+ * @param 	object $post
+ * @param 	string $category
+ * @param 	array $args
+ * @param 	string $delimiter
  */
 function the_post_terms( $post, $category, $args = array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all'), $delimiter = ', ' ) {
     $terms = wp_get_post_terms( $post->ID, $category, $args );
@@ -52,12 +52,11 @@ function the_post_terms( $post, $category, $args = array('orderby' => 'name', 'o
 }
 
 /**
- *	Output a taxonomy inside <option> elements
+ * Output a taxonomy inside <option> elements
  *
- *	@param 	string $taxonomy
- *	@param 	string $orderby
- *	@param 	boolean $hide_empty
- *	@return boolean
+ * @param 	string $taxonomy
+ * @param 	string $orderby
+ * @param 	boolean $hide_empty
  */
 function the_option_terms( $taxonomy, $orderby = 'menu_order', $hide_empty = false ) {
 	$terms = get_terms( array(
@@ -70,16 +69,15 @@ function the_option_terms( $taxonomy, $orderby = 'menu_order', $hide_empty = fal
 		    echo '<option value="' . $term->slug . '" ' . selected( $_GET[ $taxonomy ], $term->slug ) . '>' . $term->name . '</option>';
 	    }
 	}
-	return true;
 }
 
 /**
- *	Returns a new array with all the children of a taxonomy
+ * Returns a new array with all the children of a taxonomy
  *
- *	@param 	string $tax - The taxonomy to get all the terms from
- *	@param 	string $orderby - The order in which the terms are ordered
- *	@param 	boolean $hide_empty - True: only show terms with posts. False: show all terms
- *	@return (array|boolean)
+ * @param 	string $tax - The taxonomy to get all the terms from
+ * @param 	string $orderby - The order in which the terms are ordered
+ * @param 	boolean $hide_empty - True: only show terms with posts. False: show all terms
+ * @return  (array|boolean)
  */
 function get_children_terms( $tax, $orderby = 'menu_order', $hide_empty = false ) {
 	$result = array();
@@ -112,9 +110,9 @@ function get_children_terms( $tax, $orderby = 'menu_order', $hide_empty = false 
 }
 
 /**
- *	Echoes custom output based on the post type
+ * Echoes custom output based on the post type
  *
- * @param 	string $post
+ * @param	string $post
  */
 function the_post_type( $post = null ) {
 	$p = get_post_type( $post );
@@ -157,25 +155,25 @@ function get_the_user_ip() {
 /**
  *	Get Woocommerce excerpt
  *
- *	@param 	integer $limit
+ *	@param 	number $limit
  *	@return string
  */
- function woo_get_excerpt( $limit = 20 ) {
-      $excerpt = explode(' ', get_the_excerpt(), $limit);
-      if (count($excerpt) >= $limit) {
-          array_pop($excerpt);
-          $excerpt = implode(" ", $excerpt) . '...';
-      } else {
-          $excerpt = implode(" ", $excerpt);
-      }
-      $excerpt = preg_replace('`\[[^\]]*\]`', '', $excerpt);
-      return $excerpt;
+function woo_get_excerpt( $limit = 20 ) {
+	$excerpt = explode(' ', get_the_excerpt(), $limit);
+	if (count($excerpt) >= $limit) {
+		array_pop($excerpt);
+		$excerpt = implode(" ", $excerpt) . '...';
+	} else {
+		$excerpt = implode(" ", $excerpt);
+	}
+	$excerpt = preg_replace('`\[[^\]]*\]`', '', $excerpt);
+	return $excerpt;
 }
 
 /**
  *	Echo Woocommerce excerpt
  *
- *	@param 	integer $limit
+ *	@param 	number $limit
  */
 function woo_the_excerpt( $limit = 20 ) {
 	$excerpt = woo_get_excerpt( $limit );
@@ -187,7 +185,7 @@ function woo_the_excerpt( $limit = 20 ) {
 /**
  *	Get Woocommerce content
  *
- *	@param 	integer $limit
+ *	@param 	number $limit
  *	@return string
  */
 function woo_get_content( $limit = 20 ) {
@@ -207,7 +205,7 @@ function woo_get_content( $limit = 20 ) {
 /**
  *	Echo Woocommerce content
  *
- *	@param 	integer $limit
+ *	@param 	number $limit
  */
 function woo_the_content( $limit = 20 ) {
 	$content = woo_get_content( $limit );
