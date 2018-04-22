@@ -1,8 +1,8 @@
 <?php
 /**
  *	Theme:
- *	Template:			  theme-support.php
- *	Description:	  Set the core functions of the theme
+ *	Template:			theme-support.php
+ *	Description:		Set the core functions of the theme
 */
 
 

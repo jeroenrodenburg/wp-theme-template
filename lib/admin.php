@@ -1,6 +1,6 @@
 <?php
 /**
  *  Theme:
- *  Template:       admin.php
- *  Description:    Custom admin settings
+ *  Template:			admin.php
+ *  Description:		Custom admin settings
  */

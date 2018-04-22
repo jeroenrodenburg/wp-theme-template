@@ -1,8 +1,8 @@
 <?php
 /**
  *  Theme:
- *  Template:       acf.php
- *  Description:    Advanced Custom Fields options and settings
+ *  Template:			acf.php
+ *  Description:		Advanced Custom Fields options and settings
  */
 
 /**

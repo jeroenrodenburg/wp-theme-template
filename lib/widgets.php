@@ -1,9 +1,9 @@
 <?php
 /**
- *	Theme:				Bevrijdingsfestival
+ *	Theme:				
  *	Template:			widgets.php
  *	Description:		Create custom widgets to use in sidebars
-*/
+ */
 
 
 /**

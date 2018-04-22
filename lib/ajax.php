@@ -1,8 +1,8 @@
 <?php
 /**
  *  Theme:
- *  Template:       ajax.php
- *  Description:    Ajax related functions
+ *  Template:			ajax.php
+ *  Description:		Ajax related functions
  */
 
 

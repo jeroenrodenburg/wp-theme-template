@@ -1,8 +1,8 @@
 <?php
 /**
- *	Theme:				Bevrijdingsfestival
+ *	Theme:				
  *	Template:			sidebars.php
- *	Description:	  	Create locations for widgets
+ *	Description:		Create locations for widgets
 */
 
 

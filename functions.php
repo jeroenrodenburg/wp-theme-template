@@ -1,8 +1,8 @@
 <?php
 /**
  *  Theme:
- *  Template:     functions.php
- *  Description:  Overview of all theme functionality
+ *  Template:			functions.php
+ *  Description:		Overview of all theme functionality
  */
 
 locate_template( 'lib/init.php', true, true );            // Functions fired on init
@@ -23,5 +23,6 @@ locate_template( 'lib/taxonomies.php', true, true );      // Custom taxonomies
 locate_template( 'lib/theme-support.php', true, true );   // Theme support settings
 locate_template( 'lib/widgets.php', true, true );         // Custom widgets
 locate_template( 'lib/woocommerce.php', true, true );     // Woocommerce settings
+locate_template( 'lib/wpml.php', true, true );			    	// WPML configuration
 
 ?>

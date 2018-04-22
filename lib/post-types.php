@@ -1,8 +1,8 @@
 <?php
 /**
  *	Theme:
- *	Template:			  post-types.php
- *	Description:	  Register custom post types to use in the page
+ *	Template:			post-types.php
+ *	Description:		Register custom post types to use in the page
 */
 
 

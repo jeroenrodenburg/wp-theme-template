@@ -1,8 +1,8 @@
 <?php
 /**
  *	Theme:
- *	Template:			  nav.php
- *	Description:	  Register navigation locations for theme
+ *	Template:			navigation.php
+ *	Description:		Register navigation locations for theme
 */
 
 /**
