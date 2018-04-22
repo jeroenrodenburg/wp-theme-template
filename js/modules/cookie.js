@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 /**
  * @author Control <info@controldigital.nl>
  * @file cookie.js
@@ -27,15 +29,18 @@
 
 
 /**
- * Create cookie
+ * createCookie
+ * 
+ * Creates cookie with a name, value, expire date, path and a domain.
+ * The cookie will be automatically stored in the document.
  *
  * @function
  * @since 	1.0
- * @param 	{String} name - Name of cookie
- * @param 	{String} value - Value of cookie
- * @param 	{Number} expire - When cookie expires in days
- * @param 	{String} path - Path to store cookie
- * @param   {String} domain - The domain to store the cookie
+ * @param 	{String} name Name of cookie
+ * @param 	{String} value Value of cookie
+ * @param 	{Number} expire When cookie expires in days
+ * @param 	{String} path Path to store cookie
+ * @param   {String} domain The domain to store the cookie
  */
 const createCookie = (name, value, expire, path, domain) => {
 	let date = new Date();
@@ -46,12 +51,15 @@ const createCookie = (name, value, expire, path, domain) => {
 }
 
 /**
- * Gets the cookie
+ * getCookie
+ * 
+ * Retrieves a cookie from the document.
+ * Returns a string if the cookie is found or false when it is not.
  *
  * @function
  * @since 	1.0
- * @param 	{String} name - Cookie to fetch
- * @returns {(String|Boolean)} - Returns cookie on success, false on fail
+ * @param 	{String} name Cookie to fetch
+ * @returns {(String|Boolean)} Returns cookie on success, false on fail
  */
 const getCookie = (name) => {
     let nameExpression = name + '=',
@@ -66,11 +74,13 @@ const getCookie = (name) => {
 }
 
 /**
- * Delete cookie
+ * deleteCookie
+ * 
+ * Deletes cookie from the document.
  *
  * @function
  * @since 	1.0
- * @param 	{String} name - Cookie to delete
+ * @param 	{String} name Cookie to delete
  * @returns {Boolean}
  */
 const deleteCookie = (name) => {

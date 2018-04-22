@@ -149,10 +149,10 @@ class Spotter {
 
   /**
    *  Create a new instance of Spotter.
-   *  @param {Object} options
-   *  @param {(Null|HTMLElement)} options.root
-   *  @param {String} options.rootMargin
-   *  @param {(Integer|Array)} options.threshold
+   *  @param  {Object} options
+   *  @param  {(Null|HTMLElement)} options.root
+   *  @param  {String} options.rootMargin
+   *  @param  {(Number|Array)} options.threshold
    */
   constructor(options) {
     this.items = [];
@@ -451,7 +451,7 @@ class Spotter {
    *  Lazy load the image.
    *  @param {HTMLElement} element
    */
-   lazyLoadImages(element) {
+  lazyLoadImages(element) {
     const loadImage = (imageElement) => {
       let image = new Image();
       let source = imageElement.getAttribute('data-src');

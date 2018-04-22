@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 /**
  * @author Control <info@controldigital.nl>
  * @file ajax.js
@@ -42,10 +44,10 @@ const get = (url, callback) => {
 				callback(xhr.responseText);
 			}
 		}
-	}
+	};
 	xhr.open('GET', url, true);
 	xhr.send();
-}
+};
 
 /**
  * HTTP POST Request
@@ -64,11 +66,11 @@ const post = (url, params, callback) => {
 				callback(xhr.responseText);
 			}
 		}
-	}
+	};
 	xhr.open('POST', url, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	xhr.send(params);
-}
+};
 
 /**
  * Parse string to HTML
@@ -87,7 +89,7 @@ const parseHTML = (data) => {
 			throw new Error('DOMParser not supported. Use stringToHTML() function instead');
 		}
 	}
-}
+};
 
 /**
  * Parse string to HTML the old way
@@ -105,7 +107,7 @@ const stringToHTML = (data) => {
 	} else {
 		throw new Error('data argument is not present or not a string');
 	}
-}
+};
 
 /**
  * Async GET request with optional data
@@ -130,6 +132,6 @@ const fetchData = (data = []) => {
 			return result;
 		});
 	} else {
-		throw new Error('data argument is not an Array')
+		throw new Error('data argument is not an Array');
 	}
-}
+};
