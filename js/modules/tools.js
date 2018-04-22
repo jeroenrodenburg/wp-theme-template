@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 /**
  * @author Control <info@controldigital.nl>
  * @file tools.js
@@ -195,4 +197,54 @@ const getValuesPerFieldset = (form) => {
         }
     }
     return fieldsets;
+};
+
+/**
+ * createQueryString
+ * 
+ * Converts an object into a string that can be used with a XMLHttpRequest
+ * 
+ * @since   1.0
+ * @param   {Object} params Object with keys and values for the string
+ * @returns {String} Queryable string
+ */
+const createQueryString = (params) => {
+    if (!params || 'object' !== typeof params) throw new Error('params argument is not type of string');
+    let query = [];
+    for (let key in params) {
+        if (params.hasOwnProperty(key)) {
+            query.push(`${key}=${params[key]}`);
+        }
+    }
+    query = query.join('&');
+    return `?${query}`;
+};
+
+/**
+ * debounce
+ * 
+ * Returns a function, that, as long as it continues to be invoked, will not 
+ * be triggered. The function will be called after it stops being called for 
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing.
+ * 
+ * @function
+ * @since   1.0
+ * @param   {Function} func Function to execute
+ * @param   {Number} wait Time to wait before firing
+ * @param   {Boolean} immediate Fire immediately or not
+ */
+const debounce = (func, wait, immediate) => {
+	let timeout;
+	return function() {
+		let context = this, args = arguments;
+		let later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		let callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
 };
