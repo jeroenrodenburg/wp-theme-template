@@ -48,7 +48,7 @@ const createCookie = (name, value, expire, path, domain) => {
     let expires = date.toUTCString();
     document.cookie = name + '=' + value + '; expires=' + expires + '; path=' + path + '; domain=' + domain;
     return true;
-}
+};
 
 /**
  * getCookie
@@ -71,7 +71,7 @@ const getCookie = (name) => {
         }
     }
     return false;
-}
+};
 
 /**
  * deleteCookie
@@ -86,4 +86,4 @@ const getCookie = (name) => {
 const deleteCookie = (name) => {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
     return true;
-}
+};
