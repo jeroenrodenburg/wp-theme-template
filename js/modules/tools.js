@@ -171,7 +171,7 @@ const getCheckedInputs = (form) => {
  * 
  * @function
  * @since   1.0
- * @param {HTMLFormElement} form Form element
+ * @param   {HTMLFormElement} form Form element
  * @returns {Array} Array with objects
  */
 const getValuesPerFieldset = (form) => {
