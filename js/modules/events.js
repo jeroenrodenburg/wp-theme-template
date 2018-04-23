@@ -27,23 +27,38 @@
  */
 
 /**
- * Scroll event
+ * toggleClassOnScroll
  *
- * If scolled distance is higher than the .navigation element
- * the --scroll class is added to the body
+ * If scolled distance is higher than the offsetThreshold
+ * the scrollClass is added to the target
  *
+ * @function
  * @since 	1.0
  */
-const onScroll = () => {
-    let top = document.scrollingElement.scrollTop,
-        offset = 100;
-    if (top >= offset) {
-        if (!body.classList.contains('--scroll')) {
-            body.classList.add('--scroll');
+const toggleClassOnScroll = (() => {
+
+    // Modify these variables
+    let target = document.body,
+        scrollClass = '--scroll',
+        offsetThreshold = 100;
+
+    // Scroll switch
+    let scrolled = false;
+
+    // Returns a closure function
+    return () => {
+        let top = document.scrollingElement.scrollTop;
+        if (top >= offsetThreshold) {
+            if (!scrolled) {
+                target.classList.add(scrollClass);
+                scrolled = true;
+            }
+        } else {
+            if (scrolled) {
+                target.classList.remove(scrollClass);
+                scrolled = false;
+            }
         }
-    } else {
-        if (body.classList.contains('--scroll')) {
-            body.classList.remove('--scroll');
-        }
-    }
-};
+    };
+
+})();
