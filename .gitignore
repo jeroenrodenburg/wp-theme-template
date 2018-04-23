@@ -1,0 +1,5 @@
+# gitignore for wp-theme-template
+
+# ignore node and gulp packages
+node_modules
+package-lock.json
