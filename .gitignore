@@ -3,3 +3,5 @@
 # ignore node and gulp packages
 node_modules
 package-lock.json
+DS_Store
+thumbs.db
