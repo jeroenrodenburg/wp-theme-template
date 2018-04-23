@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 /**
  * @author Control <info@controldigital.nl>
  * @file events.js

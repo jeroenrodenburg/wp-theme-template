@@ -35,7 +35,7 @@
  * @function
  * @since 	1.0
  * @param 	{(String|HTMLElement)} mapElement The map element to select
- * @param	{Object=} options Options for the google.maps.Map class
+ * @param		{Object=} options Options for the google.maps.Map class
  * @returns {<google.maps.Map>}
  */
 const createMap = (mapElement, options = {center: {lat: 52.3499843, lng: 4.9163333}, zoom: 16}) => {
