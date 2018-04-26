@@ -400,6 +400,73 @@ input[type="reset"]:active {
 
 
 
+
+
+
+/* ==============================================================================
+	GRAVITY FORMS
+============================================================================= */
+
+.gform_wrapper {
+
+}
+
+.gform_heading {
+
+}
+
+.gform_body {
+
+}
+
+.gform_footer {
+
+}
+
+.gform_title {
+
+}
+
+.gform_fields {
+
+}
+
+.gform_fields .gfield {
+
+}
+
+.gform_fields .gfield .gfield_label {
+	
+}
+
+.gform_fields .gfield .ginput_container {
+
+}
+
+.gform_fields .gfield .ginput_container input,
+.gform_fields .gfield .ginput_container textarea {
+
+}
+
+.gform_fields .gfield .ginput_container .gform_fileupload_multifile {
+
+}
+
+.gform_fields .gfield .ginput_container .gform_fileupload_multifile .gform_drop_area {
+
+}
+
+.gform_footer .gform_button {
+
+}
+
+.gform_hidden {
+	display: none;
+}
+
+
+
+
 /* ==============================================================================
 	MEDIA QUERIES
 ============================================================================= */
