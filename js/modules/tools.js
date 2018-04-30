@@ -104,6 +104,25 @@ const getSiblings = (start) => {
 };
 
 /**
+ * Removes all the children of an element and returns the element.
+ * 
+ * @example
+ * const emptyParent = removeChildren(parentElement);
+ * // emptyParent now has no children :(
+ * 
+ * @function
+ * @since   1.0
+ * @param   {HTMLElement} element HTMLElement to remove children of
+ * @returns {HTMLElement} Returns the element with children removed
+ */
+const removeChildren = (element) => {
+    while (element && element.firstElementChild) {
+        element.removeChild(element.firstElementChild);
+    }
+    return element;
+};
+
+/**
  * Returns an object with all the values of a form
  * 
  * @function
@@ -114,7 +133,16 @@ const getSiblings = (start) => {
 const getValues = (form) => {
     let values = {};
     for (let i = 0; i < form.elements.length; i += 1) {
-        if (form.elements[i].type !== 'submit') {
+        if (
+            (
+                form.elements[i].type !== 'submit' && 
+                form.elements[i].type !== 'fieldset' 
+            ) ||
+            (
+                form.elements[i].checked === true
+            ) &&
+            form.elements[i].value !== ''
+        ) {
             values[form.elements[i].name] = form.elements[i].value;
         }
     }
