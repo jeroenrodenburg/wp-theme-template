@@ -4,6 +4,15 @@ Put together by Control Digital.
 
 Fork it and use it if you like it.
 
+## Setup
+Make sure you have the latest version of node.js installed on your device. If not, you can download it [here](https://nodejs.org/en/).
+After installing node open the terminal and go to the folder of your theme.
+Type `npm install` to get everything ready.
+
+After all the packages have been installed, type in `gulp` to startup the Gulp process.
+This will startup a few of the processes like Autoprefixing and Minifying for CSS.
+More processes can be added through NPM if needed.
+
 ## Structure
 WordPress consists mostly of templates. Most of these templates are defaults that are used within the framework
 
