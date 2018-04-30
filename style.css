@@ -439,6 +439,10 @@ input[type="reset"]:active {
 	
 }
 
+.gform_fields .gfield .gfield_label.gfield_label--focus {
+	
+}
+
 .gform_fields .gfield .ginput_container {
 
 }
