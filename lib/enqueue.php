@@ -40,11 +40,16 @@ function theme_scripts() {
 	wp_deregister_script( 'wp-embed' );
 	wp_deregister_script( 'jquery' );
 
+	// jQuery for Gravity Forms
 	// wp_register_script( 'jquery', '//code.jquery.com/jquery-2.2.4.min.js', false, '2.2.4', false );
 	// wp_enqueue_script( 'jquery' );
-	//
+	
+	// jQuery Migrate for using a later version of jQuery
 	// wp_register_script( 'jquery-migrate', '//cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.4.1/jquery-migrate.min.js', false, '1.4.1', false);
 	// wp_enqueue_script( 'jquery-migrate' );
+
+	wp_enqueue_script( 'webfontLoader', '//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', false, false, true );
+	wp_add_inline_script( 'webfontLoader', "WebFont.load({google: {families: ['Open+Sans:300,400,500,600,700']}});" );
 
 	// wp_register_script( 'fancybox', '//cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js', array( 'jquery'), '3.1.20', true );
 	// wp_enqueue_script( 'fancybox' );
