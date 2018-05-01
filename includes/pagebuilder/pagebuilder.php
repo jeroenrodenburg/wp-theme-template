@@ -1,7 +1,7 @@
 <?php
 /**
  *  Theme:
- *  Template:       pagebuilder.php
+ *  Template:		pagebuilder.php
  *  Description:	Master template that controls all the pagebuilder templates
  */
 
