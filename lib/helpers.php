@@ -45,7 +45,6 @@ function the_post_terms( $post, $category, $args = array('orderby' => 'name', 'o
         foreach( $terms as $term ) {
             $subjects_list[] = $term->name;
         }
-        array_splice($subjects_list, 2);
         $subjects = join($delimiter, $subjects_list);
         echo $subjects;
     }
@@ -177,9 +176,7 @@ function woo_get_excerpt( $limit = 20 ) {
  */
 function woo_the_excerpt( $limit = 20 ) {
 	$excerpt = woo_get_excerpt( $limit );
-	if ($excerpt) {
-		echo $excerpt;
-	}
+	if ($excerpt) echo $excerpt;
 }
 
 /**
@@ -209,7 +206,5 @@ function woo_get_content( $limit = 20 ) {
  */
 function woo_the_content( $limit = 20 ) {
 	$content = woo_get_content( $limit );
-	if ($content) {
-		echo $content;
-	}
+	if ($content) echo $content;
 }
