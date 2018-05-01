@@ -35,6 +35,17 @@ function custom_paginate_links( $link ) {
 }
 
 /**
+ * Add custom fields to user contact fields
+ */
+add_filter( 'user_contactmethods', 'custom_contact_methods', 10, 1 );
+function custom_contact_methods( $contactmethods ) {
+	// $contactmethods['twitter'] = 'Twitter';
+	// $contactmethods['facebook'] = 'Facebook';
+	return $contactmethods;
+}
+	
+
+/**
  *	Password protected form
  *
  *	@return string
