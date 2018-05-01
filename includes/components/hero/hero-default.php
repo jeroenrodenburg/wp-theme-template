@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Component:       hero-default.php
- *  Description:
+ *  Theme:			
+ *  Template:		hero-default.php
+ *  Description:	Default hero template
  */
 
 ?>
