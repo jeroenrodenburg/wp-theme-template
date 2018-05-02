@@ -13,6 +13,12 @@ After all the packages have been installed, type in `gulp` to startup the Gulp p
 This will startup a few of the processes like Autoprefixing and Minifying for CSS.
 More processes can be added through NPM if needed.
 
+If the `gulp` command is not found please install the gulp cli in the global folder.
+You may need to use the sudo command to install the package.
+```
+npm install -g gulp-cli
+```
+
 ## Structure
 WordPress consists mostly of templates. Most of these templates are defaults that are used within the framework
 
