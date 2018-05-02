@@ -55,6 +55,9 @@ const createMap = (mapElement, options = {center: {lat: 52.3499843, lng: 4.91633
 	// Create new map
 	let map = new google.maps.Map(element, options);
 
+	// Store options
+	map.defaults = options;
+
 	// Set array for markers
 	map.markers = [];
 
@@ -81,6 +84,33 @@ const createMap = (mapElement, options = {center: {lat: 52.3499843, lng: 4.91633
 };
 
 /**
+ * centerMap
+ * 
+ * Centers the map on the given bounds or the 
+ * default center lat/lng location
+ * 
+ * @function
+ * @since	1.0
+ * @param 	{<google.maps.Map>} map Google maps map instance
+ * @returns	{Promise} Returns map on resolve and an error on reject
+ */
+const centerMap = (map) => {
+	return new Promise((resolve, reject) => {
+		if (map) {
+			if (!map.bounds.isEmpty()) {
+				map.fitBounds(map.bounds);
+			} else {
+				map.setCenter(map.defaults.center);
+				map.setZoom(map.defaults.zoom);
+			}
+			resolve(map);
+		} else {
+			reject(new Error('map argument is not given'));
+		}
+	});
+};
+
+/**
  * attachInfoWindow
  * 
  * Adds a InfoWindow to a marker
@@ -103,55 +133,16 @@ const attachInfoWindow = (marker, content, map) => {
 };
 
 /**
- * addMarkers
- * 
- * Add markers to the map
- * 
- * @function
- * @since 	1.0
- * @param 	{Array} markers 
- * @param 	{<google.maps.Map>} map 
- * @returns {Promise} returns the map object on resolve
- */
-const addMarkers = (markers, map) => {
-	return new Promise((resolve, reject) => {
-		if (markers && markers.length && map) {
-
-			// Loop over markers
-			markers.forEach((m) => {
-
-				// Create coordinates
-				let latLng = new google.maps.LatLng(m.lat, m.lng);
-
-				// Create marker
-				let marker = new google.maps.Marker({
-					position: latLng,
-					map: map
-				});
-				
-			});
-
-			// Resolve and return map
-			resolve(map);
-
-		} else {
-
-			// Reject with an error
-			reject(new Error('markers and/or map arguments not given'));
-
-		}
-	});
-};
-
-/**
  * addMarker
  * 
- * Add a marker to the map
+ * Add a single marker to the map
  * 
  * @function
  * @since 	1.0
- * @param 	{Object} position 
- * @param 	{<google.maps.Map>} map 
+ * @param 	{Object} position Object with lat and lang properties
+ * @param	{(String|Number)} position.lat Latitude of position
+ * @param	{(String|Number)} position.lng Longitude of position
+ * @param 	{<google.maps.Map>} map Google maps map instance
  * @returns {Promise} returns the map object on resolve
  */
 const addMarker = (position, map) => {
@@ -183,6 +174,31 @@ const addMarker = (position, map) => {
 
 		}
 	});
+};
+
+/**
+ * addMarkers
+ * 
+ * Add multiple markers to the map
+ * 
+ * @function
+ * @since 	1.0
+ * @uses	addMarker()
+ * @param 	{Object[]} markers Objects with lat and lng properties
+ * @param	{(String|Number)} markers[].lat Latitude of position
+ * @param	{(String|Number)} markers[].lng Longitude of position
+ * @param 	{<google.maps.Map>} map Google maps map instance
+ * @returns {Promise} returns the map object on resolve
+ */
+const addMarkers = (markers, map) => {
+	if (markers && markers.length && map) {
+
+		// Loop over markers and return the promise from addMarker
+		let markerPromises = markers.map(marker => addMarker(marker, map));
+
+		// Return Promise
+		return Promise.all(markerPromises);
+	}
 };
 
 /**
@@ -224,27 +240,29 @@ const removeMarkers = (map) => {
  * A polyline is a simple line drawn with an array of coordinates.
  * 
  * @example
- * let coords = [
+ * let pos = [
  * 	{lat: 37.772, lng: -122.214},
  * 	{lat: 21.291, lng: -157.821},
  * 	{lat: -18.142, lng: 178.431}
  * ];
  * 
- * addPolyline(coords, map);
+ * addPolyline(pos, map);
  * 
  * @function
  * @since	1.0
- * @param 	{Object[]} coordinates Array of objects with lat and lng coordinates
+ * @param 	{Object} position Objects with lat and lng coordinates
+ * @param	{(String|Number)} position.lat Latitude of position
+ * @param	{(String|Number)} position.lng Longitude of position
  * @param 	{<google.maps.Map>} map Google maps map instance
  * @param 	{Object=} options 
  * @returns	{Promise}
  */
-const addPolyline = (coordinates, map, options = {geodesic: true, strokeColor: '#ff0000', strokeOpacity: 1.0, strokeWeight: 2}) => {
-	return Promise((resolve, reject) => {
-		if (coordinates && map) {
+const addPolyline = (position, map, options = {geodesic: true, strokeColor: '#ff0000', strokeOpacity: 1.0, strokeWeight: 2}) => {
+	return new Promise((resolve, reject) => {
+		if (position && map) {
 
-			// Add coordinates to options
-			options.path = coordinates;
+			// Add position to options
+			options.path = position;
 
 			// Create new Polyline
 			const polyline = new google.maps.Polyline(options);
@@ -307,28 +325,30 @@ const removePolylines = (map) => {
  * The colors and properties of the line can be adjusted with the options argument.
  * 
  * @example
- * let coords = [
+ * let pos = [
  * 	{lat: 37.772, lng: -122.214},
  * 	{lat: 21.291, lng: -157.821},
  * 	{lat: -18.142, lng: 178.431},
  * 	{lat: 37.772, lng: -122.214}
  * ];
  * 
- * addPolygone(coords, map);
+ * addPolygone(pos, map);
  * 
  * @function
  * @since	1.0
- * @param 	{Object[]} coordinates Array of objects with lat and lng coordinates
+ * @param 	{Object} position Objects with lat and lng coordinates
+ * @param	{(String|Number)} position.lat Latitude of position
+ * @param	{(String|Number)} position.lng Longitude of position
  * @param 	{<google.maps.Map>} map Google maps map instance
  * @param 	{Object=} options 
  * @returns	{Promise}
  */
-const addPolygon = (coordinates, map, options = {strokeColor: '#ff0000', strokeOpacity: 0.8, strokeWeight: 2, fillColor: '#ff000', fillOpacity: 0.35}) => {
-	return Promise((resolve, reject) => {
-		if (coordinates && map) {
+const addPolygon = (position, map, options = {strokeColor: '#ff0000', strokeOpacity: 0.8, strokeWeight: 2, fillColor: '#ff000', fillOpacity: 0.35}) => {
+	return new Promise((resolve, reject) => {
+		if (position && map) {
 
 			// Add coordinates to options
-			options.path = coordinates;
+			options.path = position;
 
 			// Create new Polyline
 			const polygon = new google.maps.Polygon(options);
