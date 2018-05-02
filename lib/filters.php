@@ -7,8 +7,9 @@
 
 
 /**
- *	Custom excerpt length.
- *	@return integer
+ * Custom excerpt length.
+ * 
+ * @return integer
  */
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 function custom_excerpt_length( $length ) {
@@ -16,8 +17,9 @@ function custom_excerpt_length( $length ) {
 }
 
 /**
- *	Custom excerpt more string.
- *	@return string
+ * Custom excerpt more string.
+ * 
+ * @return string
  */
 add_filter( 'excerpt_more', 'custom_excerpt_more' );
 function custom_excerpt_more( $excerpt ) {
@@ -25,9 +27,9 @@ function custom_excerpt_more( $excerpt ) {
 }
 
 /**
- *	Add custom string to paginate links
+ * Add custom string to paginate links
  *
- *	@return string
+ * @return string
  */
 add_filter( 'paginate_links', 'custom_paginate_links' );
 function custom_paginate_links( $link ) {
@@ -36,6 +38,8 @@ function custom_paginate_links( $link ) {
 
 /**
  * Add custom fields to user contact fields
+ * 
+ * @return	array
  */
 add_filter( 'user_contactmethods', 'custom_contact_methods', 10, 1 );
 function custom_contact_methods( $contactmethods ) {
@@ -46,9 +50,9 @@ function custom_contact_methods( $contactmethods ) {
 	
 
 /**
- *	Password protected form
+ * Password protected form
  *
- *	@return string
+ * @return string
  */
 add_filter( 'the_password_form', 'custom_password_form' );
 function custom_password_form() {
@@ -64,4 +68,19 @@ function custom_password_form() {
 			</div>
 		</form>';
     return $o;
+}
+
+/**
+ * Add attributes to the script tag
+ * 
+ * Can be used to add a 'async' or 'defer' attribute 
+ * to a script tag
+ * 
+ * @link	https://developer.wordpress.org/reference/hooks/script_loader_tag/
+ * @return	string
+ */
+add_filter( 'script_loader_tag', 'custom_script_attributes', 10, 3 );
+function custom_script_attributes( $tag, $handle, $src ) {
+	// Select a script handle to modify
+	return $tag;
 }
