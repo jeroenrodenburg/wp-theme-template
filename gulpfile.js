@@ -23,7 +23,7 @@ gulp.task('css', () => {
 			cascade: false
 		}))
 		.pipe(cleanCSS({compatibility: '*'}))
-		.pipe(gulp.dest('./css/dist'));
+		.pipe(gulp.dest('./dist/css/'));
 });
 
 /**
@@ -41,7 +41,7 @@ gulp.task('js', () => {
 		.pipe(babel({
 			presets: ['env']
 		}))
-		.pipe(gulp.dest('./js/dist/'));
+		.pipe(gulp.dest('./dist/js/'));
 });
 
 /**
