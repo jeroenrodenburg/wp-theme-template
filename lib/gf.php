@@ -10,7 +10,7 @@
  *	Return a new GF submit button
  *
  *	@param 	{String} $button	- The old button
- *	@param 	{Object}	$form - The form
+ *	@param 	{Object} $form - The form
  *	@return {String} - The new button
  */
 add_filter( 'gform_submit_button', 'change_submit_button', 10, 2 );
