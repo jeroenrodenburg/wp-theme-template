@@ -145,12 +145,12 @@ img.aligncenter {
 
 img.alignleft {
 	float: left;
-	margin-right: 1em;
+	margin-right: 1rem;
 }
 
 img.alignright {
 	float: right;
-	margin-left: 15px;
+	margin-left: 1rem;
 }
 
 img.size-full {
@@ -167,6 +167,38 @@ img.size-medium {
 
 img.size-thumbnail {
 	
+}
+
+.wp-caption {
+
+}
+
+.wp-caption.alignnone {
+
+}
+
+.wp-caption.alignleft {
+
+}
+
+.wp-caption.alignright {
+
+}
+
+.wp-caption img {
+
+}
+
+.wp-caption p.caption-text {
+
+}
+
+.screen-reader-text {
+
+}
+
+.screen-reader-text:focus {
+
 }
 
 
