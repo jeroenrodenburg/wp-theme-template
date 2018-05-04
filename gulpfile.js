@@ -10,7 +10,7 @@ const babel = require('gulp-babel');
  * CSS gulp task
  * 
  * Autoprefixes the CSS with the use of autoprefixer
- * and minifies the CSS to the selected folder
+ * and minifies the CSS to the selected folder.
  * 
  * For options check out:
  * https://github.com/postcss/autoprefixer#options
@@ -27,10 +27,10 @@ gulp.task('css', () => {
 });
 
 /**
- * Babel gulp task
+ * JS gulp task
  * 
  * Parses the JavaScript and turns ES6 code 
- * into legacy code for older browsers
+ * into legacy code for older browsers.
  * 
  * For options check out:
  * https://babeljs.io/docs/usage/api/
@@ -53,7 +53,6 @@ gulp.task('js', () => {
  * 
  * This will initiate gulp, perform the default task and continue watching
  * all of the files that are being wathed.
- * In this case that's all of the CSS files in the theme folder.
  * 
  */
 gulp.task('default', ['css', 'js']);
