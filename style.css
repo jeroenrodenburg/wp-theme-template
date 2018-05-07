@@ -597,6 +597,14 @@ button[type="reset"]:active {
 
 }
 
+.gform_fields .gfield .ginput_container .gfield_checkbox {
+
+}
+
+.gform_fields .gfield .ginput_container .gfield_checkbox > li {
+	
+}
+
 .gform_fields .gfield .gfield_description {
 	
 }
