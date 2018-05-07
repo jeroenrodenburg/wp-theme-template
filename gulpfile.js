@@ -14,7 +14,7 @@ const criticalCss = require('gulp-penthouse');
  * and minifies the CSS to the selected folder.
  * 
  * For options check out:
- * https://github.com/postcss/autoprefixer#options
+ * {@link https://github.com/postcss/autoprefixer#options}
  * 
  */
 gulp.task('css', () => {
@@ -34,7 +34,7 @@ gulp.task('css', () => {
  * into legacy code for older browsers.
  * 
  * For options check out:
- * https://babeljs.io/docs/usage/api/
+ * {@link https://babeljs.io/docs/usage/api/}
  * 
  */
 gulp.task('js', () => {
@@ -59,7 +59,7 @@ gulp.task('js', () => {
  * @property	{String} userAgent Useragent to check the page with
  * 
  * For options check out:
- * https://www.npmjs.com/package/penthouse
+ * {@link https://www.npmjs.com/package/penthouse}
  * 
  */
 gulp.task('critical', function () {
