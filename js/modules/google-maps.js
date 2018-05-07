@@ -78,6 +78,15 @@ const createMap = (mapElement, options = {center: {lat: 52.3499843, lng: 4.91633
 		if (map.infowindow) map.infowindow.close();
 	});
 
+	// Resize event to keep the center in the middle of the map
+	window.addEventListener('resize', () => {
+		requestAnimationFrame(() => {
+			let center = map.getCenter();
+			google.maps.event.trigger(map, 'resize');
+			map.setCenter(center);
+		});
+	}, false);
+
 	// Return the map
 	return map;
 
