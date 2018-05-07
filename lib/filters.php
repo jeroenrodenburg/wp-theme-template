@@ -71,6 +71,25 @@ function custom_password_form() {
 }
 
 /**
+ * Add attributes to the style tag
+ * 
+ * Can be used to add a link attributes 
+ * to a script tag
+ * 
+ * @link	https://developer.wordpress.org/reference/hooks/style_loader_tag/
+ * @return	string
+ */
+add_filter( 'style_loader_tag', 'custom_style_attributes', 10, 4 );
+function custom_style_attributes( $html, $handle, $href, $media ) {
+	// Handles to perform the task on
+	$handles = array( 'style' );
+	if ( in_array( $handle, $handles) ) {
+		return '<link href="' . $href . '" rel="stylesheet" media="none" onload="if(media!=\'all\')media=\'all\'">';
+	}
+	return $html;
+}
+
+/**
  * Add attributes to the script tag
  * 
  * Can be used to add a 'async' or 'defer' attribute 
@@ -82,5 +101,10 @@ function custom_password_form() {
 add_filter( 'script_loader_tag', 'custom_script_attributes', 10, 3 );
 function custom_script_attributes( $tag, $handle, $src ) {
 	// Select a script handle to modify
+	$attr = 'async';
+	$handles = array( 'script' );
+	if ( in_array( $handle, $handles ) ) {
+		return '<script src="' . $src . '" type="text/javascript" ' . $attr . '></script>';
+	}
 	return $tag;
 }
