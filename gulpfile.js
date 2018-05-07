@@ -5,6 +5,7 @@ const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const babel = require('gulp-babel');
+const critical = require('critical').stream;
 
 /**
  * CSS gulp task
@@ -42,6 +43,31 @@ gulp.task('js', () => {
 			presets: ['env']
 		}))
 		.pipe(gulp.dest('./dist/js/'));
+});
+
+/**
+ * Critical CSS gulp task
+ * 
+ * Creates a critical CSS file.
+ * The source of the file can be changed if needed
+ * 
+ * For options check out:
+ * https://github.com/addyosmani/critical
+ * 
+ */
+gulp.task('critical', function () {
+    return gulp.src('dist/*.html')
+        .pipe(critical({
+			base: '/test', 
+			inline: true,
+			src: 'URLOFPAGE',
+			dimensions: [1170, 1440],
+			css: ['./dist/css/*.css']
+		}))
+		.on('error', (err) => { 
+			console.log(err); 
+		})
+        .pipe(gulp.dest('./dist/critical/'));
 });
 
 /**
