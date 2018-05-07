@@ -29,7 +29,7 @@
 
 
 /**
- * createCookie
+ * setCookie
  * 
  * Creates cookie with a name, value, expire date, path and a domain.
  * The cookie will be automatically stored in the document.
@@ -42,10 +42,11 @@
  * @param 	{String} path Path to store cookie
  * @param   {String} domain The domain to store the cookie
  */
-const createCookie = (name, value, expire, path, domain) => {
-	let date = new Date();
+const setCookie = (name, value, expire, path, domain) => {
+    let date = new Date(),
+        expires;
     date.setTime(date.getTime() + (expire * 24 * 3600 * 1000));
-    let expires = date.toUTCString();
+    expires = date.toUTCString();
     document.cookie = name + '=' + value + '; expires=' + expires + '; path=' + path + '; domain=' + domain;
     return true;
 };
