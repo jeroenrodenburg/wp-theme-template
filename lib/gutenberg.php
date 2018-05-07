@@ -1,6 +1,6 @@
 <?php
 /**
- *	Theme:			
- *	Template:			gutenberg.php
- *	Description:		Gutenberg modifications
-*/
+ * Theme:			
+ * Template:			gutenberg.php
+ * Description:			Gutenberg modifications
+ */

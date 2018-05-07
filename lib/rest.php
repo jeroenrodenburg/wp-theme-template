@@ -1,9 +1,9 @@
 <?php
 /**
- *	Theme:				
- *	Template:			rest.php
- *	Description:		REST API Settings
-*/
+ * Theme:				
+ * Template:			rest.php
+ * Description:			REST API Settings
+ */
 
 
 /**
@@ -12,6 +12,7 @@
  * Register new fields for responses
  * and modify requests. 
  * 
+ * @since	1.0
  */
 add_action( 'rest_api_init', 'modify_rest_api' );
 function modify_rest_api() {

@@ -1,12 +1,12 @@
 <?php
 /**
- *	Theme:
- *	Template:			init.php
- *	Description:		Functions performed on init
-*/
+ * Theme:
+ * Template:			init.php
+ * Description:			Functions performed on init
+ */
 
 /**
- *	Set a cookie when it is sent with a POST request
+ * Set a cookie when it is sent with a POST request
  *	
  */
 add_action( 'init', 'set_cookie_consent' );

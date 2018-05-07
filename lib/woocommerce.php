@@ -1,9 +1,9 @@
 <?php
 /**
- *	Theme:
- *	Template:			  woocommerce.php
- *	Description:	  Woocommerce specific functions
-*/
+ * Theme:				
+ * Template:			woocommerce.php
+ * Description:			Woocommerce specific functions
+ */
 
 /**
  * WooCommerce Extra Feature
@@ -32,10 +32,10 @@ function jk_related_products_args( $args ) {
  */
 add_filter( 'loop_shop_per_page', 'new_loop_shop_per_page', 20 );
 function new_loop_shop_per_page( $cols ) {
-  // $cols contains the current number of products per page based on the value stored on Options -> Reading
-  // Return the number of products you wanna show per page.
-  $cols = 15;
-  return $cols;
+	// $cols contains the current number of products per page based on the value stored on Options -> Reading
+	// Return the number of products you wanna show per page.
+	$cols = 15;
+	return $cols;
 }
 
 /**
@@ -72,7 +72,7 @@ function wps_add_select_checkout_field( $checkout ) {
 	        'nijmegen-kannenmarkt' 	=> __( 'Kannenmarkt Nijmegen', 'wps' ),
 	        'blanco' 	=> __( 'Ik ben nog geen klant', 'wps' )
 	    )
- ),
+	),
 
 	$checkout->get_value( 'klant-salon' ));
 

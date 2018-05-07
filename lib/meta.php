@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:			meta.php
- *  Description:		Metadata related functions
+ * Theme:
+ * Template:			meta.php
+ * Description:         Metadata related functions
  */
 
 /**

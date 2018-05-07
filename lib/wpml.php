@@ -1,8 +1,8 @@
 <?php
 /**
- *	Theme:				
- *	Template:			wpml.php
- *	Description:		WordPress Multi Language plugin configurations
+ * Theme:				
+ * Template:			wpml.php
+ * Description:		WordPress Multi Language plugin configurations
  */
 
 define('ICL_DONT_LOAD_NAVIGATION_CSS', true);

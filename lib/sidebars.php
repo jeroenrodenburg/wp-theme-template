@@ -1,14 +1,15 @@
 <?php
 /**
- *	Theme:				
- *	Template:			sidebars.php
- *	Description:		Create locations for widgets
-*/
+ * Theme:				
+ * Template:			sidebars.php
+ * Description:			Create locations for widgets
+ */
 
 
 /**
- *  Register sidebars
+ * Register sidebars
  * 
+ * @since	1.0
  */
 add_action( 'widgets_init', 'custom_sidebars' );
 function custom_sidebars() {

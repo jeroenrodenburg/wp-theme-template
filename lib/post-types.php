@@ -1,15 +1,16 @@
 <?php
 /**
- *	Theme:
- *	Template:			post-types.php
- *	Description:		Register custom post types to use in the page
-*/
+ * Theme:
+ * Template:			post-types.php
+ * Description:			Register custom post types to use in the page
+ */
 
 
 /**
- *  Register custom post type
- *  Uncomment to create the post type
+ * Register custom post type
+ * Uncomment to create the post type
  * 
+ * @since	1.0
  */
 // add_action( 'init', 'custom_post_type', 0 );
 // function custom_post_type() {

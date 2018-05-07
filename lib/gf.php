@@ -1,17 +1,17 @@
 <?php
 /**
- *	Theme:			
- *	Template:			gf.php
- *	Description:		Gravity Forms modifications and additions
-*/
+ * Theme:			
+ * Template:			gf.php
+ * Description:			Gravity Forms modifications and additions
+ */
 
 
 /**
- *	Return a new GF submit button
+ * Return a new GF submit button
  *
- *	@param 	string $button The old button
- *	@param 	object $form The form
- *	@return string The new button
+ * @param 	string $button The old button
+ * @param 	object $form The form
+ * @return	string The new button
  */
 add_filter( 'gform_submit_button', 'change_submit_button', 10, 2 );
 function change_submit_button( $button, $form ) {

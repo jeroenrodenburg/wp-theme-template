@@ -1,9 +1,9 @@
 <?php
 /**
- *	Theme:
- *	Template:			helpers.php
- *	Description:		Custom functions to use around the theme
-*/
+ * Theme:
+ * Template:			helpers.php
+ * Description:			Custom functions to use around the theme
+ */
 
 
 /**
@@ -125,10 +125,10 @@ function the_post_type( $post = null ) {
 }
 
 /**
- *	Get a cookie
+ * Get a cookie
  * 
- *	@param	string $name
- *	@return	string
+ * @param	string $name
+ * @return	string
  */
 function get_cookie( $name ) {
 	if ( !$name ) return false;
@@ -136,9 +136,9 @@ function get_cookie( $name ) {
 }
 
 /**
- *	Get IP from client
+ * Get IP from client
  *
- *	@return	string $ip;
+ * @return	string $ip;
  */
 function get_the_user_ip() {
 	if (!empty( $_SERVER['HTTP_CLIENT_IP'])) {
@@ -152,10 +152,10 @@ function get_the_user_ip() {
 }
 
 /**
- *	Get Woocommerce excerpt
+ * Get Woocommerce excerpt
  *
- *	@param 	number $limit
- *	@return string
+ * @param 	number $limit
+ * @return	string
  */
 function woo_get_excerpt( $limit = 20 ) {
 	$excerpt = explode(' ', get_the_excerpt(), $limit);
@@ -170,9 +170,9 @@ function woo_get_excerpt( $limit = 20 ) {
 }
 
 /**
- *	Echo Woocommerce excerpt
+ * Echo Woocommerce excerpt
  *
- *	@param 	number $limit
+ * @param 	number $limit
  */
 function woo_the_excerpt( $limit = 20 ) {
 	$excerpt = woo_get_excerpt( $limit );
@@ -180,10 +180,10 @@ function woo_the_excerpt( $limit = 20 ) {
 }
 
 /**
- *	Get Woocommerce content
+ * Get Woocommerce content
  *
- *	@param 	number $limit
- *	@return string
+ * @param 	number $limit
+ * @return	string
  */
 function woo_get_content( $limit = 20 ) {
     $content = explode(' ', get_the_content(), $limit);
@@ -200,9 +200,9 @@ function woo_get_content( $limit = 20 ) {
 }
 
 /**
- *	Echo Woocommerce content
+ * Echo Woocommerce content
  *
- *	@param 	number $limit
+ * @param 	number $limit
  */
 function woo_the_content( $limit = 20 ) {
 	$content = woo_get_content( $limit );

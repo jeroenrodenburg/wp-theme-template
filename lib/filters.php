@@ -1,9 +1,9 @@
 <?php
 /**
- *	Theme:				
- *	Template:			filters.php
- *	Description:	  	Filters to modify theme
-*/
+ * Theme:				
+ * Template:			filters.php
+ * Description:			Filters to modify theme
+ */
 
 
 /**

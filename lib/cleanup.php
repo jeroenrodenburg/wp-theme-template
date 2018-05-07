@@ -1,13 +1,13 @@
 <?php
 /**
- *	Theme:
- *	Template:			cleanup.php
- *	Description:		Removes stuff from the head tag
-*/
+ * Theme:
+ * Template:			cleanup.php
+ * Description:			Removes stuff from the head tag
+ */
 
 
 /**
- *  Remove stuff from head
+ * Remove stuff from head
  */
 remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
 remove_action( 'wp_head', 'feed_links', 2 ); // Display the links to the general feeds: Post and Comment Feed
@@ -19,7 +19,7 @@ remove_action( 'wp_head', 'start_post_rel_link', 10, 0 ); // start link
 remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 ); // Display relational links for the posts adjacent to the current post.
 
 /**
- *  Disable those damned emoticons
+ * Disable those damned emoticons
  */
 add_action( 'init', 'disable_wp_emojicons' );
 function disable_wp_emojicons() {
@@ -35,7 +35,7 @@ function disable_wp_emojicons() {
 }
 
 /**
- *  Remove emoticons from TinyMCE
+ * Remove emoticons from TinyMCE
  */
 function disable_emojicons_tinymce( $plugins ) {
 	if ( is_array( $plugins ) ) {

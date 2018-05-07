@@ -1,14 +1,14 @@
 <?php
 /**
- *  Theme:
- *  Template:       	enqueue.php
- *  Description:    	Add CSS and Javascript to the page
+ * Theme:
+ * Template:       		enqueue.php
+ * Description:    		Add CSS and Javascript to the page
  */
 
 
 /**
- *  Theme styles
- *  Add styles for the theme
+ * Theme styles
+ * Add styles for the theme
  */
 add_action( 'wp_enqueue_scripts', 'theme_styles' );
 function theme_styles() {
@@ -31,14 +31,14 @@ function theme_styles() {
 	// wp_register_style( 'aos', '//cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css', false, '2.1.1', 'all' );
 	// wp_enqueue_style( 'aos' );
 
-	wp_register_style( 'style', get_template_directory_uri() . '/dist/style.css', false, false, 'all' );
+	wp_register_style( 'style', get_template_directory_uri() . '/dist/css/style.css', false, false, 'all' );
 	wp_enqueue_style( 'style' );
 
 }
 
 /**
- *  Theme scripts
- *  Add scripts to the head or body
+ * Theme scripts
+ * Add scripts to the head or body
  */
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 function theme_scripts() {

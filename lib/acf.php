@@ -1,12 +1,12 @@
 <?php
 /**
- *  Theme:
- *  Template:			acf.php
- *  Description:		Advanced Custom Fields options and settings
+ * Theme:
+ * Template:			acf.php
+ * Description:			Advanced Custom Fields options and settings
  */
 
 /**
- *  Add options page to theme
+ * Add options page to theme
  */
 if( function_exists( 'acf_add_options_page' ) ) {
 
@@ -36,8 +36,8 @@ if( function_exists( 'acf_add_options_page' ) ) {
 }
 
 /**
- *	Google Maps API key
- *	Adds Google Map functionality to ACF
+ * Google Maps API key
+ * Adds Google Map functionality to ACF
  */
 add_action( 'acf/init', 'my_acf_init' );
 function my_acf_init() {
@@ -45,7 +45,7 @@ function my_acf_init() {
 }
 
 /**
- *	Remove ACF menu item if user is not ...
+ * Remove ACF menu item if user is not ...
  */
 // add_action( 'admin_menu', 'remove_acf_menu', 100 );
 // function remove_acf_menu() {

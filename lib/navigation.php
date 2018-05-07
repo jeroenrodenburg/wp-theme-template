@@ -1,13 +1,14 @@
 <?php
 /**
- *	Theme:
- *	Template:			navigation.php
- *	Description:		Register navigation locations for theme
-*/
+ * Theme:
+ * Template:			navigation.php
+ * Description:			Register navigation locations for theme
+ */
 
 /**
- *  Register Navigation Menus
+ * Register Navigation Menus
  * 
+ * @since	1.0
  */
 add_action( 'after_setup_theme', 'navigation_menus' );
 function navigation_menus() {
@@ -18,8 +19,19 @@ function navigation_menus() {
 
 
 /**
- * Custom Nav Walker for main menu
+ * Custom_Walker_Nav_Menu
  * 
+ * Overrides the default Walker_Nav_Menu class
+ * and can be used with the wp_nav_menu function.
+ * 
+ * Customize the walker to your needs to output the 
+ * needed HTML.
+ * 
+ * @since	1.0
+ * @example
+ * wp_nav_menu( array(
+ * 		'walker'	=> new Custom_Walker_Nav_Menu
+ * ) );
  */
 class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
 

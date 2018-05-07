@@ -1,8 +1,8 @@
 <?php
 /**
- *	Theme:				
- *	Template:			widgets.php
- *	Description:		Create custom widgets to use in sidebars
+ * Theme:				
+ * Template:			widgets.php
+ * Description:			Create custom widgets to use in sidebars
  */
 
 /**
@@ -27,7 +27,7 @@ function unregister_default_widgets() {
 }
 
 /**
- *  Register custom widgets
+ * Register custom widgets
  * 
  */
 add_action( 'widgets_init', 'register_custom_widgets' );
@@ -38,13 +38,14 @@ function register_custom_widgets() {
 }
 
 /**
- *	Custom button widget class
+ * Custom button widget class
  *
  */
 class Button_Widget extends WP_Widget {
 
 	/**
 	 * Sets up the widgets name etc
+	 * 
 	 */
 	public function __construct() {
 		$widget_ops = array(
@@ -125,7 +126,10 @@ class Button_Widget extends WP_Widget {
  */
 class Social_Widget extends WP_Widget {
 
-
+	/**
+	 * Sets up the widgets name etc
+	 * 
+	 */
 	public function __construct() {
 		$widget_ops = array(
 			'classname' => 'social-widget',
@@ -134,7 +138,12 @@ class Social_Widget extends WP_Widget {
 		parent::__construct( 'social_widget', 'Social', $widget_ops );
 	}
 
-
+	/**
+	 * Outputs the content of the widget
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 */
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
 		$title = apply_filters( 'widget_title', $instance[ 'title' ] );
@@ -169,7 +178,11 @@ class Social_Widget extends WP_Widget {
 		echo $args['after_widget'];
 	}
 
-
+	/**
+	 * Outputs the options form on admin
+	 *
+	 * @param array $instance The widget options
+	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
 		$title = ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
@@ -223,7 +236,12 @@ class Social_Widget extends WP_Widget {
 			
 	}
 
-
+	/**
+	 * Processing widget options on save
+	 *
+	 * @param array $new_instance The new options
+	 * @param array $old_instance The previous options
+	 */
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
 		$instance = $old_instance;
@@ -247,7 +265,10 @@ class Social_Widget extends WP_Widget {
  */
 class Highlight_Widget extends WP_Widget {
 
-
+	/**
+	 * Sets up the widgets name etc
+	 * 
+	 */
 	public function __construct() {
 		$widget_ops = array(
 			'classname' => 'highlight-widget',
@@ -256,6 +277,12 @@ class Highlight_Widget extends WP_Widget {
 		parent::__construct( 'highlight_widget', 'Highlight', $widget_ops );
 	}
 	
+	/**
+	 * Outputs the content of the widget
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 */
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
 		$title = apply_filters( 'widget_title', $instance[ 'title' ] );
@@ -271,14 +298,14 @@ class Highlight_Widget extends WP_Widget {
 				
 				$query_args = array(
 					'post_type'			=> 'post',
-					'p'					=> $highlight,
+					'post__in'			=> $highlight,
 					'post_status'		=> 'publish'
 				);
 				
 				$query = new WP_Query( $query_args );
 				if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(); 
 					
-					get_template_part( 'includes/templates/card/card', 'post' );
+					// Customize the output here
 					
 				} wp_reset_postdata(); }
 				
@@ -288,6 +315,11 @@ class Highlight_Widget extends WP_Widget {
 		
 	}
 	
+	/**
+	 * Outputs the options form on admin
+	 *
+	 * @param array $instance The widget options
+	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
 		$title = ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
@@ -318,6 +350,12 @@ class Highlight_Widget extends WP_Widget {
 		
 	}
 	
+	/**
+	 * Processing widget options on save
+	 *
+	 * @param array $new_instance The new options
+	 * @param array $old_instance The previous options
+	 */
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
 		$instance = $old_instance;
