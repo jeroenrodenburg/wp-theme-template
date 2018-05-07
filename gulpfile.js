@@ -5,7 +5,7 @@ const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const babel = require('gulp-babel');
-const critical = require('critical').stream;
+const criticalCss = require('gulp-penthouse');
 
 /**
  * CSS gulp task
@@ -18,7 +18,7 @@ const critical = require('critical').stream;
  * 
  */
 gulp.task('css', () => {
-	return gulp.src('*.css')
+	return gulp.src('./style.css')
 		.pipe(autoprefixer({
 			browsers: ['last 2 versions'],
 			cascade: false
@@ -51,23 +51,27 @@ gulp.task('js', () => {
  * Creates a critical CSS file.
  * The source of the file can be changed if needed
  * 
+ * How it works
+ * @property	{String} out The file that the function outputs
+ * @property	{String} url The URL to extract the critical CSS from
+ * @property	{Number} width Maximum width of page to check
+ * @property	{Number} height Maximum height of page to check
+ * @property	{String} userAgent Useragent to check the page with
+ * 
  * For options check out:
- * https://github.com/addyosmani/critical
+ * https://www.npmjs.com/package/penthouse
  * 
  */
 gulp.task('critical', function () {
-    return gulp.src('dist/*.html')
-        .pipe(critical({
-			base: '/test', 
-			inline: true,
-			src: 'URLOFPAGE',
-			dimensions: [1170, 1440],
-			css: ['./dist/css/*.css']
+	return gulp.src('./dist/css/style.css')
+		.pipe(criticalCss({
+			out: 'critical.php', // output file name
+			url: 'http://localhost:8888', // url from where we want penthouse to extract critical styles
+			width: 1400,
+			height: 900,
+			userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' // pretend to be googlebot when grabbing critical page styles.
 		}))
-		.on('error', (err) => { 
-			console.log(err); 
-		})
-        .pipe(gulp.dest('./dist/critical/'));
+		.pipe(gulp.dest('./dist/critical/'));
 });
 
 /**
@@ -90,4 +94,4 @@ gulp.task('default', ['css', 'js']);
  * when a change is made in the files in the paths.
  * 
  */
-gulp.watch(['*.css', './js/script.js'], ['default']);
+gulp.watch(['./style.css', './js/script.js'], ['default']);
