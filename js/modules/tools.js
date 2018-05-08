@@ -28,6 +28,8 @@
 
 
 /**
+ * getParent
+ * 
  * Get element by walking up in the tree
  * Find the element with a CSS class
  *
@@ -46,6 +48,8 @@ const getParent = (start, cls) => {
 };
 
 /**
+ * getNextSibling
+ * 
  * Get element by walking over the next siblings
  * Find the element with a CSS class
  *
@@ -64,6 +68,8 @@ const getNextSibling = (start, cls) => {
 };
 
 /**
+ * getPrevSibling
+ * 
  * Get element by walking over the previous siblings
  * Find the element with a CSS class
  *
@@ -82,6 +88,8 @@ const getPrevSibling = (start, cls) => {
 };
 
 /**
+ * getSiblings
+ * 
  * Get all the siblings of given element
  * Goes to the parent en gets alls the children
  * Then it filters out the start element
@@ -104,6 +112,8 @@ const getSiblings = (start) => {
 };
 
 /**
+ * removeChildren
+ * 
  * Removes all the children of an element and returns the element.
  * 
  * @example
@@ -123,64 +133,71 @@ const removeChildren = (element) => {
 };
 
 /**
+ * getValues
+ * 
  * Returns an object with all the values of a form
  * 
  * @function
  * @since   1.0
  * @param   {HTMLFormElement} form Form element with elements
- * @returns {Object} Object with name/value pairs
+ * @returns {Object[]} Array with objects with name/value pairs
  */
 const getValues = (form) => {
-    let values = {};
+    let values = [];
     for (let i = 0; i < form.elements.length; i += 1) {
+        let el = form.elements[i];
         if (
             (
-                form.elements[i].type !== 'submit' && 
-                form.elements[i].type !== 'fieldset' 
-            ) ||
-            (
-                form.elements[i].checked === true
+                (
+                    el.type !== 'submit' &&
+                    el.type !== 'fieldset'
+                ) ||
+                el.checked === true
             ) &&
-            form.elements[i].value !== ''
+            el.value !== ''
         ) {
-            values[form.elements[i].name] = form.elements[i].value;
+            values.push({name: el.name, value: el.value});
         }
     }
     return values;
 };
 
 /**
- * Return an object with the selected fields
+ * getValuesSelected
+ * 
+ * Return an array with the selected fields
  *
  * @function
  * @since   1.0
  * @param   {HTMLFormElement} form Form element with elements
- * @returns {Object} Object with name/value pairs
+ * @returns {Object[]} Array with objects with name/value pairs
  */
-const getSelectedValues = (form) => {
-    let values = {};
+const getValuesSelected = (form) => {
+    let values = [];
     for (let i = 0; i < form.elements.length; i += 1) {
         let el = form.elements[i];
         if (
             el.tagName === 'SELECT' && 
             el.value !== ''
         ) {
-            values[el.name] = el.value;
+            values.push({name: el.name, value: el.value});
         }
     }
     return values;
 };
 
 /**
- * Return an object with the checked inputs
+ * getValuesChecked
+ * 
+ * Return an array with the checked inputs
  *
  * @function
  * @since   1.0
  * @param   {HTMLFormElement} form Form element with elements
- * @returns {Object} Object with name/value pairs
+ * @returns {Object[]} Array with objects with name/value pairs
  */
-const getCheckedInputs = (form) => {
-    let values = {};
+const getValuesChecked = (form) => {
+    let values = [];
     for (let i = 0; i < form.elements.length; i += 1) {
         let el = form.elements[i];
         if (
@@ -188,13 +205,15 @@ const getCheckedInputs = (form) => {
             (el.type === 'checkbox' || el.type === 'radio') &&
             el.checked === true
         ) {
-            values[el.name] = el.value;
+            values.push({name: el.name, value: el.value});
         }
     }
     return values;
 };
 
 /**
+ * getValuesPerFieldset
+ * 
  * Returns an array with objects with values
  * 
  * @function
@@ -231,19 +250,19 @@ const getValuesPerFieldset = (form) => {
  * createQueryString
  * 
  * Converts an object into a string that can be used with a XMLHttpRequest
+ * Works in harmony with the functions: getValues, getValuesSelected, getValuesChecked
  * 
  * @since   1.0
- * @param   {Object} params Object with keys and values for the string
+ * @param   {Object[]} params Array with object with name and value for the string
+ * @param   {String} params.name Name of field
+ * @param   {String} params.value Value of field
  * @returns {String} Queryable string
  */
 const createQueryString = (params) => {
-    if (!params || 'object' !== typeof params) throw new Error('params argument is not type of string');
-    let query = [];
-    for (let key in params) {
-        if (params.hasOwnProperty(key)) {
-            query.push(`${key}=${params[key]}`);
-        }
-    }
+    if (!params || !(params instanceof Array)) throw new Error('params argument is not given or type of array');
+    let query = params.map((param) => {
+        return `${param.name}=${param.value}`;
+    });
     query = query.join('&');
     return `?${query}`;
 };
@@ -264,7 +283,7 @@ const createQueryString = (params) => {
  */
 const debounce = (func, wait, immediate) => {
 	let timeout;
-	return function() {
+	return () => {
 		let context = this, args = arguments;
 		let later = function() {
 			timeout = null;
