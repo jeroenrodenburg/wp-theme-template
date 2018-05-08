@@ -31,22 +31,45 @@
  *
  * If scolled distance is higher than the offsetThreshold
  * the scrollClass is added to the target
+ * 
+ * @example
+ * document.addEventListener('scroll', toggleClassOnScroll, false);
  *
  * @function
  * @since 	1.0
  */
 const toggleClassOnScroll = (() => {
 
-    // Modify these variables
-    let target = document.body,
-        scrollClass = '--scroll',
-        offsetThreshold = 100;
+    /**
+     * Element to toggle classes on
+     * @type    {HTMLElement}
+     */
+    let target = document.body;
 
-    // Scroll switch
+    /** 
+     * Class to add to the target
+     * @type   {String} 
+     */
+    let scrollClass = '--scroll';
+
+    /**
+     * Threshold for the scrollTop to trigger on
+     * @type    {Number}
+     */
+    let offsetThreshold = 100;
+
+    /** 
+     * Scroll switch. Keeps track of scroll state.
+     * @type    {Boolean}
+     */
     let scrolled = false;
 
-    // Returns a closure function
-    return () => {
+    /**
+     * Returns a closure function
+     * @param   {Event} event
+     * @returns {Function}
+     */
+    return (event) => {
         let top = document.scrollingElement.scrollTop;
         if (top >= offsetThreshold) {
             if (!scrolled) {
