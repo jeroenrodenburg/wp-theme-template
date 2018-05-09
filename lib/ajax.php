@@ -9,11 +9,11 @@
 /**
  * Load more function
  */
-add_action('wp_ajax_nopriv_load_ajax', 'load_ajax');
-add_action('wp_ajax_load_ajax', 'load_ajax');
+add_action( 'wp_ajax_nopriv_load_ajax', 'load_ajax') ;
+add_action( 'wp_ajax_load_ajax', 'load_ajax' );
 
 function load_ajax() {
-	header("Content-Type: text/html");
+	header( 'Content-Type: text/html' );
 	global $post;
 	
 	// get_template_part( '' );
@@ -26,10 +26,10 @@ function load_ajax() {
  * 
  * @return JSON 
  */
-add_action('wp_ajax_nopriv_get_markers_ajax', 'get_markers_ajax');
-add_action('wp_ajax_get_markers_ajax', 'get_markers_ajax');
+add_action( 'wp_ajax_nopriv_get_markers_ajax', 'get_markers_ajax' );
+add_action( 'wp_ajax_get_markers_ajax', 'get_markers_ajax' );
 function get_markers_ajax() {
-	header("Content-Type: text/html");
+	header( 'Content-Type: text/html' );
 
 	// This template can be used to get JSON data for maps.
 	// Fill in the variables below to get the markers of the post type you want.
@@ -115,10 +115,10 @@ function get_markers_ajax() {
  * 
  * Send and receive JSON file through POST request
  */
-add_action('wp_ajax_nopriv_post_json_ajax', 'post_json_ajax');
-add_action('wp_ajax_post_json_ajax', 'post_json_ajax');
+add_action( 'wp_ajax_nopriv_post_json_ajax', 'post_json_ajax' );
+add_action( 'wp_ajax_post_json_ajax', 'post_json_ajax' );
 function post_json_ajax() {
-	header('Content-Type: text/html');
+	header( 'Content-Type: text/html' );
 	
 	// Get the JSON file that is sent
 	$query = file_get_contents('php://input');

@@ -9,9 +9,12 @@
 /**
  * Custom excerpt length.
  * 
- * @return integer
+ * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/excerpt_length/
+ * @param	integer $length Length of the excerpt
+ * @return 	integer
  */
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+add_filter( 'excerpt_length', 'custom_excerpt_length' );
 function custom_excerpt_length( $length ) {
 	return 18;
 }
@@ -19,7 +22,9 @@ function custom_excerpt_length( $length ) {
 /**
  * Custom excerpt more string.
  * 
- * @return string
+ * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/excerpt_more/
+ * @return 	string
  */
 add_filter( 'excerpt_more', 'custom_excerpt_more' );
 function custom_excerpt_more( $excerpt ) {
@@ -29,7 +34,8 @@ function custom_excerpt_more( $excerpt ) {
 /**
  * Add custom string to paginate links
  *
- * @return string
+ * @since	1.0
+ * @return 	string
  */
 add_filter( 'paginate_links', 'custom_paginate_links' );
 function custom_paginate_links( $link ) {
@@ -39,6 +45,8 @@ function custom_paginate_links( $link ) {
 /**
  * Add custom fields to user contact fields
  * 
+ * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/user_contactmethods/
  * @return	array
  */
 add_filter( 'user_contactmethods', 'custom_contact_methods', 10, 1 );
@@ -52,7 +60,9 @@ function custom_contact_methods( $contactmethods ) {
 /**
  * Password protected form
  *
- * @return string
+ * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/the_password_form/
+ * @return 	string
  */
 add_filter( 'the_password_form', 'custom_password_form' );
 function custom_password_form() {
@@ -76,6 +86,7 @@ function custom_password_form() {
  * Can be used to add a link attributes 
  * to a script tag
  * 
+ * @since	1.0
  * @link	https://developer.wordpress.org/reference/hooks/style_loader_tag/
  * @return	string
  */
@@ -83,7 +94,7 @@ add_filter( 'style_loader_tag', 'custom_style_attributes', 10, 4 );
 function custom_style_attributes( $html, $handle, $href, $media ) {
 	// Handles to perform the task on
 	$handles = array( 'style' );
-	if ( in_array( $handle, $handles) ) {
+	if ( in_array( $handle, $handles) && THEME_DEV_MODE === false ) {
 		return '<link href="' . $href . '" rel="stylesheet" media="none" onload="if(media!=\'all\')media=\'all\'">';
 	}
 	return $html;
@@ -95,6 +106,7 @@ function custom_style_attributes( $html, $handle, $href, $media ) {
  * Can be used to add a 'async' or 'defer' attribute 
  * to a script tag
  * 
+ * @since	1.0
  * @link	https://developer.wordpress.org/reference/hooks/script_loader_tag/
  * @return	string
  */
@@ -103,7 +115,7 @@ function custom_script_attributes( $tag, $handle, $src ) {
 	// Select a script handle to modify
 	$attr = 'async';
 	$handles = array( 'script' );
-	if ( in_array( $handle, $handles ) ) {
+	if ( in_array( $handle, $handles ) && THEME_DEV_MODE === false ) {
 		return '<script src="' . $src . '" type="text/javascript" ' . $attr . '></script>';
 	}
 	return $tag;

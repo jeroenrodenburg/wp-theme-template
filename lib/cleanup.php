@@ -8,6 +8,8 @@
 
 /**
  * Remove stuff from head
+ * 
+ * @since	1.0
  */
 remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
 remove_action( 'wp_head', 'feed_links', 2 ); // Display the links to the general feeds: Post and Comment Feed
@@ -20,6 +22,8 @@ remove_action( 'wp_head', 'adjacent_posts_rel_link', 10, 0 ); // Display relatio
 
 /**
  * Disable those damned emoticons
+ * 
+ * @since	1.0
  */
 add_action( 'init', 'disable_wp_emojicons' );
 function disable_wp_emojicons() {
@@ -36,6 +40,8 @@ function disable_wp_emojicons() {
 
 /**
  * Remove emoticons from TinyMCE
+ * 
+ * @since	1.0
  */
 function disable_emojicons_tinymce( $plugins ) {
 	if ( is_array( $plugins ) ) {

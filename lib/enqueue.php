@@ -9,6 +9,8 @@
 /**
  * Theme styles
  * Add styles for the theme
+ * 
+ * @since	1.0
  */
 add_action( 'wp_enqueue_scripts', 'theme_styles' );
 function theme_styles() {
@@ -39,6 +41,8 @@ function theme_styles() {
 /**
  * Theme scripts
  * Add scripts to the head or body
+ * 
+ * @since	1.0
  */
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
 function theme_scripts() {

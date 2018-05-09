@@ -9,6 +9,8 @@
 /**
  * Return a new GF submit button
  *
+ * @since	1.0
+ * @link	https://docs.gravityforms.com/gform_submit_button/
  * @param 	string $button The old button
  * @param 	object $form The form
  * @return	string The new button
@@ -21,5 +23,7 @@ function change_submit_button( $button, $form ) {
 /**
  * Load all the GF scripts of a form in the footer
  * 
+ * @since	1.0
+ * @link	https://docs.gravityforms.com/gform_init_scripts_footer/
  */
 add_filter( 'gform_init_scripts_footer', '__return_true');
