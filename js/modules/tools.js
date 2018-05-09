@@ -295,3 +295,19 @@ const debounce = (func, wait, immediate) => {
 		if (callNow) func.apply(context, args);
 	};
 };
+
+/**
+ * getRandomInt
+ * 
+ * Generates a random number between a
+ * min and a max value.
+ * 
+ * @function
+ * @since   1.0
+ * @param   {Integer} min 
+ * @param   {Integer} max
+ * @returns {Integer} Random number between 
+ */
+const getRandomInt = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
