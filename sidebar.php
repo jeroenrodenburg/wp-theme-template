@@ -1,11 +1,10 @@
 <?php
 /**
- *  Theme:
- *  Template:       sidebar.php
- *  Description:
+ * Theme:				
+ * Template:			sidebar.php
+ * Description:			
  */
 
-get_header();
 ?>
 
 <aside id="aside" role="contentinfo">
@@ -13,7 +12,3 @@ get_header();
 
 	<?php } } ?>
 </aside>
-
-<?php
-get_footer();
-?>
