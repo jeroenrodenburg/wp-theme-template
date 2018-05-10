@@ -11,6 +11,7 @@
  * Enqueues style to admin
  * 
  * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/admin_enqueue_scripts/
  */
 add_action( 'admin_enqueue_scripts', 'admin_style' );
 function admin_style() {
@@ -23,6 +24,7 @@ function admin_style() {
  * 
  * @since	1.0
  * @link	https://codex.wordpress.org/Function_Reference/remove_menu_page
+ * @link	https://developer.wordpress.org/reference/hooks/admin_menu/
  */
 add_action( 'admin_menu', 'admin_remove_menus' );
 function admin_remove_menus(){
