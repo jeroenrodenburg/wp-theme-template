@@ -5,9 +5,11 @@
  * Description:			Create custom widgets to use in sidebars
  */
 
+
 /**
  * Unregister default widgets
  * 
+ * @since	1.0
  */
 add_action( 'widgets_init', 'unregister_default_widgets' );
 function unregister_default_widgets() {
@@ -29,17 +31,23 @@ function unregister_default_widgets() {
 /**
  * Register custom widgets
  * 
+ * @since	1.0
  */
 add_action( 'widgets_init', 'register_custom_widgets' );
 function register_custom_widgets() {
 	register_widget( 'Button_Widget' );
 	register_widget( 'Social_Widget' );
-	register_widget( 'Highlight_Widget' );
+	register_widget( 'Highlight_Post_Widget' );
 }
 
 /**
  * Custom button widget class
  *
+ * @since		1.0
+ * @package		WP_Widget
+ * @subpackage	Button_Widget
+ * @link		https://developer.wordpress.org/reference/classes/wp_widget/
+ * @link		https://codex.wordpress.org/Widgets_API
  */
 class Button_Widget extends WP_Widget {
 
@@ -50,9 +58,10 @@ class Button_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname' => 'button-widget',
-			'description' => 'Knop met aanpasbare titel en link',
+			'description' => __( 'Button with customizable title and type', 'text_domain' ),
+			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'button_widget', 'Button', $widget_ops );
+		parent::__construct( 'button_widget', __( 'Button', 'text_domain' ), $widget_ops );
 	}
 
 	/**
@@ -121,8 +130,13 @@ class Button_Widget extends WP_Widget {
 
 
 /**
- *	Custom social media buttons widget class
+ * Custom social media buttons widget class
  *
+ * @since		1.0
+ * @package		WP_Widget
+ * @subpackage	Social_Widget
+ * @link		https://developer.wordpress.org/reference/classes/wp_widget/
+ * @link		https://codex.wordpress.org/Widgets_API
  */
 class Social_Widget extends WP_Widget {
 
@@ -133,9 +147,10 @@ class Social_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_ops = array(
 			'classname' => 'social-widget',
-			'description' => 'Social media buttons widget',
+			'description' => __( 'Social media buttons widget', 'text_domain' ),
+			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'social_widget', 'Social', $widget_ops );
+		parent::__construct( 'social_widget', __( 'Social', 'text_domain' ), $widget_ops );
 	}
 
 	/**
@@ -260,10 +275,15 @@ class Social_Widget extends WP_Widget {
 
 
 /**
- *	Custom spotlight widget for selecting a single post to highlight
+ * Custom spotlight widget for selecting a single post to highlight
  *
+ * @since		1.0
+ * @package		WP_Widget
+ * @subpackage	Highlight_Post_Widget
+ * @link		https://developer.wordpress.org/reference/classes/wp_widget/
+ * @link		https://codex.wordpress.org/Widgets_API
  */
-class Highlight_Widget extends WP_Widget {
+class Highlight_Post_Widget extends WP_Widget {
 
 	/**
 	 * Sets up the widgets name etc
@@ -271,10 +291,11 @@ class Highlight_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname' => 'highlight-widget',
-			'description' => 'Pick a highlighted post',
+			'classname' => 'highlight-post-widget',
+			'description' => __( 'Pick a highlighted post', 'text_domain' ),
+			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'highlight_widget', 'Highlight', $widget_ops );
+		parent::__construct( 'highlight_post_widget', __( 'Highlight Post', 'text_domain' ), $widget_ops );
 	}
 	
 	/**
