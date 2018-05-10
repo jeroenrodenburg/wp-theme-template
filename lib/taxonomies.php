@@ -10,6 +10,7 @@
  * Register Custom Taxonomy
  * Uncomment to create the post type
  * 
+ * @since	1.0
  */
 // add_action( 'init', 'custom_taxonomy', 0 );
 // function custom_taxonomy() {
