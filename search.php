@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:       search.php
- *  Description:
+ * Theme:				
+ * Template:			search.php
+ * Description:			
  */
 
 get_header();

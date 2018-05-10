@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:       single.php
- *  Description:
+ * Theme:				
+ * Template:			single.php
+ * Description:			
  */
 
 get_header();

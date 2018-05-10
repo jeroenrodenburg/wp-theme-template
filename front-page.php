@@ -1,11 +1,9 @@
 <?php
 /**
- *
- *	Theme:				
- *	Template:			front-page.php
- *	Template Name:		Frontpage
- *	Description:		Template for front-page of theme
-*/
+ * Theme:				
+ * Template:			front-page.php
+ * Description:			
+ */
 
 get_header();
 ?>

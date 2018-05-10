@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:       category.php
- *  Description:
+ * Theme:				
+ * Template:			category.php
+ * Description:			
  */
 
 get_header();

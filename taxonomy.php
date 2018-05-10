@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:       taxonomy.php
- *  Description:
+ * Theme:				
+ * Template:			taxonomy.php
+ * Description:			
  */
 
 get_header();

@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:       comments.php
- *  Description:
+ * Theme:				
+ * Template:			comments.php
+ * Description:			
  */
 
 ?>

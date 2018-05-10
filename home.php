@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:       home.php
- *  Description:    Template for blog posts
+ * Theme:				
+ * Template:			home.php
+ * Description:			
  */
 
 get_header();

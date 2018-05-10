@@ -1,8 +1,8 @@
 <?php
 /**
- *	Theme:
- *  Template:     search-modal.php
- *  Description:	Search modal template
+ * Theme:
+ * Template:			search-modal.php
+ * Description:			Search modal template
  */
 ?>
 

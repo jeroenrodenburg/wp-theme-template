@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:       footer.php
- *  Description:    Footer of the page
+ * Theme:				
+ * Template:			footer.php
+ * Description:			
  */
 ?>
 

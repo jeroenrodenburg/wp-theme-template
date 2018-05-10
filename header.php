@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:       header.php
- *  Description:    Header template with navigation
+ * Theme:				
+ * Template:			header.php
+ * Description:			
  */
 ?>
 

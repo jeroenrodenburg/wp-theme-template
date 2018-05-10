@@ -1,8 +1,8 @@
 <?php
 /**
- *  Theme:
- *  Template:		pagebuilder.php
- *  Description:	Master template that controls all the pagebuilder templates
+ * Theme:
+ * Template:			pagebuilder.php
+ * Description:			Master template that controls all the pagebuilder templates
  */
 
 // Modify this name to the name 
