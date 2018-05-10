@@ -21,8 +21,8 @@ function custom_sidebars() {
 	// 	'description'   => __( '', 'text_domain' ),
 	// 	'before_title'  => '',
 	// 	'after_title'   => '',
-	// 	'before_widget' => '',
-	// 	'after_widget'  => '',
+	// 	'before_widget' => '<div id="%1$s>',
+	// 	'after_widget'  => '</div>',
 	// );
 	// register_sidebar( $args );
 
