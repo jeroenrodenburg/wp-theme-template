@@ -5,6 +5,7 @@
  * Description:			Register navigation locations for theme
  */
 
+
 /**
  * Register Navigation Menus
  * 
@@ -16,7 +17,6 @@ function navigation_menus() {
 	// register_nav_menu( '', __( '', 'text_domain' ) );
 
 }
-
 
 /**
  * Custom_Walker_Nav_Menu

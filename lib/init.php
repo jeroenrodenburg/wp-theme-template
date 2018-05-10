@@ -5,6 +5,7 @@
  * Description:			Functions performed on init
  */
 
+
 /**
  * Set a cookie when it is sent with a POST request
  *	
