@@ -67,12 +67,12 @@ function get_markers_ajax() {
 	// 	);
 	// }
 
-	// Create an results array for storing all the results.
+	// Create a results array for storing all the markers.
 	// We only want a few very specific field for the markers like location and title.
-	$results = array();
+	$markers = array();
 
 	// We create the query and start looping through all of the posts.
-	// Every post that is a hit will be stored in our $results array.
+	// Every post that is a hit will be stored in our $markers array.
 	$query = new WP_Query( $args );
 	if ( $query->have_posts() ) { 
 		while ( $query->have_posts() ) { 
@@ -91,10 +91,10 @@ function get_markers_ajax() {
 			 * More fields can be added in the same way.
 			 * Also ACF Fields with the get_field() function.
 			 */
-			array_push( $results, array(
+			array_push( $markers, array(
 				'title'			=> get_the_title(),
 				'content'		=> get_the_content(),
-				'location'		=> get_field( 'location' ),
+				'location'		=> get_field( 'ACF_GOOGLE_MAPS_FIELD' ),
 				'thumbnail'		=> get_the_post_thumbnail(),
 				'permalink'		=> get_the_permalink()
 			) );
@@ -102,9 +102,9 @@ function get_markers_ajax() {
 		} wp_reset_postdata(); 
 	}
 
-	// We convert the results into JSON so that it is readable for JavaScript.
+	// We convert the markers into JSON so that it is readable for JavaScript.
 	// Finally we echo the $json_result and send it to the client.
-	$json_result = json_encode( $results );
+	$json_result = json_encode( $markers );
 	echo $json_result;
 
 	wp_die();
@@ -114,6 +114,8 @@ function get_markers_ajax() {
  * Post JSON Ajax
  * 
  * Send and receive JSON file through POST request
+ * 
+ * @since	1.0
  */
 add_action( 'wp_ajax_nopriv_post_json_ajax', 'post_json_ajax' );
 add_action( 'wp_ajax_post_json_ajax', 'post_json_ajax' );
@@ -121,10 +123,10 @@ function post_json_ajax() {
 	header( 'Content-Type: text/html' );
 	
 	// Get the JSON file that is sent
-	$query = file_get_contents('php://input');
+	$query = file_get_contents( 'php://input' );
 
 	// Decode the JSON to workable PHP
-	$json = json_decode($query);
+	$json = json_decode( $query );
 
 	/**
 	 * Do some thing here with the $json data
