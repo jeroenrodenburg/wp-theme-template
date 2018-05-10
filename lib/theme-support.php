@@ -26,7 +26,7 @@ function theme_features()  {
 	add_theme_support( 'post-formats', array( 'aside', 'gallery', 'link', 'image', 'quote', 'status', 'video', 'audio', 'chat' ) );
 
 	// Add theme support for Featured Images
-	add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
+	add_theme_support( 'post-thumbnails' );
 
 	// Add theme support for HTML5 Semantic Markup
 	add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
