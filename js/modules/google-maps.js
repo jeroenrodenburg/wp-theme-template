@@ -38,13 +38,14 @@
  * @param	{Object=} options Options for the google.maps.Map class
  * @returns {<google.maps.Map>}
  */
-const createMap = (mapElement, options = {center: {lat: 52.3499843, lng: 4.9163333}, zoom: 16}) => {
+const createMap = (mapElement, options = {center: {lat: 52.3935744, lng: 4.8944151}, zoom: 8}) => {
 
 	// Get the map elements
 	let element;
 	if (mapElement) {
 		if ('string' === typeof mapElement) {
 			element = document.querySelector(mapElement);
+			if (element === null) return;
 		} else if (mapElement instanceof HTMLElement) {
 			element = mapElement;
 		}
@@ -159,7 +160,13 @@ const addMarker = (position, map) => {
 		if (position && map) {
 
 			// Create coordinates
-			const latLng = new google.maps.LatLng(position.lat, position.lng);
+			var latLng;
+
+			if (position instanceof google.maps.LatLng) {
+				latLng = position;
+			} else {
+				latlng = new google.maps.LatLng(position.lat, position.lng);
+			}
 
 			// Create marker
 			const marker = new google.maps.Marker({
