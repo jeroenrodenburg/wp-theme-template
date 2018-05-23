@@ -52,6 +52,14 @@ const setCookie = (name, value, expire, path, domain) => {
     return document.cookie;
 };
 
+const setCookiePromise = (name, value, expire, path, domain) => {
+    return new Promise((resolve, reject) => {
+        let cookie = setCookie(name, value, expire, path, domain);
+        if (cookie) resolve(cookie);
+        reject(new Error('Something didn\'t) go right'));
+    });
+};
+
 /**
  * getCookie
  * 
