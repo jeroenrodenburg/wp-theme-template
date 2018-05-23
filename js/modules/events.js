@@ -70,7 +70,7 @@ const toggleClassOnScroll = (() => {
      * @returns {Function}
      */
     return (event) => {
-        let top = document.scrollingElement.scrollTop;
+        let top = document.scrollingElement.scrollTop || document.documentElement.scrollTop;
         if (top >= offsetThreshold) {
             if (!scrolled) {
                 target.classList.add(scrollClass);
