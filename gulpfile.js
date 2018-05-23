@@ -57,7 +57,7 @@ gulp.task('js', () => {
  * {@link https://www.npmjs.com/package/penthouse}
  * 
  */
-gulp.task('critical', function () {
+gulp.task('critical', () => {
 
 	/**
 	 * List of URLs to check and create critical CSS files for.
@@ -75,7 +75,7 @@ gulp.task('critical', function () {
 		},
 	];
 	
-	criticalPaths.forEach((path) => {
+	return criticalPaths.forEach((path) => {
 		gulp.src('./dist/css/style.css')
 
 			/**
