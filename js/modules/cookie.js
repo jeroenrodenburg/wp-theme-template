@@ -32,7 +32,7 @@
  * setCookie
  * 
  * Creates cookie with a name, value, expire date, path and a domain.
- * The cookie will be automatically stored in the document.
+ * Returns the cookie of the document.
  *
  * @function
  * @since 	1.0
@@ -50,14 +50,6 @@ const setCookie = (name, value, expire, path, domain) => {
     expires = date.toUTCString();
     document.cookie = name + '=' + value + '; expires=' + expires + '; path=' + path + '; domain=' + domain;
     return document.cookie;
-};
-
-const setCookiePromise = (name, value, expire, path, domain) => {
-    return new Promise((resolve, reject) => {
-        let cookie = setCookie(name, value, expire, path, domain);
-        if (cookie) resolve(cookie);
-        reject(new Error('Something didn\'t) go right'));
-    });
 };
 
 /**
@@ -99,7 +91,7 @@ const deleteCookie = (name) => {
 };
 
 /**
- * insertInlineScript
+ * insertNonFuncScripts
  *
  * Add a script to the part of the document. Inserts the element at the
  * start of the location.
@@ -116,18 +108,21 @@ const deleteCookie = (name) => {
  * 
  * @function
  * @since   1.0
- * @param 	{String} script of the script to append
+ * @param 	{String} script Code of the script to append
+ * @param   {String} [src] Source of external script
  * @param	{String} [type] of element (script|noscript)
  * @param	{HTMLElement} [location] to append
  * @returns	{(HTMLScriptElement|HTMLElement)} Returns the appended script
  */
-const insertInlineScript = (script, type = 'script', location = document.head) => {
-    if (script && 'string' === typeof script) {
-        let el = document.createElement(type);
-        el.innerHTML = script;
-        return location.insertBefore(el, location.firstElementChild);
-    }
-    return false;
+const insertNonFuncScripts = (entry) => {
+    if (!entry || 'object' !== typeof entry) return;
+    let code = entry.hasOwnProperty('script') ? entry.script : false,
+        source = entry.hasOwnProperty('src') ? entry.src : false,  
+        el = entry.hasOwnProperty('type') ? document.createElement(entry.type) : document.createElement('script'),
+        location = entry.hasOwnProperty('location') ? entry.location : document.head;
+    if (code) el.innerHTML = code;
+    if (source) el.src = source;
+    return location.insertBefore(el, location.firstElementChild);
 };
 
 /**
@@ -138,7 +133,7 @@ const insertInlineScript = (script, type = 'script', location = document.head) =
  * of the cookie.
  * 
  * When both values are true the function will insert
- * and array of objects of scripts.
+ * the scripts in the desired locations.
  * 
  * @example
  * window.addEventListener('load', addNonFuncScript, false);
@@ -169,6 +164,7 @@ const addNonFuncScript = (event) => {
      * 
      * @type        {Object[]} 
      * @property    {String} script Script string to insert
+     * @property    {String} src Source of external script
      * @property    {String} type Type of script to insert (script|noscript)
      * @property    {HTMLElement} location Location to insert script
      */
@@ -178,7 +174,7 @@ const addNonFuncScript = (event) => {
         let cookie = getCookie(name);
         if (cookie && cookie === value) {
             scripts.forEach((script) => {
-                insertInlineScript(script.script, script.type, script.location);
+                insertNonFuncScripts(script);
             });
         }
     })(cookieName, cookieValue, scriptsArray);
