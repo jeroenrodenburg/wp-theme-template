@@ -29,14 +29,46 @@
 
 
 /**
- * HTTP GET Request
+ * get
+ * 
+ * HTTP Get Request using the Fetch API.
+ * 
+ * @function
+ * @since	1.0
+ * @param	{String} url
+ * @returns	{Promise} Returns the blob
+ */
+const get = (url) => {
+
+	// Create new headers
+	let headers = new Headers();
+
+	// Set options of request object
+	let options = {
+		method: 'GET',
+		headers: headers,
+		mode: 'cors',
+		cache: 'default'
+	};
+
+	// Create a new request object
+	let request = new Request(url, options);
+
+	// Fetch the request
+	return fetch(request).then(response => response.blob());
+};
+
+/**
+ * getXhr
+ * 
+ * HTTP GET Request with XMLHttpRequest.
  * 
  * @function
  * @since 	1.0
- * @param {String} url - Url which to send the HTTP Request to
- * @param {Function} callback - Function to fire when a response is received
+ * @param 	{String} url - Url which to send the HTTP Request to
+ * @param 	{Function} callback - Function to fire when a response is received
  */
-const get = (url, callback) => {
+const getXhr = (url, callback) => {
 	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4 && xhr.status === 200) {
@@ -50,7 +82,9 @@ const get = (url, callback) => {
 };
 
 /**
- * HTTP POST Request
+ * post
+ * 
+ * HTTP POST Request with XMLHttpRequest.
  *
  * @function
  * @since 	1.0
@@ -73,7 +107,10 @@ const post = (url, params, callback) => {
 };
 
 /**
- * Parse string to HTML
+ * parseHTML
+ * 
+ * Parse string to HTML with a DOMParser
+ * function.
  * 
  * @function
  * @since 	1.0
@@ -92,7 +129,10 @@ const parseHTML = (data) => {
 };
 
 /**
- * Parse string to HTML the old way
+ * stringToHTML
+ * 
+ * Parse string to HTML by adding a string
+ * to the innerHTML of a div element
  * 
  * @function
  * @since 	1.0
@@ -110,6 +150,8 @@ const stringToHTML = (data) => {
 };
 
 /**
+ * DONT USE THIS ONE YET
+ * 
  * Async GET request with optional data
  * 
  * @example 
