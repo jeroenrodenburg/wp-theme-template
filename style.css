@@ -341,7 +341,6 @@ input[type="date"],
 input[type="time"],
 input[type="week"],
 input[type="month"],
-input[type="date"],
 input[type="datetime"],
 input[type="datetime-local"],
 textarea,
@@ -657,5 +656,10 @@ button[type="reset"]:active {
 
 /* 1280px and up */
 @media all and (min-width: 80em) {
+	
+}
+
+/* 1440px and up */
+@media all and (min-width: 90em) {
 	
 }
