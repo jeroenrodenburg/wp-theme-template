@@ -23,11 +23,11 @@ define( 'THEME_DEV_MODE', true );
  * @example
  * locate_template( 'path-to-folder.php', true, true );
  */
-locate_template( 'lib/init.php', true, true );            // Functions fired on init
 locate_template( 'lib/acf.php', true, true );             // Advanced Custom Fields
 locate_template( 'lib/admin.php', true, true );           // Custom admin settings
 locate_template( 'lib/ajax.php', true, true );            // Ajax functions
 locate_template( 'lib/cleanup.php', true, true );         // Head cleanup
+locate_template( 'lib/cookie.php', true, true );          // Cookie related functions
 locate_template( 'lib/customizer.php', true, true );      // Customizer modifications
 locate_template( 'lib/enqueue.php', true, true );         // Enqueue CSS and JS
 locate_template( 'lib/filters.php', true, true );         // Filter hooks
