@@ -1,12 +1,26 @@
 <?php
 /**
  * Theme:
- * Template:			init.php
+ * Template:			cookie.php
  * Description:			Functions performed on init
  */
 
+/**
+ * get_cookie
+ * 
+ * Retrieves the cookie value if it is found.
+ * Returns a string
+ * 
+ * @param	{string} $cookie_name
+ * @return	{string} The value of the cookie if it is found
+ */
+function get_cookie( $cookie_name ) {
+	if ( isset( $_COOKIE[ $cookie_name ] ) ) return $_COOKIE[ $cookie_name ];
+	return false;
+}
 
 /**
+ * set_cookie_consent()
  * Set a cookie when it is sent with a POST request
  *	
  */
