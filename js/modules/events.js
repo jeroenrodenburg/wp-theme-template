@@ -85,3 +85,46 @@ const toggleClassOnScroll = (() => {
     };
 
 })();
+
+/**
+ * tabFocus
+ * 
+ * Checks if user uses tabs and adds a
+ * class that adds focus rings on elements
+ * 
+ * @param   {Event} event
+ */
+const tabFocus = (event) => {
+
+    let cls = '--tab',
+        onKeyDown,
+        onMouseDown;
+
+    /**
+     * onKeyDown
+     * 
+     * @param   {Event} e
+     */
+    onKeyDown = (e) => {
+        if (e.keyCode === 9) {
+            document.body.classList.add(cls);
+            window.removeEventListener('keydown', onKeyDown);
+            window.addEventListener('mousedown', onMouseDown);
+        }
+    };
+
+    /**
+     * onMouseDown
+     * 
+     * @param   {Event} e
+     */
+    onMouseDown = (e) => {
+        document.body.classList.remove(cls);
+        window.removeEventListener('mousedown', onMouseDown);
+        window.addEventListener('keydown', onKeyDown);
+    };
+
+    // Listen for tabs
+    window.addEventListener('keydown', onKeyDown);
+
+};
