@@ -43,7 +43,7 @@
  * @param   {String} domain The domain to store the cookie
  * @returns {String} Returns the cookie string
  */
-const setCookie = (name, value, expire, path, domain) => {
+const setCookie = (name, value, expire, path = '/', domain = location.hostname.replace(/^www\./i, "")) => {
     let date = new Date(),
         expires;
     date.setTime(date.getTime() + (expire * 24 * 3600 * 1000));
