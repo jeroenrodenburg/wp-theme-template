@@ -32,7 +32,7 @@ function theme_styles() {
 	 * Slick
 	 * @link	http://kenwheeler.github.io/slick/
 	 */
-	// wp_register_style( 'slick', '//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css', false, '1.6.0', 'all' );
+	// wp_register_style( 'slick', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css', false, '1.9.0', 'all' );
 	// wp_enqueue_style( 'slick' );
 
 	/**
@@ -99,7 +99,7 @@ function theme_scripts() {
 	 * Slick
 	 * @link	http://kenwheeler.github.io/slick/
 	 */
-	// wp_register_script( 'slick', '//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js', array( 'jquery' ), '1.6.0', true );
+	// wp_register_script( 'slick', '//cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', array( 'jquery' ), '1.9.0', true );
 	// wp_enqueue_script( 'slick' );
 
 	/**
@@ -144,10 +144,21 @@ function theme_scripts() {
 	// wp_register_script( 'anime', '//cdnjs.cloudflare.com/ajax/libs/animejs/2.0.0/anime.min.js', false, '2.0.0', true );
 	// wp_enqueue_script( 'anime' );
 
+	/**
+	 * Google Maps
+	 * @link	https://developers.google.com/maps/documentation/javascript/tutorial
+	 * @link	https://developers.google.com/maps/documentation/javascript/reference/3.exp/
+	 */
+	// $api_key = '';
+	// $libraries = array( 'geometry', 'places' );
+	// if ( !empty( $libraries ) ) $api_key .= '&libraries=' . join(',', $libraries);
+	// wp_register_script( 'google-maps', '//maps.googleapis.com/maps/api/js?key=' . $api_key, false, false, true );
+	// wp_enqueue_script( 'google-maps');
+
 	wp_register_script( 'script', get_template_directory_uri() . '/dist/js/script.js', false, false, true );
 	wp_localize_script( 'script', 'wp', array( 
 		'ajax' => admin_url( 'admin-ajax.php' ), 
-		'theme' => get_template_directory_uri() 
+		'theme' => get_template_directory_uri()
 	) );
 	wp_enqueue_script( 'script' );
 
