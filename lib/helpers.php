@@ -65,7 +65,10 @@ function the_option_terms( $taxonomy, $orderby = 'menu_order', $hide_empty = fal
 	) );
     if ( $terms && ! is_wp_error( $terms )) {
 	    foreach( $terms as $term ) {
-		    echo '<option value="' . $term->slug . '" ' . selected( $_GET[ $taxonomy ], $term->slug ) . '>' . $term->name . '</option>';
+			$result = '<option value="' . $term->slug . '" ';
+			if ( isset( $_GET[ $taxonomy ] ) ) selected( $_GET[ $taxonomy ], $term->slug );
+			$result .= '>' . $term->name . '</option>';
+		    echo $result;
 	    }
 	}
 }
