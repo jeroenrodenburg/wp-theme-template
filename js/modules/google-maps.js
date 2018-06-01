@@ -160,13 +160,9 @@ const addMarker = (position, map) => {
 		if (position && map) {
 
 			// Create coordinates
-			var latLng;
-
-			if (position instanceof google.maps.LatLng) {
-				latLng = position;
-			} else {
-				latlng = new google.maps.LatLng(position.lat, position.lng);
-			}
+			const latLng = position instanceof google.maps.LatLng ? 
+				position : 
+				new google.maps.LatLng(position.lat, position.lng);
 
 			// Create marker
 			const marker = new google.maps.Marker({
