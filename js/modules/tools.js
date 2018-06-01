@@ -222,10 +222,10 @@ const getValuesChecked = (form) => {
  * @returns {Array} Array with objects
  */
 const getValuesPerFieldset = (form) => {
-    let fieldsets = [];
+    let fieldsets = {};
     for (let i = 0; i < form.elements.length; i += 1) {
         if (form.elements[i].type === 'fieldset') {
-            let values = {},
+            let values = [],
                 fs = form.elements[i];
             for (let j = 0; j < fs.elements.length; j += 1) {
                 let el = fs.elements[j];
@@ -237,10 +237,10 @@ const getValuesPerFieldset = (form) => {
                     ) && 
                     el.type !== 'submit'
                 ) {
-                    values[el.name] = el.value;
+                    values.push({name: el.name, value: el.value});
                 }
             }
-            fieldsets.push(values);
+            fieldsets[form.elements[i].name] = values;
         }
     }
     return fieldsets;
@@ -311,3 +311,37 @@ const debounce = (func, wait, immediate) => {
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+/**
+ * cssPropertyValueSupported
+ *
+ * Checks if the browser supports a property
+ * Returns a boolean
+ *
+ * @function
+ * @since	1.0
+ * @param	{String} prop Property to evaluate
+ * @param	{String} value Value of property to check
+ * @returns	{Boolean}
+ */
+const cssPropertyValueSupported = (prop, value) => {
+    let d = document.createElement('div');
+    d.style[prop] = value;
+    return d.style[prop] === value;
+};
+
+/**
+ * linkTargetsBlank
+ *
+ * Select all the a tags with an 
+ * rel="external" attribute and set 
+ * the target attribute to '_blank'
+ *
+ * @param   {String} [query]
+ * @returns	{NodeList}
+ */
+const linkTargetsBlank = (query = 'a[rel="external"]') => {
+    let links = document.querySelectorAll(query);
+    links.forEach(link => link.setAttribute('target', '_blank'));
+    return links;
+};
