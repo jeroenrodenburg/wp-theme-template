@@ -128,17 +128,6 @@ function the_post_type( $post = null ) {
 }
 
 /**
- * Get a cookie
- * 
- * @param	string $name
- * @return	string
- */
-function get_cookie( $name ) {
-	if ( !$name ) return false;
-	return isset( $_COOKIE[ $name ] ) ? explode( ',', $_COOKIE[ $name ] ) : '';
-}
-
-/**
  * Get IP from client
  *
  * @return	string $ip;

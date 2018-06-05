@@ -15,8 +15,7 @@
  * @return	{string} The value of the cookie if it is found
  */
 function get_cookie( $cookie_name ) {
-	if ( isset( $_COOKIE[ $cookie_name ] ) ) return $_COOKIE[ $cookie_name ];
-	return false;
+	return isset( $_COOKIE[ $cookie_name ] ) ? explode( ',', $_COOKIE[ $cookie_name ] ) : '';
 }
 
 /**
