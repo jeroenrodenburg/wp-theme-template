@@ -5,7 +5,6 @@
  * Description:			
  */
 ?>
-
 <!DOCTYPE html>
 <!-- Made by Control || controldigital.nl -->
 <html lang="<?php bloginfo( 'language' ); ?>" class="no-js">
@@ -52,7 +51,7 @@
 	    
 	    <!-- JS is active -->
 	    <script>
-		    document.documentElement.classList.remove('no-js');
+			document.documentElement.classList.remove('no-js');
 	    </script>
 		
 		<?php wp_head(); ?>
