@@ -71,7 +71,7 @@ function theme_scripts() {
 	 * @link	https://github.com/typekit/webfontloader
 	 */
 	// wp_enqueue_script( 'webfontLoader', '//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', false, false, true );
-	// wp_add_inline_script( 'webfontLoader', "WebFont.load({google: {families: ['Open+Sans:300,400,500,600,700']},custom:{families:['FontAwesome'],urls:['//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css']}});" );
+	// wp_add_inline_script( 'webfontLoader', "WebFont.load({google: {families: ['Open+Sans:300,400,500,600,700']},custom:{families:['FontAwesome'],urls:['//use.fontawesome.com/releases/v5.1.0/css/all.css']}});" );
 
 	/**
 	 * jQuery 
@@ -157,8 +157,10 @@ function theme_scripts() {
 
 	wp_register_script( 'script', get_template_directory_uri() . '/dist/js/script.js', false, false, true );
 	wp_localize_script( 'script', 'wp', array( 
-		'ajax' => admin_url( 'admin-ajax.php' ), 
-		'theme' => get_template_directory_uri()
+		'ajax' 		=> admin_url( 'admin-ajax.php' ), 
+		'theme' 	=> get_template_directory_uri(),
+		'postType' 	=> get_post_type(),
+		'postId'	=> get_the_id()
 	) );
 	wp_enqueue_script( 'script' );
 
