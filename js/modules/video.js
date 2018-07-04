@@ -27,6 +27,47 @@
  */
 
 /**
+ * getVideo
+ * 
+ * Finds and returns a single video
+ * 
+ * @function
+ * @since	1.0
+ * @param	{(String|HTMLVideoElement)} videoElement
+ * @returns	{HTMLVideoElement}
+ */
+const getVideo = (videoElement) => {
+	return videoElement ?
+		'string' === typeof videoElement ? 
+			document.querySelector(videoElement) :
+			videoElement instanceof HTMLVideoElement ?
+				videoElement :
+				null :
+		document.querySelector('video');
+};
+
+/**
+ * getVideos
+ * 
+ * Finds and returns a collection of videos
+ * 
+ * @function
+ * @since	1.0
+ * @param	{(String|HTMLVideoElement[])} videoElements
+ * @returns	{HTMLVideoElement[]}
+ */
+const getVideos = (videoElements) => {
+	return videoElements ?
+		'string' === typeof videoElements ?
+			document.querySelectorAll(videoElements) :
+			videoElements instanceof NodeList ||
+			videoElements instanceof HTMLCollection ?
+				videoElements :
+				[] : 
+		document.querySelectorAll('video');
+};
+
+/**
  * playVideo
  * 
  * Plays the selected video or the first video encountered.
@@ -34,21 +75,35 @@
  * 
  * @function
  * @since	1.0
+ * @uses	getVideo
  * @param	{(String|HTMLVideoElement)} videoElement String or result of document.querySelector()
  * @returns	{Promise}
  */
 const playVideo = (videoElement) => {
-	let video;
-	if (videoElement) {
-		if ('string' === typeof videoElement) {
-			video = document.querySelectorAll(videoElement);
-		} else if (videoElement instanceof HTMLVideoElement) {
-			video = videoElement;
-		}
-	} else {
-		video = document.querySelector('video');
-	}
+	let video = videoElement ?
+		getVideo(videoElement) :
+		null;
 	if (video) return video.play();
+};
+
+/**
+ * pauseVideo
+ * 
+ * Pauses the selected video or the first video encountered.
+ * The functions returns the found video element.
+ * 
+ * @function
+ * @since	1.0
+ * @uses	getVideo
+ * @param	{(String|HTMLVideoElement)} videoElement String or result of document.querySelector()
+ * @returns	{HTMLVideoElement}
+ */
+const pauseVideo = (videoElement) => {
+	let video = videoElement ?
+		getVideo(videoElement) :
+		null;
+	if (video) video.pause();
+	return video;
 };
 
 /**
@@ -59,26 +114,75 @@ const playVideo = (videoElement) => {
  * 
  * @function
  * @since	1.0
+ * @uses	getVideos
  * @param	{(String|HTMLVideoElement[])} videoElements String or result of document.querySelectorAll()
  * @returns	{Promise[]}
  */
 const playVideos = (videoElements) => {
-	let videos;
-	if (videoElements) {
-		if ('string' === typeof videoElements) {
-			videos = document.querySelectorAll(videoElements);
-		} else if (videoElements instanceof NodeList) {
-			videos = videoElements;
-		}
-	} else {
-		videos = document.querySelectorAll('video');
-	}
-	if (videos.length) {
-		let videoPromises = Array.prototype.map.call(videos, (video) => {
-			return video.play();
-		});
-		return Promise.all(videoPromises);
-	}
+	let videos = videoElements ?
+		getVideos(videoElements) :
+		[];
+	return Promise.all(
+		Array.prototype.map.call(videos, video => video.play())
+	);
+};
+
+/**
+ * pauseVideos
+ * 
+ * Pauses all the videos selected and calls the pause() method.
+ * The function returns a list of found videos.
+ * 
+ * @function
+ * @since	1.0
+ * @uses	getVideos
+ * @param	{(String|HTMLVideoElement[])} videoElements String or result of document.querySelectorAll()
+ * @returns	{(NodeList|HTMLCollection)}
+ */
+const pauseVideos = (videoElements) => {
+	let videos = videoElements ?
+		getVideos(videoElements) :
+		[];
+	Array.prototype.forEach.call(videos, (video) => {
+		video.pause();
+	});
+	return videos;
+};
+
+/**
+ * muteVideo
+ * 
+ * @function
+ * @since	1.0
+ * @uses	getVideo
+ * @param 	{(String|HTMLVideoElement)} videoElement Selected video element
+ * @param	{Boolean} [mute=true] True or False if the video should be muted
+ * @returns	{(HTMLVideoElement|null)}
+ */
+const muteVideo = (videoElement, mute = true) => {
+	let video = videoElement ?
+		getVideo(videoElement) :
+		null;
+	if (video && mute) video.muted = mute;
+	return video;
+};
+
+/**
+ * setVolumeVideo
+ * 
+ * @function
+ * @since	1.0
+ * @uses	getVideo
+ * @param 	{(String|HTMLVideoElement)} videoElement Selected video element
+ * @param 	{Number} volume Decimal range value from 0 to 1
+ * @returns	{(HTMLVideoElement|null)}
+ */
+const setVolumeVideo = (videoElement, volume = 1) => {
+	let video = videoElement ?
+		getVideo(videoElement) :
+		null;
+	if (video && volume && 'number' === typeof volume) video.volume = volume;
+	return video;
 };
 
 /**
@@ -93,30 +197,22 @@ const playVideos = (videoElements) => {
  * @returns {HTMLCollection} An array with all the found video elements on the page
  */
 const lazyLoadVideos = (videoElements) => {
-	let videos;
-	if (videoElements) {
-		if ('string' === typeof videoElements) {
-			videos = document.querySelectorAll(videoElements);
-		} else if (videoElements instanceof NodeList) {
-			videos = videoElements;
+	let videos = videoElements ?
+		getVideos(videoElements) :
+		[];
+	Array.prototype.forEach.call(videos, (video) => {
+		if (!video.classList.contains('video--loaded')) {
+			let sources = video.querySelectorAll('source');
+			sources.forEach((source) => {
+				if (source.hasAttribute('data-src')) 
+					source.setAttribute('src', source.dataset.src);
+			});
+			video.addEventListener('canplaythrough', () => {
+				video.classList.add('video--loaded');
+				video.removeAttribute('data-src');
+			});
+			video.load();
 		}
-	} else {
-		videos = document.querySelectorAll('video');
-	}
-	videos.forEach((video) => {
-			if (!video.classList.contains('video--loaded')) {
-					let sources = video.querySelectorAll('source');
-					sources.forEach((source) => {
-							if (source.hasAttribute('data-src')) {
-									source.setAttribute('src', source.dataset.src);
-							}
-					});
-					video.addEventListener('canplaythrough', (event) => {
-							video.classList.add('video--loaded');
-							video.removeAttribute('data-src');
-					});
-					video.load();
-			}
 	});
 	return videos;
 };
