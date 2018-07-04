@@ -146,21 +146,29 @@ function theme_scripts() {
 
 	/**
 	 * Google Maps
+	 * 
+	 * Add the script handle ('google_maps') to the handles list in the
+	 * script_loader_tag filter function found in filters.php to async or
+	 * defer load this script
+	 * 
 	 * @link	https://developers.google.com/maps/documentation/javascript/tutorial
 	 * @link	https://developers.google.com/maps/documentation/javascript/reference/3.exp/
 	 */
-	// $api_key = '';
-	// $libraries = array( 'geometry', 'places' );
-	// if ( !empty( $libraries ) ) $api_key .= '&libraries=' . join(',', $libraries);
-	// wp_register_script( 'google-maps', '//maps.googleapis.com/maps/api/js?key=' . $api_key, false, false, true );
+	// $gmaps_api_key = '';
+	// $gmaps_libraries = array( 'geometry', 'places' );
+	// $gmaps_callback = '';
+	// if ( !empty( $libraries ) ) $gmaps_api_key .= '&libraries=' . join(',', $gmaps_libraries);
+	// if ( !empty( $callback ) ) $gmaps_api_key .= '&callback=' . $gmaps_callback;
+	// wp_register_script( 'google-maps', '//maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key, false, false, true );
 	// wp_enqueue_script( 'google-maps');
 
 	wp_register_script( 'script', get_template_directory_uri() . '/dist/js/script.js', false, false, true );
 	wp_localize_script( 'script', 'wp', array( 
-		'ajax' 		=> admin_url( 'admin-ajax.php' ), 
-		'theme' 	=> get_template_directory_uri(),
-		'postType' 	=> get_post_type(),
-		'postId'	=> get_the_id()
+		'ajax' 			=> admin_url( 'admin-ajax.php' ), 
+		'theme' 		=> get_template_directory_uri(),
+		'postType' 		=> get_post_type(),
+		'postId'		=> get_the_id(),
+		'pageTemplate'	=> get_page_template_slug()
 	) );
 	wp_enqueue_script( 'script' );
 
