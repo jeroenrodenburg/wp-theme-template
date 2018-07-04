@@ -106,7 +106,7 @@ const createMap = (mapElement, options = {center: {lat: 52.3935744, lng: 4.89441
  */
 const centerMap = (map) => {
 	return new Promise((resolve, reject) => {
-		if (map) {
+		if (map && map instanceof google.maps.Map) {
 			if (!map.bounds.isEmpty()) {
 				map.fitBounds(map.bounds);
 			} else {
@@ -157,7 +157,7 @@ const attachInfoWindow = (marker, content, map) => {
  */
 const addMarker = (position, map) => {
 	return new Promise((resolve, reject) => {
-		if (position && map) {
+		if (position && map && map instanceof google.maps.Map) {
 
 			// Create coordinates
 			const latLng = position instanceof google.maps.LatLng ? 
@@ -203,7 +203,7 @@ const addMarker = (position, map) => {
  * @returns {Promise} returns the map object on resolve
  */
 const addMarkers = (markers, map) => {
-	if (markers && markers.length && map) {
+	if (markers && markers.length && map && map instanceof google.maps.Map) {
 
 		// Loop over markers and return the promise from addMarker
 		let markerPromises = markers.map(marker => addMarker(marker, map));
@@ -223,7 +223,7 @@ const addMarkers = (markers, map) => {
  */
 const removeMarkers = (map) => {
 	return new Promise((resolve, reject) => {
-		if (map) {
+		if (map && map instanceof google.maps.Map) {
 
 			// Loop over the markers
 			map.markers.forEach((marker) => {
@@ -271,7 +271,7 @@ const removeMarkers = (map) => {
  */
 const addPolyline = (position, map, options = {geodesic: true, strokeColor: '#ff0000', strokeOpacity: 1.0, strokeWeight: 2}) => {
 	return new Promise((resolve, reject) => {
-		if (position && map) {
+		if (position && map && map instanceof google.maps.Map) {
 
 			// Add position to options
 			options.path = position;
@@ -307,7 +307,7 @@ const addPolyline = (position, map, options = {geodesic: true, strokeColor: '#ff
  */
 const removePolylines = (map) => {
 	return new Promise((resolve, reject) => {
-		if (map) {
+		if (map && map instanceof google.maps.Map) {
 
 			// Loop over the polylines
 			map.polylines.forEach((polyline) => {
@@ -357,7 +357,7 @@ const removePolylines = (map) => {
  */
 const addPolygon = (position, map, options = {strokeColor: '#ff0000', strokeOpacity: 0.8, strokeWeight: 2, fillColor: '#ff000', fillOpacity: 0.35}) => {
 	return new Promise((resolve, reject) => {
-		if (position && map) {
+		if (position && map && map instanceof google.maps.Map) {
 
 			// Add coordinates to options
 			options.path = position;
@@ -393,7 +393,7 @@ const addPolygon = (position, map, options = {strokeColor: '#ff0000', strokeOpac
  */
 const removePolygons = (map) => {
 	return new Promise((resolve, reject) => {
-		if (map) {
+		if (map && map instanceof google.maps.Map) {
 
 			// Loop over the polylines
 			map.polygons.forEach((polygon) => {
@@ -414,33 +414,3 @@ const removePolygons = (map) => {
 		}
 	});
 };
-
-
-
-
-
-
-/**
- * Google Maps API
- * Anonymous IIFE
- * Setup the data needed for the Google Maps API
- * 
- */
-(function () {
-    'use strict';
-
-    // Please enter your unique API Key
-    const key = 'AIzaSyB6DB--1x8xmlR7Sg3kf573ARrlnUBVDms';
-
-    // The function to fire when the script loads
-    const callback = 'createMap';
-
-    // Getting the API script
-	const src = `https://maps.googleapis.com/maps/api/js?key=${key}&callback=${callback}`;
-	let script = document.createElement('script');
-	script.setAttribute('src', src);
-	script.setAttribute('async', '');
-    script.setAttribute('defer', '');
-	document.body.appendChild(script);
-
-}());
