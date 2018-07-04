@@ -337,7 +337,7 @@ const cssPropertyValueSupported = (prop, value) => {
  * rel="external" attribute and set 
  * the target attribute to '_blank'
  *
- * @param   {String} [query]
+ * @param   {String} [query=a[rel="external"]]
  * @returns	{NodeList}
  */
 const linkTargetsBlank = (query = 'a[rel="external"]') => {
