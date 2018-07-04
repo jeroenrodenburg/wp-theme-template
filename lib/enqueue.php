@@ -145,6 +145,13 @@ function theme_scripts() {
 	// wp_enqueue_script( 'anime' );
 
 	/**
+	 * Three
+	 * @link	https://threejs.org/docs/index.html#manual/introduction/Creating-a-scene
+	 */
+	// wp_register_script( 'threejs', '//cdnjs.cloudflare.com/ajax/libs/three.js/93/three.min.js', false, '93', true );
+	// wp_enqueue_script( 'threejs' );
+
+	/**
 	 * Google Maps
 	 * @link	https://developers.google.com/maps/documentation/javascript/tutorial
 	 * @link	https://developers.google.com/maps/documentation/javascript/reference/3.exp/
