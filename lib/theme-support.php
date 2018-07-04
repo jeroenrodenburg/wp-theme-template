@@ -77,7 +77,8 @@ function theme_features()  {
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
 	// Add theme support for Image Size
-	// add_image_size( 'title', 0, 0, true );
+	add_image_size( 'retina', 2560, 1600, true );
+	add_image_size( 'full-hd', 1920, 1080, true );
 
 	// Add theme support for Woocommerce
 	add_theme_support( 'woocommerce' );
