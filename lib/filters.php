@@ -14,7 +14,7 @@
  * @param	integer $length Length of the excerpt
  * @return 	integer
  */
-add_filter( 'excerpt_length', 'custom_excerpt_length' );
+add_filter( 'excerpt_length', 'custom_excerpt_length', 10, 1 );
 function custom_excerpt_length( $length ) {
 	return 18;
 }
@@ -26,7 +26,7 @@ function custom_excerpt_length( $length ) {
  * @link	https://developer.wordpress.org/reference/hooks/excerpt_more/
  * @return 	string
  */
-add_filter( 'excerpt_more', 'custom_excerpt_more' );
+add_filter( 'excerpt_more', 'custom_excerpt_more', 10, 1 );
 function custom_excerpt_more( $excerpt ) {
 	return '...';
 }
@@ -37,7 +37,7 @@ function custom_excerpt_more( $excerpt ) {
  * @since	1.0
  * @return 	string
  */
-add_filter( 'paginate_links', 'custom_paginate_links' );
+add_filter( 'paginate_links', 'custom_paginate_links', 10, 1 );
 function custom_paginate_links( $link ) {
 	return $link;
 }
@@ -119,4 +119,55 @@ function custom_script_attributes( $tag, $handle, $src ) {
 		return '<script src="' . $src . '" type="text/javascript" ' . $attr . '></script>';
 	}
 	return $tag;
+}
+
+/**
+ * Remove default image sizes
+ * 
+ * Can be used to create custom image sizes
+ * instead of the WP standard ones.
+ * 
+ * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/intermediate_image_sizes_advanced/
+ * @return	array
+ */
+add_filter( 'intermediate_image_sizes_advanced', 'remove_default_image_sizes', 10, 1 );
+function remove_default_image_sizes( $sizes ) {
+
+	// Sizes to remove
+	// $needles = array( 'thumbnail', 'medium', 'medium_large', 'large' );
+
+	/**
+	 * Loop trough the sizes and remove 
+	 * the size if it is found in the 
+	 * haystack
+	 */
+	foreach ( $needles as $needle ) {
+		if ( ( $key = array_search( $needle, $sizes ) ) !== false ) {
+			unset( $sizes[ $key ] );
+		}
+	}
+
+	// Return new sizes
+	return $sizes;
+}
+
+/**
+ * Customize max width of img srcset
+ * 
+ * Resize the maximal possible width of the srcset
+ * when outputting an image with the srcset attribute
+ * 
+ * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/max_srcset_image_width/
+ * @return	integer
+ */
+add_filter( 'max_srcset_image_width', 'custom_max_srcset_image_width', 10, 1 );
+function custom_max_srcset_image_width( $max_width ) {
+
+	// Set new max width
+	// $max_width = 1920;
+
+	// Return max width
+	return $max_width;
 }
