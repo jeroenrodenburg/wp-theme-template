@@ -7,9 +7,13 @@
 
 
 /**
- * Unregister default widgets
+ * unregister_default_widgets
+ * 
+ * Uncomment a rule to unregister a widget.
+ * This includes all default widgets of WordPress.
  * 
  * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/widgets_init/
  */
 add_action( 'widgets_init', 'unregister_default_widgets' );
 function unregister_default_widgets() {
@@ -29,19 +33,28 @@ function unregister_default_widgets() {
 }
 
 /**
- * Register custom widgets
+ * register_custom_widgets
+ * 
+ * Custom widget registration.
+ * These widgets are defined later in this file.
+ * 
+ * Uncomment the widgets to include them
  * 
  * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/widgets_init/
  */
 add_action( 'widgets_init', 'register_custom_widgets' );
 function register_custom_widgets() {
-	register_widget( 'Button_Widget' );
-	register_widget( 'Social_Widget' );
-	register_widget( 'Highlight_Post_Widget' );
+	// register_widget( 'Button_Widget' );
+	// register_widget( 'Social_Widget' );
+	// register_widget( 'Highlight_Post_Widget' );
 }
 
 /**
- * Custom button widget class
+ * Button_Widget
+ * 
+ * Custom button widget class.
+ * Has a title, link and type of button fields.
  *
  * @since		1.0
  * @package		WP_Widget
@@ -57,9 +70,9 @@ class Button_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname' => 'button-widget',
-			'description' => __( 'Button with customizable title and type', 'text_domain' ),
-			'customize_selective_refresh' => true,
+			'classname' 					=> 'button-widget',
+			'description' 					=> __( 'Button with customizable title and type', 'text_domain' ),
+			'customize_selective_refresh' 	=> true,
 		);
 		parent::__construct( 'button_widget', __( 'Button', 'text_domain' ), $widget_ops );
 	}
@@ -72,9 +85,9 @@ class Button_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
-		$title = apply_filters( 'widget_title', $instance[ 'title' ] );
-		$link = isset( $instance[ 'link' ] ) ? esc_attr( $instance[ 'link' ] ) : '';
-		$type = isset( $instance[ 'type' ] ) ? esc_attr( $instance[ 'type' ] ) : '';
+		$title 	= apply_filters( 'widget_title', $instance[ 'title' ] );
+		$link 	= isset( $instance[ 'link' ] ) ? esc_attr( $instance[ 'link' ] ) : '';
+		$type 	= isset( $instance[ 'type' ] ) ? esc_attr( $instance[ 'type' ] ) : '';
 
 		echo $args['before_widget'];
 			echo '<a class="button ' . $type . '" href="' . $link . '" role="button" title="'. $title . '">' . $title . '</a>';
@@ -88,9 +101,9 @@ class Button_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$title = ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
-		$link = ! empty( $instance[ 'link' ] ) ? $instance[ 'link' ] : ''; 
-		$type = ! empty ( $instance[ 'type' ] ) ? $instance[ 'type' ] : ''; ?>
+		$title 	= ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
+		$link 	= ! empty( $instance[ 'link' ] ) ? $instance[ 'link' ] : ''; 
+		$type 	= ! empty ( $instance[ 'type' ] ) ? $instance[ 'type' ] : ''; ?>
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
@@ -121,16 +134,20 @@ class Button_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
 		$instance = $old_instance;
-		$instance[ 'title' ] = strip_tags( $new_instance[ 'title' ] );
-		$instance[ 'link' ] = strip_tags( $new_instance[ 'link' ] );
-		$instance[ 'type' ] = strip_tags( $new_instance[ 'type' ] );
+		$instance[ 'title' ] 	= strip_tags( $new_instance[ 'title' ] );
+		$instance[ 'link' ] 	= strip_tags( $new_instance[ 'link' ] );
+		$instance[ 'type' ] 	= strip_tags( $new_instance[ 'type' ] );
 		return $instance;
 	}
 }
 
 
 /**
- * Custom social media buttons widget class
+ * Social_Widget
+ * 
+ * Custom social media buttons widget class.
+ * Outputs a list of buttons with Font Awesome 5
+ * icons.
  *
  * @since		1.0
  * @package		WP_Widget
@@ -146,9 +163,9 @@ class Social_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname' => 'social-widget',
-			'description' => __( 'Social media buttons widget', 'text_domain' ),
-			'customize_selective_refresh' => true,
+			'classname' 					=> 'social-widget',
+			'description' 					=> __( 'Social media buttons widget', 'text_domain' ),
+			'customize_selective_refresh' 	=> true,
 		);
 		parent::__construct( 'social_widget', __( 'Social', 'text_domain' ), $widget_ops );
 	}
@@ -161,15 +178,16 @@ class Social_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
-		$title = apply_filters( 'widget_title', $instance[ 'title' ] );
-		$facebook = isset( $instance[ 'facebook' ] ) ? esc_attr( $instance[ 'facebook' ] ) : '';
-		$twitter = isset( $instance[ 'twitter' ] ) ? esc_attr( $instance[ 'twitter' ] ) : '';
-		$instagram = isset( $instance[ 'instagram' ] ) ? esc_attr( $instance[ 'instagram' ] ) : '';
-		$pinterest = isset( $instance[ 'pinterest' ] ) ? esc_attr( $instance[ 'pinterest' ] ) : '';
-		$google = isset( $instance[ 'google' ] ) ? esc_attr( $instance[ 'google' ] ) : '';
-		$linkedin = isset( $instance[ 'linkedin' ] ) ? esc_attr( $instance[ 'linkedin' ] ) : '';
-		$youtube = isset( $instance[ 'youtube' ] ) ? esc_attr( $instance[ 'youtube' ] ) : '';
-		$show_title = isset( $instance[ 'show_title' ] ) ? $instance[ 'show_title' ] === 'on' ? true : false : false;
+		$title 			= apply_filters( 'widget_title', $instance[ 'title' ] );
+		$type			= isset( $instance[ 'type' ] ) ? esc_attr( $instance[ 'type' ] ) : 'fas';
+		$facebook 		= isset( $instance[ 'facebook' ] ) ? esc_attr( $instance[ 'facebook' ] ) : '';
+		$twitter 		= isset( $instance[ 'twitter' ] ) ? esc_attr( $instance[ 'twitter' ] ) : '';
+		$instagram 		= isset( $instance[ 'instagram' ] ) ? esc_attr( $instance[ 'instagram' ] ) : '';
+		$pinterest 		= isset( $instance[ 'pinterest' ] ) ? esc_attr( $instance[ 'pinterest' ] ) : '';
+		$google 		= isset( $instance[ 'google' ] ) ? esc_attr( $instance[ 'google' ] ) : '';
+		$linkedin 		= isset( $instance[ 'linkedin' ] ) ? esc_attr( $instance[ 'linkedin' ] ) : '';
+		$youtube 		= isset( $instance[ 'youtube' ] ) ? esc_attr( $instance[ 'youtube' ] ) : '';
+		$show_title 	= isset( $instance[ 'show_title' ] ) ? $instance[ 'show_title' ] === 'on' ? true : false : false;
 		
 		echo $args['before_widget'];
 		
@@ -180,13 +198,13 @@ class Social_Widget extends WP_Widget {
 			echo '<div class="socials">';
 				echo '<ul class="socials__list">';
 					
-					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i class="fa fa-facebook"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
-					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i class="fa fa-twitter"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
-					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i class="fa fa-instagram"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
-					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i class="fa fa-pinterest"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
-					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i class="fa fa-google-plus"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
-					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i class="fa fa-linkedin"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
-					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i class="fa fa-youtube"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
+					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i class="' . $type . ' fa-facebook"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
+					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i class="' . $type . ' fa-twitter"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
+					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i class="' . $type . ' fa-instagram"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
+					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i class="' . $type . ' fa-pinterest"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
+					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i class="' . $type . ' fa-google-plus"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
+					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i class="' . $type . ' fa-linkedin"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
+					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i class="' . $type . ' fa-youtube"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
 	
 				echo '</ul>';
 			echo '</div>';
@@ -200,19 +218,28 @@ class Social_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$title = ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
-		$facebook = ! empty( $instance[ 'facebook' ] ) ? $instance[ 'facebook' ] : '';
-		$twitter = ! empty( $instance[ 'twitter' ] ) ? $instance[ 'twitter' ] : '';
-		$instagram = ! empty( $instance[ 'instagram' ] ) ? $instance[ 'instagram' ] : '';
-		$pinterest = ! empty( $instance[ 'pinterest' ] ) ? $instance[ 'pinterest' ] : '';
-		$google = ! empty( $instance[ 'google' ] ) ? $instance[ 'google' ] : '';
-		$linkedin = ! empty( $instance[ 'linkedin' ] ) ? $instance[ 'linkedin' ] : '';
-		$youtube = ! empty( $instance[ 'youtube' ] ) ? $instance[ 'youtube' ] : '';
-		$show_title = ! empty( $instance[ 'show_title' ] ) ? 'on' : ''; ?>
+		$title 			= ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
+		$type			= ! empty( $instance[ 'type' ] ) ? $instance[ 'type' ] : '';
+		$facebook 		= ! empty( $instance[ 'facebook' ] ) ? $instance[ 'facebook' ] : '';
+		$twitter 		= ! empty( $instance[ 'twitter' ] ) ? $instance[ 'twitter' ] : '';
+		$instagram 		= ! empty( $instance[ 'instagram' ] ) ? $instance[ 'instagram' ] : '';
+		$pinterest 		= ! empty( $instance[ 'pinterest' ] ) ? $instance[ 'pinterest' ] : '';
+		$google 		= ! empty( $instance[ 'google' ] ) ? $instance[ 'google' ] : '';
+		$linkedin 		= ! empty( $instance[ 'linkedin' ] ) ? $instance[ 'linkedin' ] : '';
+		$youtube 		= ! empty( $instance[ 'youtube' ] ) ? $instance[ 'youtube' ] : '';
+		$show_title 	= ! empty( $instance[ 'show_title' ] ) ? 'on' : ''; ?>
 		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'type' ); ?>">Type of icon</label>
+			<select class="widefat" id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>">
+				<option value="fas" <?php selected( $type, 'fas' ); ?>>Solid</option>
+				<option value="far" <?php selected( $type, 'far' ); ?>>Regular</option>
+				<option value="fal" <?php selected( $type, 'fal' ); ?>>Light (PRO)</option>
+			</select>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'facebook' ); ?>">Facebook</label>
@@ -260,22 +287,26 @@ class Social_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
 		$instance = $old_instance;
-		$instance[ 'title' ] = strip_tags( $new_instance[ 'title' ] );
-		$instance[ 'facebook' ] = strip_tags( $new_instance[ 'facebook' ] );
-		$instance[ 'twitter' ] = strip_tags( $new_instance[ 'twitter' ] );
-		$instance[ 'instagram' ] = strip_tags( $new_instance[ 'instagram' ] );
-		$instance[ 'pinterest' ] = strip_tags( $new_instance[ 'pinterest' ] );
-		$instance[ 'google' ] = strip_tags( $new_instance[ 'google' ] );
-		$instance[ 'linkedin' ] = strip_tags( $new_instance[ 'linkedin' ] );
-		$instance[ 'youtube' ] = strip_tags( $new_instance[ 'youtube' ] );
-		$instance[ 'show_title' ] = strip_tags( $new_instance[ 'show_title' ] );
+		$instance[ 'title' ] 		= strip_tags( $new_instance[ 'title' ] );
+		$instance[ 'type' ] 		= strip_tags( $new_instance[ 'type' ] );
+		$instance[ 'facebook' ] 	= strip_tags( $new_instance[ 'facebook' ] );
+		$instance[ 'twitter' ] 		= strip_tags( $new_instance[ 'twitter' ] );
+		$instance[ 'instagram' ] 	= strip_tags( $new_instance[ 'instagram' ] );
+		$instance[ 'pinterest' ] 	= strip_tags( $new_instance[ 'pinterest' ] );
+		$instance[ 'google' ] 		= strip_tags( $new_instance[ 'google' ] );
+		$instance[ 'linkedin' ] 	= strip_tags( $new_instance[ 'linkedin' ] );
+		$instance[ 'youtube' ] 		= strip_tags( $new_instance[ 'youtube' ] );
+		$instance[ 'show_title' ] 	= strip_tags( $new_instance[ 'show_title' ] );
 		return $instance;
 	}
 }
 
 
 /**
- * Custom spotlight widget for selecting a single post to highlight
+ * Highlight_Post_Widget
+ * 
+ * Custom spotlight widget for selecting a single 
+ * post to highlight.
  *
  * @since		1.0
  * @package		WP_Widget
@@ -291,9 +322,9 @@ class Highlight_Post_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		$widget_ops = array(
-			'classname' => 'highlight-post-widget',
-			'description' => __( 'Pick a highlighted post', 'text_domain' ),
-			'customize_selective_refresh' => true,
+			'classname' 					=> 'highlight-post-widget',
+			'description' 					=> __( 'Pick a highlighted post', 'text_domain' ),
+			'customize_selective_refresh' 	=> true,
 		);
 		parent::__construct( 'highlight_post_widget', __( 'Highlight Post', 'text_domain' ), $widget_ops );
 	}
@@ -305,30 +336,40 @@ class Highlight_Post_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
+		
 		// outputs the content of the widget
-		$title = apply_filters( 'widget_title', $instance[ 'title' ] );
-		$highlight = isset( $instance[ 'highlight' ] ) ? esc_attr( $instance[ 'highlight' ] ) : '';
+		$title 		= apply_filters( 'widget_title', $instance[ 'title' ] );
+		$highlight 	= isset( $instance[ 'highlight' ] ) ? esc_attr( $instance[ 'highlight' ] ) : '';
 		
 		echo $args[ 'before_widget' ];
 		
-			if ( !empty( $instance[ 'title' ] ) ) {
+			// Only output the title if it is set
+			if ( ! empty( $instance[ 'title' ] ) ) {
 				echo $args[ 'before_title' ] . $title . $args[ 'after_title' ];
 			}
 			
+			// If a highlight is selected
 			if ( $highlight !== '') {
 				
+				// Arguments for query
 				$query_args = array(
 					'post_type'			=> 'post',
 					'post__in'			=> $highlight,
 					'post_status'		=> 'publish'
 				);
 				
+				// Create a new query
 				$query = new WP_Query( $query_args );
-				if ( $query->have_posts() ) { while ( $query->have_posts() ) { $query->the_post(); 
+
+				// Loop through the results
+				if ( $query->have_posts() ) { 
+					while ( $query->have_posts() ) { 
+						$query->the_post(); 
 					
-					// Customize the output here
+						// Customize the output here
 					
-				} wp_reset_postdata(); }
+					} wp_reset_postdata(); 
+				}
 				
 			}
 			
@@ -343,13 +384,17 @@ class Highlight_Post_Widget extends WP_Widget {
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
-		$title = ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
-		$highlight = ! empty( $instance[ 'highlight' ] ) ? $instance[ 'highlight' ] : false; 
+		$title 		= ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
+		$highlight 	= ! empty( $instance[ 'highlight' ] ) ? $instance[ 'highlight' ] : false; 
+
+		// Set arguments for query
 		$args = array(
 			'post_type'			=> 'post',
 			'post_status'		=> 'publish',
 			'posts_per_page'	=> '-1'
 		);
+
+		// Create a new query
 		$query = new WP_Query( $args );
 		?>
 		
@@ -379,9 +424,9 @@ class Highlight_Post_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
-		$instance = $old_instance;
-		$instance[ 'title' ] = strip_tags( $new_instance[ 'title' ] );
-		$instance[ 'highlight' ] = strip_tags( $new_instance[ 'highlight' ] );
+		$instance 					= $old_instance;
+		$instance[ 'title' ] 		= strip_tags( $new_instance[ 'title' ] );
+		$instance[ 'highlight' ] 	= strip_tags( $new_instance[ 'highlight' ] );
 		return $instance;
 	}
 	

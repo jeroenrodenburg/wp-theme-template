@@ -7,8 +7,9 @@
 
 
 /**
- * Register Theme Features
+ * add_theme_features
  * 
+ * Register theme features
  * Setup support for theme features.
  * Uncomment the features that should not be supported.
  * 
@@ -16,8 +17,8 @@
  * @link	https://codex.wordpress.org/Theme_Features
  * @link	https://developer.wordpress.org/reference/functions/add_theme_support/
  */
-add_action( 'after_setup_theme', 'theme_features' );
-function theme_features()  {
+add_action( 'after_setup_theme', 'add_theme_features' );
+function add_theme_features()  {
 
 	// Add theme support for title tag
 	add_theme_support( 'title-tag' );

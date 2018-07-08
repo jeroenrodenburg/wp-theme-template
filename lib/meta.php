@@ -11,7 +11,7 @@
  * 
  * Retrieves the 'post_views_count' meta field of a post.
  * 
- * @param   post $post
+ * @param   WP_Post $post
  * @return  string
  */
 function get_post_views( $post = null ) {
@@ -20,9 +20,9 @@ function get_post_views( $post = null ) {
     if ( $count == '' ) {
         delete_post_meta( $post->ID, $count_key );
         add_post_meta( $post->ID, $count_key, '0' );
-        return '0 Views';
+        return '0';
     }
-    return $count . ' Views';
+    return $count;
 }
 
 /**
@@ -31,9 +31,9 @@ function get_post_views( $post = null ) {
  * Echoes the result of get_post_views.
  * Uses get_post_views to get the result
  * 
- * @uses    get_post_views
  * @since   1.0
- * @param   post $post
+ * @uses    get_post_views
+ * @param   WP_Post $post
  */
 function the_post_views( $post = null ) {
     $post_views = get_post_views( $post );
@@ -47,7 +47,7 @@ function the_post_views( $post = null ) {
  * the key if the meta key doesn't exist
  * 
  * @since   1.0
- * @param   post $post
+ * @param   WP_Post $post
  */
 function set_post_views( $post = null ) {
     $count_key = 'post_views_count';
@@ -69,14 +69,14 @@ function set_post_views( $post = null ) {
  * or creates the meta key if it doesn't exist.
  * 
  * @since   1.0
- * @param   post $post
+ * @param   WP_Post $post
  */
 function reset_post_views( $post = null ) {
 	$count_key = 'post_views_count';
 	$count = get_post_meta( $post->ID, $count_key, true );
 	if ( $count == '' ) {
-		delete_post_meta($post->ID, $count_key);
-        add_post_meta($post->ID, $count_key, '0');
+		delete_post_meta( $post->ID, $count_key );
+        add_post_meta( $post->ID, $count_key, '0' );
 	} else {
 		update_post_meta( $post->ID, $count_key, '0' );	
 	}

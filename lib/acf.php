@@ -14,7 +14,7 @@
  * 
  * @since	1.0
  */
-if( function_exists( 'acf_add_options_page' ) ) {
+if ( function_exists( 'acf_add_options_page' ) ) {
 
 	// Main options page
 	$parent = acf_add_options_page( array(
@@ -52,6 +52,10 @@ if( function_exists( 'acf_add_options_page' ) ) {
  */
 add_action( 'acf/init', 'my_acf_init' );
 function my_acf_init() {
+
+	// Google maps API Key
 	$google_maps_api_key = '';
+
+	// Update setting
 	acf_update_setting( 'google_api_key', $google_maps_api_key );
 }

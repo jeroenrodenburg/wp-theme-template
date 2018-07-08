@@ -7,7 +7,11 @@
 
 
 /**
- * Register Navigation Menus
+ * navigation_menus
+ * 
+ * Register navigation menus. Repeat the 
+ * register_nav_menu function to register
+ * multiple menu's.
  * 
  * @since	1.0
  */
@@ -21,7 +25,7 @@ function navigation_menus() {
 /**
  * Custom_Walker_Nav_Menu
  * 
- * Overrides the default Walker_Nav_Menu class
+ * Extends the default Walker_Nav_Menu class
  * and can be used with the wp_nav_menu function.
  * 
  * Customize the walker to your needs to output the 
@@ -30,7 +34,7 @@ function navigation_menus() {
  * @since	1.0
  * @example
  * wp_nav_menu( array(
- * 		'walker'	=> new Custom_Walker_Nav_Menu
+ * 		'walker'	=> new Custom_Walker_Nav_Menu()
  * ) );
  */
 class Custom_Walker_Nav_Menu extends Walker_Nav_Menu {
