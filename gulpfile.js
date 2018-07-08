@@ -6,6 +6,10 @@ const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const babel = require('gulp-babel');
 const criticalCSS = require('gulp-penthouse');
+const realFavicon = require('gulp-real-favicon');
+
+// File where the favicon markups are stored
+const faviconDataFile = 'faviconData.json';
 
 /**
  * CSS gulp task
@@ -98,6 +102,79 @@ gulp.task('critical', () => {
 });
 
 /**
+ * Generate favicons
+ * 
+ * Creates multiple favicons and icons
+ * for iOS, Android, MacOS and Windows.
+ * 
+ * For options check out:
+ * {@link https://github.com/RealFaviconGenerator/gulp-real-favicon}
+ */
+gulp.task('favicon', (done) => {
+	return realFavicon.generateFavicon({
+		masterPicture: './media/favicons/favicon.png',
+		dest: './media/favicons/',
+		iconsPath: '/media/favicons/',
+		design: {
+			ios: {
+				pictureAspect: 'backgroundAndMargin',
+				backgroundColor: '#ffffff',
+				margin: '14%',
+				assets: {
+					ios6AndPriorIcons: false,
+					ios7AndLaterIcons: false,
+					precomposedIcons: false,
+					declareOnlyDefaultIcon: true
+				}
+			},
+			desktopBrowser: {},
+			windows: {
+				pictureAspect: 'noChange',
+				backgroundColor: '#2d89ef',
+				onConflict: 'override',
+				assets: {
+					windows80Ie10Tile: false,
+					windows10Ie11EdgeTiles: {
+						small: true,
+						medium: true,
+						big: true,
+						rectangle: true
+					}
+				}
+			},
+			androidChrome: {
+				pictureAspect: 'noChange',
+				themeColor: '#ffffff',
+				manifest: {
+					display: 'standalone',
+					orientation: 'notSet',
+					onConflict: 'override',
+					declared: true
+				},
+				assets: {
+					legacyIcon: false,
+					lowResolutionIcons: false
+				}
+			},
+			safariPinnedTab: {
+				pictureAspect: 'silhouette',
+				themeColor: '#5bbad5'
+			}
+		},
+		settings: {
+			scalingAlgorithm: 'Mitchell',
+			errorOnImageTooSmall: false,
+			readmeFile: false,
+			htmlCodeFile: false,
+			usePathAsIs: false
+		},
+		markupFile: faviconDataFile
+	}, () => {
+		done();
+	});
+});
+
+/**
  * Default gulp task
  * 
  * Run this by typing the following in the command line:
@@ -105,7 +182,7 @@ gulp.task('critical', () => {
  * gulp
  * 
  * This will initiate gulp, perform the default task and continue watching
- * all of the files that are being wathed.
+ * all of the files that are being watched.
  * 
  */
 gulp.task('default', ['css', 'js']);
