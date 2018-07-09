@@ -202,7 +202,10 @@ const getValuesChecked = (form) => {
         let el = form.elements[i];
         if (
             el.tagName === 'INPUT' && 
-            (el.type === 'checkbox' || el.type === 'radio') &&
+            (
+                el.type === 'checkbox' || 
+                el.type === 'radio'
+            ) &&
             el.checked === true
         ) {
             values.push({name: el.name, value: el.value});
@@ -304,9 +307,9 @@ const debounce = (func, wait, immediate) => {
  * 
  * @function
  * @since   1.0
- * @param   {Integer} min 
- * @param   {Integer} max
- * @returns {Integer} Random number between 
+ * @param   {Number} min Min value
+ * @param   {Number} max Max value
+ * @returns {Number} Random number
  */
 const getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;

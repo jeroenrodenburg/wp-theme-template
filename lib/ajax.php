@@ -7,11 +7,17 @@
 
 
 /**
- * Load more function
+ * load_ajax
+ * 
+ * Generic boilerplate function for handling
+ * an AJAX request 
+ * 
+ * @since	1.0
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_nopriv_(action)
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
  */
 add_action( 'wp_ajax_nopriv_load_ajax', 'load_ajax') ;
 add_action( 'wp_ajax_load_ajax', 'load_ajax' );
-
 function load_ajax() {
 	header( 'Content-Type: text/html' );
 	global $post;
@@ -19,6 +25,104 @@ function load_ajax() {
 	// get_template_part( '' );
 
 	wp_die();
+}
+
+/**
+ * get_posts_ajax
+ * 
+ * Generic HTTP GET response that processes
+ * all the parameter put through the query
+ * to get the posts requested.
+ * 
+ * @since	1.0
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_nopriv_(action)
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/wp_ajax_(action)
+ * @return	string
+ */
+add_action( 'wp_ajax_nopriv_get_posts_ajax', 'get_posts_ajax') ;
+add_action( 'wp_ajax_get_posts_ajax', 'get_posts_ajax' );
+function get_posts_ajax() {
+	header( 'Content-Type: text/html' );
+
+	// If nonce is not correct do not send a response
+	if ( ! $_GET[ '_wp_nonce' ] || ! wp_verify_nonce( $_GET[ '_wp_nonce' ], 'NONCE_NAME' ) ) wp_die(); 
+
+	// Get the variables from the GET Request
+	$query_post_type		= isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'POST_TYPE' ); 		// Change POST_TYPE for default post type
+	$query_posts_per_page	= isset( $_GET[ 'posts_per_page' ] ) ? $_GET[ 'posts_per_page' ] : -1;         						// Change -1 to desired amount of posts
+	$query_paged			= isset( $_GET[ 'paged' ] ) ? $_GET[ 'paged' ] : 1;
+	$query_offset			= isset( $_GET[ 'offset' ] ) ? $_GET[ 'offset' ] : 0;
+	$query_order 			= isset( $_GET[ 'order' ] ) ? $_GET[ 'order' ] : 'ASC';
+	$query_order_by			= isset( $_GET[ 'orderby' ] ) ? $_GET[ 'order_by' ] : 'menu_order';
+	$query_p				= isset( $_GET[ 'p' ] ) ? $_GET[ 'p' ] : '';
+	$query_s				= isset( $_GET[ 's' ] ) ? $_GET[ 's' ] : '';
+	$query_post__in			= isset( $_GET[ 'post__in'] ) ? explode( ',', $_GET[ 'post__in' ] ) : array();
+	$query_post__not_in		= isset( $_GET[ 'post__not_in' ] ) ? explode( ',', $_GET[ 'post__not-in' ] ) : array();
+	$query_meta_key			= isset( $_GET[ 'meta_key' ] ) ? $_GET[ 'meta_key' ] : '';
+	$query_meta_value		= isset( $_GET[ 'meta_value' ] ) ? $_GET[ 'meta_value' ] : '';
+
+	// Set arguments for query
+	$args = array(
+		'post_type'			=> $query_post_type,
+		'posts_per_page'	=> $query_posts_per_page,
+		'paged'				=> $query_paged,
+		'offset'			=> $query_offset,
+		'order'				=> $query_order,
+		'orderby'			=> $query_order_by,
+		'p'					=> $query_p,
+		's'					=> $query_s,
+		'post__in'			=> $query_post__in,
+		'post__not_in'		=> $query_post__not_in,
+		'meta_key'			=> $query_meta_key,
+		'meta_value'		=> $query_meta_value,
+		'tax_query'			=> array()
+	);
+
+	// Fields to ignore for taxonomies
+	$excludes = array(
+		'action',
+		'post_type',
+		'posts_per_page',
+		'paged',
+		'offset',
+		'order',
+		'orderby',
+		'p',
+		's',
+		'post__in',
+		'post__not_in',
+		'_wp_nonce',
+		'_wp_referrer'
+	);
+
+	// Loop over remaining query items and pass them as taxonomy filters
+	if ( ! empty( $_GET ) ) {
+		foreach( $_GET as $item => $value ) {
+			if ( ! in_array( $value, $excludes ) ) {
+				$args[ 'tax_query' ][] = array(
+					'taxonomy'			=> $item,
+					'field'				=> 'slug',
+					'terms'				=> $value
+				);		
+			}
+		}
+	}
+
+	// Create a new query
+	$query = new WP_Query( $args );
+
+	// Loop over the query
+	if ( $query->have_posts() ) {
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			$post_type = get_post_type();
+
+			// get_template_part( '' );
+		}
+	}
+
+	// End connection
+	die();
 }
 
 /**
@@ -33,8 +137,8 @@ function get_markers_ajax() {
 
 	// This template can be used to get JSON data for maps.
 	// Fill in the variables below to get the markers of the post type you want.
-	$post_type              = isset( $_GET[ 'post_type' ] ) ? array( $_GET[ 'post_type' ] ) : array( 'POST_TYPE' ); // Change POST_TYPE
-	$posts_per_page         = isset( $_GET[ 'posts_per_page' ] ) ? array( $_GET[ 'posts_per_page' ] ) : -1;         // Change -1 to desired amount of posts
+	$post_type              = isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'POST_TYPE' ); // Change POST_TYPE
+	$posts_per_page         = isset( $_GET[ 'posts_per_page' ] ) ? $_GET[ 'posts_per_page' ] : -1;         // Change -1 to desired amount of posts
 
 	// Arguments for the Query
 	// These can be modified according to the WP_Query Arguments
@@ -59,13 +163,35 @@ function get_markers_ajax() {
 	 * $_GET[ 'TAXONOMY' ] === VALUE
 	 * 
 	 */
-	// if ( isset( $_GET[ 'TAXONOMY' ] ) && $_GET[ 'TAXONOMY' ] !== '' ) {
-	// 	$args[ 'tax_query' ][] = array(
-	// 		'taxonomy'			=> 'TAXONOMY',
-	// 		'field'				=> 'slug',
-	// 		'terms'				=> $_GET[ 'TAXONOMY' ]
-	// 	);
-	// }
+	// Fields to ignore for taxonomies
+	$excludes = array(
+		'action',
+		'post_type',
+		'posts_per_page',
+		'paged',
+		'offset',
+		'order',
+		'orderby',
+		'p',
+		's',
+		'post__in',
+		'post__not_in',
+		'_wp_nonce',
+		'_wp_referrer'
+	);
+
+	// Loop over remaining query items and pass them as taxonomy filters
+	if ( ! empty( $_GET ) ) {
+		foreach( $_GET as $item => $value ) {
+			if ( ! in_array( $item, $excludes ) ) {
+				$args[ 'tax_query' ][] = array(
+					'taxonomy'			=> $item,
+					'field'				=> 'slug',
+					'terms'				=> $value
+				);		
+			}
+		}
+	}
 
 	// Create a results array for storing all the markers.
 	// We only want a few very specific field for the markers like location and title.
@@ -107,7 +233,7 @@ function get_markers_ajax() {
 	$json_result = json_encode( $markers );
 	echo $json_result;
 
-	wp_die();
+	die();
 }
 
 /**
@@ -135,5 +261,5 @@ function post_json_ajax() {
 	// Send back a response
 	echo true;
 	
-	wp_die();
+	die();
 }

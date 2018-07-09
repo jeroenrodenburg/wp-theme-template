@@ -33,6 +33,7 @@
     "gulp-autoprefixer": "^5.0.0",
     "gulp-babel": "^7.0.1",
     "gulp-clean-css": "^3.9.3",
-    "gulp-penthouse": "^0.2.0"
+    "gulp-penthouse": "^0.2.0",
+    "gulp-real-favicon": "^0.3.0"
   }
 }

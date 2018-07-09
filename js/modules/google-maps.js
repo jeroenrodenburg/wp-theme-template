@@ -203,7 +203,7 @@ const addMarker = (position, map) => {
  * @returns {Promise} returns the map object on resolve
  */
 const addMarkers = (markers, map) => {
-	if (markers && markers.length && map && map instanceof google.maps.Map) {
+	if (markers && map && map instanceof google.maps.Map) {
 
 		// Loop over markers and return the promise from addMarker
 		let markerPromises = markers.map(marker => addMarker(marker, map));

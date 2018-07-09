@@ -10,6 +10,9 @@ define( 'ICL_DONT_LOAD_NAVIGATION_CSS', true );
 define( 'ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS', true );
 define( 'ICL_DONT_LOAD_LANGUAGES_JS', true );
 
+// If WPML is not active
+if ( ! function_exists( 'icl_get_languages' ) ) return;
+
 /**
  * the_wpml_lang_switcher
  * 
@@ -19,7 +22,6 @@ define( 'ICL_DONT_LOAD_LANGUAGES_JS', true );
  * @param	string $args The icl_get_languages parameters
  */
 function the_wpml_lang_switcher( $args = 'skip_missing=1' ) {
-	if ( !function_exists( 'icl_get_languages' ) ) return;
 	$langs = icl_get_languages( $args );
 	if ( ! empty( $langs ) ) {
 		$current_lang = '';
@@ -32,7 +34,9 @@ function the_wpml_lang_switcher( $args = 'skip_missing=1' ) {
 			}
 		}
 		echo '<div class="wpml-language-switcher lang js-lang-switcher">' . $current_lang . '<ul>' . $other_langs . '</ul></div>';
+		return true;
 	}
+	return false;
 }
 
 /**
@@ -45,15 +49,15 @@ function the_wpml_lang_switcher( $args = 'skip_missing=1' ) {
  * 
  * @param	string $args The icl_get_languages_parameters
  */
-function the_wpml_lang_toggle( $args = 'skip_missing=0' ) {
-	if ( !function_exists( 'icl_get_languages' ) ) return;
+function get_the_wpml_lang_toggle( $args = 'skip_missing=0' ) {
 	$langs = icl_get_languages( $args );
-    if ( ! empty( $langs ) ) {
+    if ( ! empty( $langs ) && count( $langs ) < 2 ) {
 	    foreach ( $langs as $lang ) {
 		    if ( $lang[ 'active' ] == '0' ) {
 				echo '<div class="wpml-language-toggle lang js-lang-toggle"><a href="' . $lang[ 'url' ] . '" title="' . $lang[ 'native_name' ] . '">' . $lang[ 'language_code' ] . '</a></div';
-				break;
+				return $lang;
 		    }
 	    }
 	}
+	return false;
 }

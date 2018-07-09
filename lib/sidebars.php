@@ -7,12 +7,16 @@
 
 
 /**
- * Register sidebars
+ * register_sidebars
+ * 
+ * Register custom sidebar locations.
+ * Repeat the code in the function to register
+ * multiple sidebars.
  * 
  * @since	1.0
  */
-add_action( 'widgets_init', 'custom_sidebars' );
-function custom_sidebars() {
+add_action( 'widgets_init', 'register_sidebars' );
+function register_sidebars() {
 
 	// $args = array(
 	// 	'id'            => '',

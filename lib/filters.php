@@ -35,6 +35,8 @@ function custom_excerpt_more( $excerpt ) {
  * Add custom string to paginate links
  *
  * @since	1.0
+ * @link	https://developer.wordpress.org/reference/hooks/paginate_links/
+ * @param	string $link
  * @return 	string
  */
 add_filter( 'paginate_links', 'custom_paginate_links', 10, 1 );
@@ -70,11 +72,11 @@ function custom_password_form() {
     $label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
     $o = 
     	'<form class="search" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">
-			<p>' . __( "De inhoud is beveiligd met een wachtwoord. Vul het wachtwoord hieronder in om hem te kunnen bekijken:" ) . '</p>
-			<label for="' . $label . '">' . __( "Wachtwoord:" ) . ' </label>
+			<p>' . __( "De inhoud is beveiligd met een wachtwoord. Vul het wachtwoord hieronder in om hem te kunnen bekijken:", "text_domain" ) . '</p>
+			<label for="' . $label . '">' . __( "Wachtwoord:", "text_domain" ) . ' </label>
 			<div class="search__fields">
 				<input name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" />
-				<input type="submit" name="Submit" value="' . esc_attr__( "Submit" ) . '" />
+				<input type="submit" name="Submit" value="' . esc_attr__( "Verzenden", "text_domain" ) . '" />
 			</div>
 		</form>';
     return $o;
@@ -166,7 +168,7 @@ add_filter( 'max_srcset_image_width', 'custom_max_srcset_image_width', 10, 1 );
 function custom_max_srcset_image_width( $max_width ) {
 
 	// Set new max width
-	// $max_width = 1920;
+	// $max_width = 2560;
 
 	// Return max width
 	return $max_width;
