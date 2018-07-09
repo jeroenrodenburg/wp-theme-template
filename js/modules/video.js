@@ -193,6 +193,7 @@ const setVolumeVideo = (videoElement, volume = 1) => {
  * 
  * @function
  * @since   1.0
+ * @uses	getVideos
  * @param	{(String|HTMLVideoElement[])} videoElements String or result of document.querySelectorAll()
  * @returns {HTMLCollection} An array with all the found video elements on the page
  */
