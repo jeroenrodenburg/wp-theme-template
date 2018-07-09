@@ -79,6 +79,26 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'capability'		=> 'edit_theme_options',
 			'type'				=> 'theme_mod'
 		)
+	);
+	
+	// Cookie code head setting
+	$wp_customize->add_setting(
+		'cookie_code_head',
+		array(
+			'transport'			=> 'refresh',
+			'capability'		=> 'edit_theme_options',
+			'type'				=> 'theme_mod'
+		)
+	);
+	
+	// Cookie code head setting
+	$wp_customize->add_setting(
+		'cookie_code_body',
+		array(
+			'transport'			=> 'refresh',
+			'capability'		=> 'edit_theme_options',
+			'type'				=> 'theme_mod'
+		)
     );
     
     // Cookie section
@@ -114,7 +134,7 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_title',
 			'type'				=> 'text',
-	        'priority'   		=> 2
+	        'priority'   		=> 10
 		)
 	) );
 	
@@ -128,7 +148,7 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_body',
 			'type'				=> 'textarea',
-	        'priority'   		=> 3
+	        'priority'   		=> 20
 		)
     ) );
     
@@ -142,7 +162,7 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_accept_label',
 			'type'				=> 'text',
-	        'priority'   		=> 4
+	        'priority'   		=> 30
 		)
     ) );
     
@@ -156,7 +176,7 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_refuse_label',
 			'type'				=> 'text',
-	        'priority'   		=> 5
+	        'priority'   		=> 40
 		)
     ) );
     
@@ -170,8 +190,72 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_read_more_label',
 			'type'				=> 'text',
-	        'priority'   		=> 6
+	        'priority'   		=> 50
+		)
+	) );
+
+	// Cookie code head textarea control
+	$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize,
+		'cookie_code_head',
+		array(
+			'label'      		=> __( 'Cookie head scripts', 'text_domain' ),
+			'description'		=> __( 'Plaats hier code dat in de head moet verschijnen wanneer de cookie is geaccepteerd', 'text_domain' ),
+			'section'    		=> 'cookie_section',
+			'settings'   		=> 'cookie_code_head',
+			'type'				=> 'textarea',
+	        'priority'   		=> 60
 		)
 	) );
 	
+	// Cookie code body textarea control
+	$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize,
+		'cookie_code_body',
+		array(
+			'label'      		=> __( 'Cookie body scripts', 'text_domain' ),
+			'description'		=> __( 'Plaats hier code dat aan het begin van de body moet verschijnen wanneer de cookie is geaccepteerd', 'text_domain' ),
+			'section'    		=> 'cookie_section',
+			'settings'   		=> 'cookie_code_body',
+			'type'				=> 'textarea',
+	        'priority'   		=> 70
+		)
+    ) );
+	
+}
+
+/**
+ * customizer_preview_js
+ * 
+ * Add JavaScript preview controls
+ * for the customizer.
+ * 
+ * @since	1.0
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/customize_preview_init
+ * 
+ * Tutorial
+ * @link	https://code.tutsplus.com/tutorials/customizer-javascript-apis-getting-started--cms-26838
+ */
+add_action( 'customize_preview_init', 'customizer_preview_scripts' );
+function customizer_preview_scripts() {
+	wp_register_script( 'customizer-preview', get_template_directory_uri() . '/js/admin/customizer-preview.js', false, false, true );
+    wp_enqueue_script( 'customizer-preview' );
+}
+
+/**
+ * customizer_control_js
+ * 
+ * Add JavaScript controls for 
+ * the customizer
+ * 
+ * @since	1.0
+ * @link	https://codex.wordpress.org/Plugin_API/Action_Reference/customize_controls_enqueue_scripts
+ * 
+ * Tutorial
+ * @link	https://code.tutsplus.com/tutorials/customizer-javascript-apis-getting-started--cms-26838
+ */
+add_action( 'customize_controls_enqueue_scripts', 'customizer_control_scripts' );
+function customizer_control_scripts() {
+	wp_register_script( 'customizer-control', get_template_directory_uri() . '/js/admin/customizer-control.js', array( 'jquery' ), false, true );
+	wp_enqueue_script( 'customizer-control' );
 }
