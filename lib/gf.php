@@ -17,7 +17,7 @@
  */
 add_filter( 'gform_submit_button', 'change_submit_button', 10, 2 );
 function change_submit_button( $button, $form ) {
-	return '<button type="submit" class="button" id="gform_submit_button_' . $form['id'] . '">' . $form['button']['text'] . '</button>';
+	return '<button type="submit" class="button" id="gform_submit_button_' . $form[ 'id' ] . '">' . $form[ 'button' ][ 'text' ] . '</button>';
 }
 
 /**
@@ -26,4 +26,4 @@ function change_submit_button( $button, $form ) {
  * @since	1.0
  * @link	https://docs.gravityforms.com/gform_init_scripts_footer/
  */
-add_filter( 'gform_init_scripts_footer', '__return_true');
+add_filter( 'gform_init_scripts_footer', '__return_true' );
