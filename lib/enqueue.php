@@ -174,7 +174,7 @@ function theme_scripts() {
 	// wp_enqueue_script( 'packery' );
 
 	/**
-	 * aos - Animate On Scroll
+	 * Animate On Scroll
 	 * @link	https://github.com/michalsnik/aos
 	 */
 	// wp_register_script( 'aos', '//cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js', false, '2.1.1', true );
@@ -207,8 +207,8 @@ function theme_scripts() {
 	// $gmaps_api_key = '';
 	// $gmaps_libraries = array( 'geometry', 'places' );
 	// $gmaps_callback = '';
-	// if ( !empty( $libraries ) ) $gmaps_api_key .= '&libraries=' . join(',', $gmaps_libraries);
-	// if ( !empty( $callback ) ) $gmaps_api_key .= '&callback=' . $gmaps_callback;
+	// if ( ! empty( $gmaps_libraries ) ) $gmaps_api_key .= '&libraries=' . implode( ',', $gmaps_libraries );
+	// if ( ! empty( $gmaps_callback ) ) $gmaps_api_key .= '&callback=' . $gmaps_callback;
 	// wp_register_script( 'google-maps', '//maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key, false, false, true );
 	// wp_enqueue_script( 'google-maps');
 
