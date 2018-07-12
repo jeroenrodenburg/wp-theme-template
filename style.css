@@ -250,11 +250,11 @@ p > a {
 }
 
 ul {
-
+	list-style: disc;
 }
 
 ol {
-
+	list-style: decimal-leading-zero
 }
 
 ul > li {
