@@ -82,6 +82,7 @@ function get_featured_media_urls_callback( $object, $field_name, $request ) {
 		foreach ( $sizes as $size ) {
 			array_push( $urls, get_the_post_thumbnail_url( $id, $size ) );
 		}
+
 	}
 
 	// Return the URLs list
@@ -129,7 +130,9 @@ function get_terms_of_post_callback( $object, $field_name, $request ) {
 
 				}
 			}
+
 		}
+
 	}
 
 	// Return the taxonomies list
