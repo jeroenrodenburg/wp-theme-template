@@ -10,17 +10,17 @@
 <html lang="<?php bloginfo( 'language' ); ?>" class="no-js">
 	<head>
 		<title><?php bloginfo( 'name' ); ?></title>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta http-equiv="cleartype" content="on">
+		<meta charset="<?php bloginfo( 'charset' ); ?>"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<meta http-equiv="cleartype" content="on"/>
 		
 		<!-- Apple fullscreen mode -->
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes"/>
+		<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 		
 		<!-- Android PWA mode -->
-		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="mobile-web-app-capable" content="yes"/>
 		
 		<!-- Google+ -->
 	    <meta itemprop="name" content="<?php the_title(); ?>"/>
@@ -47,12 +47,27 @@
 	    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri() . '/media/favicons/favicon-16x16.png'; ?>">
 	    <link rel="manifest" href="<?php echo get_template_directory_uri() . '/media/favicons/manifest.json'; ?>">
 	    <link rel="mask-icon" href="<?php echo get_template_directory_uri() . '/media/favicons/safari-pinned-tab.svg'; ?>" color="#333333">
-	    <meta name="theme-color" content="#ffffff">
+	    <meta name="theme-color" content="#ffffff"/>
 	    
 	    <!-- JS is active -->
 	    <script>
 			document.documentElement.classList.remove('no-js');
 	    </script>
+
+		<!-- Link Preload fallback -->
+		<script>
+			function preloadFallback() {
+				var i = 0,
+					links = document.getElementsByTagName(link);
+				for(var i; i < links.length; i += 1) {
+					var el = links[i];
+					if (el.hasAttribute('as')) el.setAttribute('rel', el.getAttribute('as'));
+				}
+				return links;
+			}
+			var link = document.createElement('link');
+			if (!('as' in link)) preloadFallback();
+		</script>
 		
 		<?php wp_head(); ?>
 	</head>
