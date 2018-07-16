@@ -1,6 +1,6 @@
 <?php
 /**
- * Theme:				
+ * Theme:				Work At Textkernel
  * Template:			customizer.php
  * Description:			Customizer modifications
  */
@@ -28,6 +28,17 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'transport'			=> 'refresh',
 			'capability'		=> 'edit_theme_options',
 			'type'				=> 'theme_mod'
+		)
+	);
+	
+	// Cookie name setting
+	$wp_customize->add_setting(
+		'cookie_name',
+		array(
+			'transport'			=> 'refresh',
+			'capability'		=> 'edit_theme_options',
+			'type'				=> 'theme_option',
+			'default'			=> 'wp-control-cookie'
 		)
 	);
 	
@@ -80,6 +91,17 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'type'				=> 'theme_mod'
 		)
 	);
+
+	// Cookie expiration date setting
+	$wp_customize->add_setting(
+		'cookie_expiration_date',
+		array(
+			'transport'			=> 'refresh',
+			'capability'		=> 'edit_theme_options',
+			'type'				=> 'theme_mod',
+			'default'			=> '365'
+		)
+	);
 	
 	// Cookie code head setting
 	$wp_customize->add_setting(
@@ -120,7 +142,21 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_active',
 			'type'				=> 'checkbox',
-	        'priority'   		=> 1
+	        'priority'   		=> 10
+		)
+	) );
+	
+	// Cookie title text input control
+	$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize,
+		'cookie_name',
+		array(
+			'label'      		=> __( 'Naam', 'text_domain' ),
+			'description'		=> __( 'De naam van de cookie dat wordt opgeslagen. Verander deze alleen wanneer er conflicten zijn met andere cookies.', 'text_domain' ),
+			'section'    		=> 'cookie_section',
+			'settings'   		=> 'cookie_name',
+			'type'				=> 'text',
+	        'priority'   		=> 20
 		)
 	) );
 	
@@ -129,12 +165,12 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'cookie_title',
 		array(
-			'label'      		=> __( 'Cookie titel', 'text_domain' ),
-			'description'		=> __( 'Vul hier de titel in van de cookie', 'text_domain' ),
+			'label'      		=> __( 'Titel', 'text_domain' ),
+			'description'		=> __( 'Vul hier de titel in van het cookie bericht.', 'text_domain' ),
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_title',
 			'type'				=> 'text',
-	        'priority'   		=> 10
+	        'priority'   		=> 20
 		)
 	) );
 	
@@ -143,12 +179,12 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'cookie_body',
 		array(
-			'label'      		=> __( 'Cookie body', 'text_domain' ),
-			'description'		=> __( 'Vul hier de body in van de cookie', 'text_domain' ),
+			'label'      		=> __( 'Inhoud', 'text_domain' ),
+			'description'		=> __( 'Vul hier de teksten in van het cookie bericht.', 'text_domain' ),
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_body',
 			'type'				=> 'textarea',
-	        'priority'   		=> 20
+	        'priority'   		=> 30
 		)
     ) );
     
@@ -157,12 +193,12 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'cookie_accept_label',
 		array(
-			'label'      		=> __( 'Cookie accepteer knop', 'text_domain' ),
-			'description'		=> __( 'Label van de accepteer knop', 'text_domain' ),
+			'label'      		=> __( 'Accepteer knop', 'text_domain' ),
+			'description'		=> __( 'Label van de accepteer knop.', 'text_domain' ),
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_accept_label',
 			'type'				=> 'text',
-	        'priority'   		=> 30
+	        'priority'   		=> 40
 		)
     ) );
     
@@ -171,12 +207,12 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'cookie_refuse_label',
 		array(
-			'label'      		=> __( 'Cookie weiger knop', 'text_domain' ),
-			'description'		=> __( 'Label van de weiger knop', 'text_domain' ),
+			'label'      		=> __( 'Weiger knop', 'text_domain' ),
+			'description'		=> __( 'Label van de weiger knop.', 'text_domain' ),
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_refuse_label',
 			'type'				=> 'text',
-	        'priority'   		=> 40
+	        'priority'   		=> 50
 		)
     ) );
     
@@ -185,12 +221,34 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'cookie_read_more_label',
 		array(
-			'label'      		=> __( 'Cookie lees meer knop', 'text_domain' ),
-			'description'		=> __( 'Label van de lees meer knop', 'text_domain' ),
+			'label'      		=> __( 'Lees meer knop', 'text_domain' ),
+			'description'		=> __( 'Label van de lees meer knop.', 'text_domain' ),
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_read_more_label',
 			'type'				=> 'text',
-	        'priority'   		=> 50
+	        'priority'   		=> 60
+		)
+	) );
+
+	// Cookie expiration select controls
+	$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize,
+		'cookie_expiration_date',
+		array(
+			'label'      		=> __( 'Houdbaarheid van cookie', 'text_domain' ),
+			'description'		=> __( 'Selecteer de periode van houdbaarheid.', 'text_domain' ),
+			'section'    		=> 'cookie_section',
+			'settings'   		=> 'cookie_expiration_date',
+			'type'				=> 'select',
+			'choices'			=> array(
+				'1'					=> __( '1 dag', 'text_domain' ),
+				'7'					=> __( '1 Week', 'text_domain' ),
+				'30'				=> __( '1 maand', 'text_domain' ),
+				'91'				=> __( '3 maanden', 'text_domain' ),
+				'182'				=> __( '6 maanden', 'text_domain' ),
+				'365'				=> __( '1 jaar', 'text_domain' )
+			),
+	        'priority'   		=> 70
 		)
 	) );
 
@@ -199,12 +257,12 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'cookie_code_head',
 		array(
-			'label'      		=> __( 'Cookie head scripts', 'text_domain' ),
+			'label'      		=> __( 'Head scripts', 'text_domain' ),
 			'description'		=> __( 'Plaats hier code dat in de head moet verschijnen wanneer de cookie is geaccepteerd', 'text_domain' ),
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_code_head',
 			'type'				=> 'textarea',
-	        'priority'   		=> 60
+	        'priority'   		=> 80
 		)
 	) );
 	
@@ -213,12 +271,12 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		$wp_customize,
 		'cookie_code_body',
 		array(
-			'label'      		=> __( 'Cookie body scripts', 'text_domain' ),
+			'label'      		=> __( 'Body scripts', 'text_domain' ),
 			'description'		=> __( 'Plaats hier code dat aan het begin van de body moet verschijnen wanneer de cookie is geaccepteerd', 'text_domain' ),
 			'section'    		=> 'cookie_section',
 			'settings'   		=> 'cookie_code_body',
 			'type'				=> 'textarea',
-	        'priority'   		=> 70
+	        'priority'   		=> 90
 		)
     ) );
 	
