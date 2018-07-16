@@ -40,12 +40,21 @@ function custom_style_attributes( $html, $handle, $href, $media ) {
  */
 add_filter( 'script_loader_tag', 'custom_script_attributes', 10, 3 );
 function custom_script_attributes( $tag, $handle, $src ) {
+
 	// Select a script handle to modify
-	$attr = 'async';
-	$handles = array( 'script' );
-	if ( in_array( $handle, $handles ) && THEME_DEV_MODE === false ) {
-		return '<script src="' . $src . '" type="text/javascript" ' . $attr . '></script>';
+	$async_attr = 'async';
+	$async_handles = array( 'script' );
+	if ( in_array( $handle, $async_handles ) && THEME_DEV_MODE === false ) {
+		return '<script src="' . $src . '" type="text/javascript" ' . $async_attr . '></script>';
 	}
+
+	// Select a script handle to modify
+	$defer_attr = 'defer';
+	$defer_handles = array( 'google-maps' );
+	if ( in_array( $handle, $defer_handles ) && THEME_DEV_MODE === false ) {
+		return '<script src="' . $src . '" type="text/javascript" ' . $defer_attr . '></script>';
+	}
+
 	return $tag;
 }
 
@@ -212,6 +221,27 @@ function theme_scripts() {
 	// wp_register_script( 'google-maps', '//maps.googleapis.com/maps/api/js?key=' . $gmaps_api_key, false, false, true );
 	// wp_enqueue_script( 'google-maps');
 
+	/**
+	 * Cookies
+	 * 
+	 * This loads the scripts necessary to handle
+	 * the storing and fetching of the cookies
+	 */
+	$cookie_active = get_theme_mod( 'cookie_active' );
+	if ( $cookie_active ) {
+		wp_register_script( 'cookie', get_template_directory_uri() . '/js/cookies/cookies.js', false, false, true );
+		wp_localize_script( 'cookie', 'cookieArgs', array(
+			'name'				=> get_theme_mod( 'cookie_name' ),
+			'expire'			=> get_theme_mod( 'cookie_expiration_date' )
+		) );
+	}
+
+	/**
+	 * Script
+	 * 
+	 * This file includes the general script of handling
+	 * interactions and DOM modifications
+	 */
 	wp_register_script( 'script', get_template_directory_uri() . '/dist/js/script.js', false, false, true );
 	wp_localize_script( 'script', 'wp', array( 
 		'ajax' 			=> admin_url( 'admin-ajax.php' ), 
