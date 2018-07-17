@@ -270,7 +270,7 @@
 			toggleCookieNotice(cookieNotice);
 			let appendHeadPromise = appendToHead(getCookieScripts(cookieArgs.head));
 			let appendBodyPromise = appendToBody(getCookieScripts(cookieArgs.body));
-			Promise.all(appendHeadPromise, appendBodyPromise).then(() => {
+			Promise.all([appendHeadPromise, appendBodyPromise]).then(() => {
 				console.info('Scripts have been added');
 			});
 		}
