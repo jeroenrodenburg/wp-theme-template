@@ -70,5 +70,13 @@
 		</script>
 		
 		<?php wp_head(); ?>
+		<?php get_template_part( './inc/cookies/cookies', 'head' ); ?>
 	</head>
 	<body <?php body_class(); ?>>
+		<?php get_template_part( './inc/cookies/cookies', 'body' ); ?>
+
+		<!-- Splash -->
+		<?php get_template_part( './inc/loader/splash' ); ?>
+
+		<!-- Hero Default -->
+		<?php get_template_part( './inc/hero/hero', 'default' ); ?>
