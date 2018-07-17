@@ -107,49 +107,6 @@ const post = (url, params, callback) => {
 };
 
 /**
- * parseHTML
- * 
- * Parse string to HTML with a DOMParser
- * function.
- * 
- * @function
- * @since 	1.0
- * @param 	{String} data - String to convert to workable HTML
- * @returns {HTMLElement}
- */
-const parseHTML = (data) => {
-	if (data && 'string' === typeof data) {
-    	if ('DOMParser' in window) {
-			let parser = new DOMParser();
-			return parser.parseFromString(data, 'text/html');
-    	} else {
-			throw new Error('DOMParser not supported. Use stringToHTML() function instead');
-		}
-	}
-};
-
-/**
- * stringToHTML
- * 
- * Parse string to HTML by adding a string
- * to the innerHTML of a div element
- * 
- * @function
- * @since 	1.0
- * @param 	{String} data - String to convert to workable HTML
- * @returns {HTMLElement}
- */
-const stringToHTML = (data) => {
-	if (data && 'string' === typeof data) {
-		let container = document.createElement('div');
-		container.innerHTML = data;
-		return container;
-	} else {
-		throw new Error('data argument is not present or not a string');
-	}
-};
-
-/**
  * DONT USE THIS ONE YET
  * 
  * Async GET request with optional data
