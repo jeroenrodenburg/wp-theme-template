@@ -484,7 +484,7 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
  */
 add_action( 'customize_preview_init', 'customizer_preview_scripts' );
 function customizer_preview_scripts() {
-	wp_register_script( 'customizer-preview', get_template_directory_uri() . '/js/admin/customizer-preview.js', false, false, true );
+	wp_register_script( 'customizer-preview', get_template_directory_uri() . '/js/admin/customizer-preview.js', array( 'jquery' ), false, true );
     wp_enqueue_script( 'customizer-preview' );
 }
 
