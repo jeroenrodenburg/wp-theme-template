@@ -1,9 +1,14 @@
 # gitignore for wp-theme-template
 
-# ignore node and gulp packages
+# Folders
+dist
 node_modules
-package-lock.json
+
+# Random generated files
 .DS_Store
 .env
 thumbs.db
+
+# NPM files
 npm-debug.log
+package-lock.json
