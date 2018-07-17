@@ -7,7 +7,7 @@
 
 
 /**
- * navigation_menus
+ * theme_menus
  * 
  * Register navigation menus. Repeat the 
  * register_nav_menu function to register
@@ -15,8 +15,8 @@
  * 
  * @since	1.0
  */
-add_action( 'after_setup_theme', 'navigation_menus' );
-function navigation_menus() {
+add_action( 'after_setup_theme', 'theme_menus' );
+function theme_menus() {
 
 	// register_nav_menu( '', __( '', 'text_domain' ) );
 

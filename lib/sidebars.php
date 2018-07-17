@@ -7,7 +7,7 @@
 
 
 /**
- * register_sidebars
+ * custom_sidebars
  * 
  * Register custom sidebar locations.
  * Repeat the code in the function to register
@@ -15,8 +15,8 @@
  * 
  * @since	1.0
  */
-add_action( 'widgets_init', 'register_sidebars' );
-function register_sidebars() {
+add_action( 'widgets_init', 'theme_sidebars' );
+function theme_sidebars() {
 
 	// $args = array(
 	// 	'id'            => '',
