@@ -11,7 +11,7 @@
  * 
  * @since	1.0
  */
-add_action( 'init', 'cleaup_wp_head', 10 );
+add_action( 'init', 'cleanup_wp_head', 10 );
 function cleanup_wp_head() {
 	remove_action( 'wp_head', 'feed_links_extra', 3 ); // Display the links to the extra feeds such as category feeds
 	remove_action( 'wp_head', 'feed_links', 2 ); // Display the links to the general feeds: Post and Comment Feed
