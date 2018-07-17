@@ -704,6 +704,69 @@ button[type="reset"]:active {
 
 
 /* ==============================================================================
+	COOKIES
+============================================================================= */
+
+#cookie {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 350ms ease-in-out, visibility 350ms ease-in-out;
+}
+
+#cookie.hidden {
+	opacity: 0;
+	visibility: hidden;
+}
+
+html.no-js #cookie,
+html.no-js #cookie.hidden {
+	opacity: 1;
+	visibility: visible;
+}
+
+#cookie .cookie__wrapper {
+
+}
+
+#cookie .cookie__container {
+
+}
+
+#cookie .cookie__header {
+
+}
+
+#cookie .cookie__body {
+
+}
+
+#cookie .cookie__buttons {
+
+}
+
+#cookie .cookie__button {
+
+}
+
+#cookie .cookie__button.cookie__button--accept {
+	
+}
+
+#cookie .cookie__button.cookie__button--refuse{
+	
+}
+
+#cookie .cookie__button.cookie__button--revoke {
+	
+}
+
+#cookie-revoke {
+
+}
+
+
+
+/* ==============================================================================
 	MEDIA QUERIES
 ============================================================================= */
 
