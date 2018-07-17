@@ -290,7 +290,30 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'type'				=> 'textarea',
 	        'priority'   		=> 40
 		)
-    ) );
+	) );
+	
+	// Cookie expiration date select controls
+	$wp_customize->add_control( new WP_Customize_Control(
+		$wp_customize,
+		'cookie_expiration_date',
+		array(
+			'label'      		=> __( 'Houdbaarheid van cookie', 'text_domain' ),
+			'description'		=> __( 'Selecteer de periode van houdbaarheid.', 'text_domain' ),
+			'section'    		=> 'cookie_general_section',
+			'settings'   		=> 'cookie_expiration_date',
+			'type'				=> 'select',
+			'choices'			=> array(
+				1					=> __( '1 dag', 'text_domain' ),
+				7					=> __( '1 Week', 'text_domain' ),
+				30					=> __( '1 maand', 'text_domain' ),
+				91					=> __( '3 maanden', 'text_domain' ),
+				182					=> __( '6 maanden', 'text_domain' ),
+				365					=> __( '1 jaar', 'text_domain' ),
+
+			),
+	        'priority'   		=> 50
+		)
+	) );
     
     // Cookie accept label text input control
 	$wp_customize->add_control( new WP_Customize_Control(
@@ -302,7 +325,7 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 			'section'    		=> 'cookie_general_section',
 			'settings'   		=> 'cookie_accept_label',
 			'type'				=> 'text',
-	        'priority'   		=> 50
+	        'priority'   		=> 60
 		)
 	) );
 
@@ -389,29 +412,6 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		)
 	) );
 
-	// Cookie expiration select controls
-	$wp_customize->add_control( new WP_Customize_Control(
-		$wp_customize,
-		'cookie_expiration_date',
-		array(
-			'label'      		=> __( 'Houdbaarheid van cookie', 'text_domain' ),
-			'description'		=> __( 'Selecteer de periode van houdbaarheid.', 'text_domain' ),
-			'section'    		=> 'cookie_general_section',
-			'settings'   		=> 'cookie_expiration_date',
-			'type'				=> 'select',
-			'choices'			=> array(
-				1					=> __( '1 dag', 'text_domain' ),
-				7					=> __( '1 Week', 'text_domain' ),
-				30					=> __( '1 maand', 'text_domain' ),
-				91					=> __( '3 maanden', 'text_domain' ),
-				182					=> __( '6 maanden', 'text_domain' ),
-				365					=> __( '1 jaar', 'text_domain' ),
-
-			),
-	        'priority'   		=> 40
-		)
-	) );
-
 	// Cookie revoke active checkbox control
 	$wp_customize->add_control( new WP_Customize_Control(
 		$wp_customize,
@@ -426,7 +426,7 @@ function theme_customizer_register( WP_Customize_Manager $wp_customize ) {
 		)
 	) );
 
-	// Cookie read more label text input control
+	// Cookie revoke label text input control
 	$wp_customize->add_control( new WP_Customize_Control(
 		$wp_customize,
 		'cookie_revoke_label',
