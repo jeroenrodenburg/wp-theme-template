@@ -21,21 +21,43 @@ function get_cookie( $cookie_name ) {
 }
 
 /**
- * set_cookie_consent()
+ * set_cookie
  * 
- * Set a cookie when it is sent with a POST request.
- * 
- * @since	1.0
+ * Form handler for setting the cookie
+ * Sets the cookie through php and redirects
+ * the user back to the page.
  */
-add_action( 'init', 'set_cookie_consent' );
-function set_cookie_consent() {
+add_action( 'admin_post_set_cookie', 'set_cookie' );
+add_action( 'admin_post_nopriv_set_cookie', 'set_cookie' );
+function set_cookie() {
 
-	// Modify cookie_name for current site
-	$cookie_name = 'cookie-consent';
+	// If nonce is not there or invalid
+	if ( ! isset( $_POST[ '_wp_nonce' ] ) || ! wp_verify_nonce( $_POST[ '_wp_nonce' ], 'cookie' ) ) wp_die();
+
+	// Expiration date of cookie
+	$cookie_expiration_date = intval( get_theme_mod( 'cookie_expiration_date' ) );
+
+	// Value of cookie
+	$cookie_value = '';
 	
-	// Set the cookie if a POST is sent with the cookie name.
-	if ( isset( $_POST[ $cookie_name ] ) ) {
-		setcookie( $cookie_name, $_POST[ $cookie_name ], time() + 3600 * 24 * 356, '/' );
+	if ( isset( $_POST[ 'accept' ] ) ) {
+		$cookie_value = 'true';
 	}
-	
+
+	if ( isset( $_POST[ 'refuse' ] ) ) {
+		$cookie_value = 'false';
+	}
+
+	// Referrer URL
+	$referrer = esc_url( $_POST[ '_wp_referrer' ] );
+
+	// Set the cookie if a POST is sent with the cookie name.
+	if ( isset( $_POST[ 'cookie_name' ] ) ) {
+		setcookie( $_POST[ 'cookie_name' ], $cookie_value, (time() + 60 * 60 * 24 * $cookie_expiration_date), '/' );
+	}
+
+	// Redirect to thank you page
+	wp_redirect( $referrer );
+	exit;
+
 }
