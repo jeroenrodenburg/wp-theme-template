@@ -5,6 +5,7 @@ const gulp = require('gulp');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const babel = require('gulp-babel');
+const minify = require('gulp-babel-minify');
 const criticalCSS = require('gulp-penthouse');
 const realFavicon = require('gulp-real-favicon');
 
@@ -46,6 +47,7 @@ gulp.task('js', () => {
 		.pipe(babel({
 			presets: ['env']
 		}))
+		.pipe(minify())
 		.pipe(gulp.dest('./dist/js/'));
 });
 
