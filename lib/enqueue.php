@@ -101,7 +101,13 @@ function theme_styles() {
 	// wp_register_style( 'aos', '//cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css', false, '2.1.1', 'all' );
 	// wp_enqueue_style( 'aos' );
 
-	wp_register_style( 'style', get_template_directory_uri() . '/dist/css/style.css', false, false, 'all' );
+	/**
+	 * Style
+	 * 
+	 * Main stylesheet of this theme
+	 */
+	$style_path = THEME_DEV_MODE ? '/' : '/dist/css/';
+	wp_register_style( 'style', get_template_directory_uri() . $style_path . 'style.css', false, false, 'all' );
 	wp_enqueue_style( 'style' );
 
 }
@@ -245,7 +251,8 @@ function theme_scripts() {
 	 * This file includes the general script of handling
 	 * interactions and DOM modifications
 	 */
-	wp_register_script( 'script', get_template_directory_uri() . '/dist/js/script.js', false, false, true );
+	$script_path = THEME_DEV_MODE ? '/js/' : '/dist/js/';
+	wp_register_script( 'script', get_template_directory_uri() . $script_path . 'script.js', false, false, true );
 	wp_localize_script( 'script', 'wp', array( 
 		'ajax' 			=> admin_url( 'admin-ajax.php' ), 
 		'theme' 		=> get_template_directory_uri(),
