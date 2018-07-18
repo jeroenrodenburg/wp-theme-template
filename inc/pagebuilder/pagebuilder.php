@@ -18,7 +18,7 @@ if ( have_rows( $pagebuilder ) ) {
 		$template = get_row_layout();
 
 		// Get template with the name of the template
-		get_template_part( 'inc/pagebuilder/pagebuilder', $template );
+		get_template_part( './inc/pagebuilder/pagebuilder', $template );
 	}
 }
 
