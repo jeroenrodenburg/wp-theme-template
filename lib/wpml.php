@@ -47,9 +47,9 @@ function the_wpml_lang_switcher( $args = 'skip_missing=1' ) {
  * 
  * NOTE: Only works with 2 languages
  * 
- * @param	string $args The icl_get_languages_parameters
+ * @param	string $args The icl_get_languages parameters
  */
-function get_the_wpml_lang_toggle( $args = 'skip_missing=0' ) {
+function the_wpml_lang_toggle( $args = 'skip_missing=0' ) {
 	$langs = icl_get_languages( $args );
     if ( ! empty( $langs ) && count( $langs ) < 2 ) {
 	    foreach ( $langs as $lang ) {
