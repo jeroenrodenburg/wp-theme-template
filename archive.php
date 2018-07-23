@@ -5,6 +5,9 @@
  * Description:			
  */
 
+$title 		= get_option( 'theme-archives-title' );
+$content 	= get_option( 'theme-archives-content' );
+
 get_header();
 ?>
 

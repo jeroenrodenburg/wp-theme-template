@@ -25,20 +25,6 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 		'redirect'		=> false
 	) );
 
-	// 404
-	acf_add_options_sub_page( array(
-		'page_title'	=> '404 Page',
-		'menu_title'	=> '404',
-		'parent_slug'	=> $parent[ 'menu_slug' ]
-	) );
-
-	// Cookies
-	acf_add_options_sub_page( array(
-		'page_title'	=> 'Cookies',
-		'menu_title'	=> 'Cookies',
-		'parent_slug'	=> $parent[ 'menu_slug' ]
-	) );
-
 }
 
 /**
