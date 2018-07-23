@@ -141,7 +141,6 @@ function theme_page_form() {
 	echo 
 	'<div class="wrap">
 		<h1 class="wp-heading-inline">' . get_admin_page_title() . '</h1>
-			<p>' . __( 'Hier is het mogelijk om de inhoud van deze pagina aan te passen.', 'text_domain' ) . '</p>
 			<hr class="wp-header-end">
 			<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-1">
