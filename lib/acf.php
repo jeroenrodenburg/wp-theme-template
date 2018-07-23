@@ -28,6 +28,8 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 }
 
 /**
+ * acf_register_google_maps_api_key
+ * 
  * Google Maps API key
  * Adds Google Map functionality to ACF
  * 
@@ -36,8 +38,8 @@ if ( function_exists( 'acf_add_options_page' ) ) {
  * 
  * @since	1.0
  */
-add_action( 'acf/init', 'my_acf_init' );
-function my_acf_init() {
+add_action( 'acf/init', 'acf_register_google_maps_api_key' );
+function acf_register_google_maps_api_key() {
 
 	// Google maps API Key
 	$google_maps_api_key = '';
