@@ -258,7 +258,8 @@ function theme_scripts() {
 		'theme' 		=> get_template_directory_uri(),
 		'postType' 		=> get_post_type(),
 		'postId'		=> get_the_id(),
-		'pageTemplate'	=> get_page_template_slug()
+		'pageTemplate'	=> get_page_template_slug(),
+		'security'		=> wp_create_nonce( 'wp_ajax_nonce' )
 	) );
 	wp_enqueue_script( 'script' );
 

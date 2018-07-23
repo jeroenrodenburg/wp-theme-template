@@ -247,12 +247,25 @@ add_action( 'wp_ajax_nopriv_post_json_ajax', 'post_json_ajax' );
 add_action( 'wp_ajax_post_json_ajax', 'post_json_ajax' );
 function post_json_ajax() {
 	header( 'Content-Type: text/html' );
+
+	/**
+	 * Check security of request
+	 * 
+	 * The first parameter is the name of
+	 * the nonce it has to check.
+	 * The second parameter is the name 
+	 * of the $_POST argument
+	 * 
+	 * @example 
+	 * $_POST[ 'security' ] is the name to check
+	 */
+	check_ajax_referer( 'wp_ajax_nonce', 'security' );
 	
 	// Get the JSON file that is sent
-	$query = file_get_contents( 'php://input' );
+	$data = file_get_contents( 'php://input' );
 
 	// Decode the JSON to workable PHP
-	$json = json_decode( $query );
+	$json = json_decode( $data );
 
 	/**
 	 * Do some thing here with the $json data
