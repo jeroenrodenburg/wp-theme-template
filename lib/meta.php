@@ -11,6 +11,7 @@
  * 
  * Retrieves the 'post_views_count' meta field of a post.
  * 
+ * @since   1.0
  * @param   WP_Post $post
  * @return  string
  */
