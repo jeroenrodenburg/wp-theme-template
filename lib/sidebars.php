@@ -7,7 +7,7 @@
 
 
 /**
- * custom_sidebars
+ * theme_sidebars
  * 
  * Register custom sidebar locations.
  * Repeat the code in the function to register
