@@ -187,7 +187,7 @@ class Social_Widget extends WP_Widget {
 		$google 		= isset( $instance[ 'google' ] ) ? esc_attr( $instance[ 'google' ] ) : '';
 		$linkedin 		= isset( $instance[ 'linkedin' ] ) ? esc_attr( $instance[ 'linkedin' ] ) : '';
 		$youtube 		= isset( $instance[ 'youtube' ] ) ? esc_attr( $instance[ 'youtube' ] ) : '';
-		$show_title 	= isset( $instance[ 'show_title' ] ) ? $instance[ 'show_title' ] === 'on' ? true : false : false;
+		$show_labels 	= isset( $instance[ 'show_labels' ] ) ? $instance[ 'show_labels' ] === 'on' ? true : false : false;
 		
 		echo $args['before_widget'];
 		
@@ -198,13 +198,13 @@ class Social_Widget extends WP_Widget {
 			echo '<div class="socials">';
 				echo '<ul class="socials__list">';
 					
-					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i class="' . $type . ' fa-facebook"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
-					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i class="' . $type . ' fa-twitter"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
-					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i class="' . $type . ' fa-instagram"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
-					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i class="' . $type . ' fa-pinterest"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
-					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i class="' . $type . ' fa-google-plus"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
-					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i class="' . $type . ' fa-linkedin"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
-					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i class="' . $type . ' fa-youtube"></i></div>' . ( ( $show_title === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
+					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i class="' . $type . ' fa-facebook"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
+					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i class="' . $type . ' fa-twitter"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
+					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i class="' . $type . ' fa-instagram"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
+					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i class="' . $type . ' fa-pinterest"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
+					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i class="' . $type . ' fa-google-plus"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
+					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i class="' . $type . ' fa-linkedin"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
+					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i class="' . $type . ' fa-youtube"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
 	
 				echo '</ul>';
 			echo '</div>';
@@ -227,7 +227,7 @@ class Social_Widget extends WP_Widget {
 		$google 		= ! empty( $instance[ 'google' ] ) ? $instance[ 'google' ] : '';
 		$linkedin 		= ! empty( $instance[ 'linkedin' ] ) ? $instance[ 'linkedin' ] : '';
 		$youtube 		= ! empty( $instance[ 'youtube' ] ) ? $instance[ 'youtube' ] : '';
-		$show_title 	= ! empty( $instance[ 'show_title' ] ) ? 'on' : ''; ?>
+		$show_labels 	= ! empty( $instance[ 'show_labels' ] ) ? 'on' : ''; ?>
 		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
@@ -270,8 +270,8 @@ class Social_Widget extends WP_Widget {
 			<input type="url" class="widefat" id="<?php echo $this->get_field_id( 'youtube' ); ?>" name="<?php echo $this->get_field_name( 'youtube' ); ?>" value="<?php echo esc_attr( $youtube ); ?>" />
 		</p>
 		<p>
-			<label for"<?php echo $this->get_field_id( 'show_title' ); ?>">Toon titel</label>
-			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_title' ); ?>" name="<?php echo $this->get_field_name( 'show_title' ); ?>" <?php checked( esc_attr( $show_title ), 'on' ); ?> />
+			<label for"<?php echo $this->get_field_id( 'show_labels' ); ?>">Toon labels van social links</label>
+			<input type="checkbox" class="checkbox" id="<?php echo $this->get_field_id( 'show_labels' ); ?>" name="<?php echo $this->get_field_name( 'show_labels' ); ?>" <?php checked( esc_attr( $show_labels ), 'on' ); ?> />
 		</p>
 		
 		<?php
@@ -296,7 +296,7 @@ class Social_Widget extends WP_Widget {
 		$instance[ 'google' ] 		= strip_tags( $new_instance[ 'google' ] );
 		$instance[ 'linkedin' ] 	= strip_tags( $new_instance[ 'linkedin' ] );
 		$instance[ 'youtube' ] 		= strip_tags( $new_instance[ 'youtube' ] );
-		$instance[ 'show_title' ] 	= strip_tags( $new_instance[ 'show_title' ] );
+		$instance[ 'show_labels' ] 	= strip_tags( $new_instance[ 'show_labels' ] );
 		return $instance;
 	}
 }
