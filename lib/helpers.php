@@ -31,23 +31,51 @@ function the_logo() {
 }
 
 /**
- * Outputs the post taxonomy terms, seperated with comma's
- *
- * @param 	object $post
- * @param 	string $category
- * @param 	array $args
- * @param 	string $delimiter
+ * get_the_post_term_names
+ * 
+ * Returns an array with the names
+ * of the terms of a taxonomy of the 
+ * current or given post.
+ * 
+ * @link	https://codex.wordpress.org/Function_Reference/wp_get_post_terms
+ * 
+ * @param	WP_Post $post - Current post object
+ * @param	string $taxonomy - Taxonomy to get the terms from
+ * @param	array $args - Arguments array for the wp_get_post_terms function
+ * @return	array - Array with the names of the posts
  */
-function the_post_terms( $post, $category, $args = array('orderby' => 'name', 'order' => 'ASC', 'fields' => 'all'), $delimiter = ', ' ) {
-    $terms = wp_get_post_terms( $post->ID, $category, $args );
-    if ( $terms && ! is_wp_error( $terms )) {
-        $subjects_list = array();
-        foreach( $terms as $term ) {
-            $subjects_list[] = $term->name;
+function get_the_post_term_names( $post = null, $taxonomy = 'category', $args = array( 'orderby' => 'name', 'order' => 'ASC', 'fields' => 'all' ) ) {
+	$term_names = array();
+	$terms = wp_get_post_terms( $post->ID, $taxonomy, $args );
+	if ( $terms && ! is_wp_error( $terms ) ) {
+		foreach( $terms as $term ) {
+            $term_names[] = $term->name;
         }
-        $subjects = join($delimiter, $subjects_list);
-        echo $subjects;
-    }
+	}
+	return $term_names;
+}
+
+/**
+ * the_post_term_names
+ * 
+ * Echoes the names of terms
+ * of a given taxonomy related
+ * to the current post in a string
+ * split by a given delimiter.
+ *
+ * @since	1.0
+ * @uses	get_the_post_term_names
+ * @param	string $taxonomy - Taxonomy to get the terms from
+ * @param	array $args - Arguments array for the wp_get_post_terms function
+ * @param 	string $delimiter - String to split the items with
+ */
+function the_post_term_names( $taxonomy, $args = array( 'orderby' => 'name', 'order' => 'ASC', 'fields' => 'all' ), $delimiter = ', ' ) {
+	global $post;
+	$term_names = get_the_post_term_names( $post, $taxonomy, $args );
+	if ( ! empty( $term_names ) ) {
+		$names = join( $delimiter, $term_names );
+		echo $names;
+	} 
 }
 
 /**
@@ -79,7 +107,7 @@ function the_option_terms( $taxonomy, $orderby = 'menu_order', $hide_empty = fal
  * @param 	string $tax - The taxonomy to get all the terms from
  * @param 	string $orderby - The order in which the terms are ordered
  * @param 	boolean $hide_empty - True: only show terms with posts. False: show all terms
- * @return  (array|boolean)
+ * @return  array
  */
 function get_children_terms( $tax, $orderby = 'menu_order', $hide_empty = false ) {
 	$result = array();
@@ -105,10 +133,8 @@ function get_children_terms( $tax, $orderby = 'menu_order', $hide_empty = false 
 				}
 			}
 		}
-		return $result;
-	} else {
-		return false;
-	}
+	} 
+	return $result;
 }
 
 /**
@@ -133,12 +159,12 @@ function the_post_type( $post = null ) {
  * @return	string $ip;
  */
 function get_the_user_ip() {
-	if (!empty( $_SERVER['HTTP_CLIENT_IP'])) {
-		$ip = $_SERVER['HTTP_CLIENT_IP'];
-	} elseif (!empty( $_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	if ( ! empty( $_SERVER[ 'HTTP_CLIENT_IP' ] ) ) {
+		$ip = $_SERVER[ 'HTTP_CLIENT_IP' ];
+	} else if ( ! empty( $_SERVER[ 'HTTP_X_FORWARDED_FOR' ] ) ) {
+		$ip = $_SERVER[ 'HTTP_X_FORWARDED_FOR' ];
 	} else {
-		$ip = $_SERVER['REMOTE_ADDR'];
+		$ip = $_SERVER[ 'REMOTE_ADDR' ];
 	}
 	return $ip;
 }
