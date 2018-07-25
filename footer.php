@@ -1,20 +1,12 @@
 <?php
 /**
- *  Theme:
- *  Template:       footer.php
- *  Description:    Footer of the page
+ * Theme:				
+ * Template:			footer.php
+ * Description:			
  */
 ?>
 
-    <footer id="footer" role="footer">
-      <div class="footer-top">
-
-      </div>
-      <div class="footer-bottom">
-
-      </div>
-    </footer>
-
-    <?php wp_footer(); ?>
-  </body>
+		<?php get_template_part( './inc/cookies/cookies', 'notice' ); ?>
+		<?php wp_footer(); ?>
+	</body>
 </html>

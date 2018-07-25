@@ -1,14 +1,16 @@
 <?php
 /**
- *	Theme:
- *	Template:			  taxonomies.php
- *	Description:	  Register custom taxonomies for posts or custom post type
-*/
+ * Theme:
+ * Template:			taxonomies.php
+ * Description:			Register custom taxonomies for posts or custom post type
+ */
 
 
 /**
- *  Register Custom Taxonomy
- *  Uncomment to create the post type
+ * Register Custom Taxonomy
+ * Uncomment to create the post type
+ * 
+ * @since	1.0
  */
 // add_action( 'init', 'custom_taxonomy', 0 );
 // function custom_taxonomy() {

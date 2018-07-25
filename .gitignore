@@ -1,0 +1,14 @@
+# gitignore for wp-theme-template
+
+# Folders
+dist
+node_modules
+
+# Random generated files
+.DS_Store
+.env
+thumbs.db
+
+# NPM files
+npm-debug.log
+package-lock.json
