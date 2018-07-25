@@ -29,16 +29,94 @@
 
 
 /**
- * get
+ * createQueryStringFromArray
  * 
- * HTTP Get Request using the Fetch API.
+ * Converts an array with objects into
+ * a string that can be used in a query
+ * 
+ * @function
+ * @since   1.0
+ * @param   {Object[]} [data=[]] Array with object with name and value for the string
+ * @param   {String} data.name Name of field
+ * @param   {String} data.value Value of field
+ * @returns {String} Queryable string
+ * 
+ * @example
+ * let data = [
+ *    {
+ *       name: 'action',
+ *       value: 'get_posts'
+ *    },
+ *    {
+ *       name: 'post_type',
+ *       value: 'post,page'
+ *    }
+ * ];
+ * 
+ * let query = createQueryStringFromArray(data); // = "?action=value&post_type=post,page"
+ */
+const createQueryStringFromArray = (data = []) => {
+    if (!data || !Array.isArray(data)) throw new Error('data argument is not given or type of array');
+    let query = data.map(item => `${item.name}=${item.value}`).join('&');
+    return query.length ? `?${query}` : '';
+};
+
+/**
+ * createQueryStringFromObject
+ * 
+ * Converts an object with keys
+ * and values into a string that
+ * can be used in a query.
  * 
  * @function
  * @since	1.0
- * @param	{String} url
- * @returns	{Promise} Returns the blob
+ * @param 	{Object} data Object to convert to string
+ * @returns	{String} Queryable string
+ * 
+ * @example
+ * let data = {
+ *      action: 'get_posts',
+ *      post_type: 'post,page'
+ * };
+ * 
+ * let query = createQueryStringFromObject(data); // = "?action=value&post_type=post,page"
  */
-const get = (url) => {
+const createQueryStringFromObject = (data = {}) => {
+	if (!data || 'object' !== typeof data) throw new Error('data argument is not given or type of object');
+	let keys = Object.keys(data);
+	let query = keys.map(item => `${item}=${data[item]}`).join('&');
+    return query.length ? `?${query}` : '';
+};
+
+/**
+ * getPosts
+ * 
+ * HTTP GET Request for retrieving
+ * posts using the Fetch API.
+ * 
+ * @function
+ * @since	1.0
+ * @uses	createQueryStringFromArray
+ * @param	{Object[]} data Parameters for retrieving markers
+ * @param	{String} data.name Name of parameter
+ * @param	{String} data.value Value of parameter
+ * @returns	{Promise} Returns a promise with response text
+ * 
+ * @example
+ * getPosts()
+ *    .then(data => console.log(data))
+ *    .catch(error => console.log(error));
+ */
+const getPosts = (data = []) => {
+
+	// Add action to the data array
+	data.unshift({
+		name: 'action', 
+		value: 'get_posts_ajax'
+	});
+
+	// Create URL to get the markers from
+	let url = `${wp.ajax}${createQueryStringFromArray(data)}`;
 
 	// Create new headers
 	let headers = new Headers();
@@ -48,27 +126,124 @@ const get = (url) => {
 		method: 'GET',
 		headers: headers,
 		mode: 'cors',
-		cache: 'default'
+		cache: 'default',
 	};
 
 	// Create a new request object
 	let request = new Request(url, options);
 
 	// Fetch the request
-	return fetch(request).then(response => response.blob());
+	return fetch(request)
+		.then(response => response.text());
+
 };
 
 /**
- * getXhr
+ * getMarkers
+ * 
+ * HTTP GET Request for retrieving
+ * markers using the Fetch API.
+ * 
+ * @function
+ * @since	1.0
+ * 
+ * @uses	createQueryStringFromArray
+ * @param	{Object[]} data Parameters for retrieving markers
+ * @param	{String} data.name Name of parameter
+ * @param	{String} data.value Value of parameter
+ * @returns	{Promise} Returns a promise with JSON
+ * 
+ * @example
+ * getMarkers()
+ *    .then(data => console.log(data))
+ *    .catch(error => console.log(error));
+ */
+const getMarkers = (data = []) => {
+
+	// Add action to the data array
+	data.unshift({
+		name: 'action', 
+		value: 'get_markers_ajax'
+	});
+
+	// Create URL to get the markers from
+	let url = `${wp.ajax}${createQueryStringFromArray(data)}`;
+
+	// Create new headers
+	let headers = new Headers();
+
+	// Set options of request object
+	let options = {
+		method: 'GET',
+		headers: headers,
+		mode: 'cors',
+		cache: 'default',
+	};
+
+	// Create a new request object
+	let request = new Request(url, options);
+
+	// Fetch the request
+	return fetch(request)
+		.then(response => response.json());
+
+};
+
+/**
+ * postJson
+ * 
+ * HTTP POST Request for sending
+ * json using the Fetch API.
+ * 
+ * @function
+ * @since	1.0
+ * @param	{Object[]} data Object with data to send
+ * @returns	{Promise} Returns a promise with JSON
+ */
+const postJson = (data = {}) => {
+
+	// Add nonce security property to data
+	data = Object.assign(data, {
+		security: wp.security
+	});
+
+	// Create URL to get the markers from
+	let url = `${wp.ajax}?action=post_json_ajax`;
+
+	// Create new headers
+	let headers = new Headers({
+		'Content-Type': 'application/json'
+	});
+
+	// Set options of request object
+	let options = {
+		method: 'POST',
+		headers: headers,
+		mode: 'cors',
+		cache: 'default',
+		body: JSON.stringify(data)
+	};
+
+	// Create a new request object
+	let request = new Request(url, options);
+
+	// Fetch the request
+	return fetch(request)
+		.then(response => response.json());
+
+};
+
+/**
+ * get
  * 
  * HTTP GET Request with XMLHttpRequest.
  * 
  * @function
  * @since 	1.0
- * @param 	{String} url - Url which to send the HTTP Request to
- * @param 	{Function} callback - Function to fire when a response is received
+ * @param 	{String} url URL to get the data from
+ * @param 	{Function} callback Function to fires when a response is received
  */
-const getXhr = (url, callback) => {
+const get = (url, callback) => {
 	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4 && xhr.status === 200) {
@@ -88,9 +263,9 @@ const getXhr = (url, callback) => {
  *
  * @function
  * @since 	1.0
- * @param 	{String} url
- * @param 	{String} params
- * @param 	{Function} callback
+ * @param 	{String} url URL to send the data to
+ * @param 	{String} params Data to send
+ * @param 	{Function} callback Function to fires when a response is received
  */
 const post = (url, params, callback) => {
 	const xhr = new XMLHttpRequest();
@@ -104,33 +279,4 @@ const post = (url, params, callback) => {
 	xhr.open('POST', url, true);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	xhr.send(params);
-};
-
-/**
- * DONT USE THIS ONE YET
- * 
- * Async GET request with optional data
- * 
- * @example 
- * fetchData([action=load_more, amount=3]);
- * 
- * @function
- * @since 	1.0
- * @uses 	get()
- * @param 	{Array} data 
- * @return	{String}
- * 
- */
-const fetchData = (data = []) => {
-	let result = '';
-	if (data && data instanceof Array) {
-		let query = data.join('&'),
-			url = query.length ? `${wp.ajaxurl}?${query}` : wp.ajaxurl;
-		get(url, (response) => {
-			result = response;
-			return result;
-		});
-	} else {
-		throw new Error('data argument is not an Array');
-	}
 };

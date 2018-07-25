@@ -137,7 +137,7 @@ function get_markers_ajax() {
 
 	// This template can be used to get JSON data for maps.
 	// Fill in the variables below to get the markers of the post type you want.
-	$post_type              = isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'POST_TYPE' ); // Change POST_TYPE
+	$post_type              = isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'post' ); // Change POST_TYPE
 	$posts_per_page         = isset( $_GET[ 'posts_per_page' ] ) ? $_GET[ 'posts_per_page' ] : -1;         // Change -1 to desired amount of posts
 
 	// Arguments for the Query
@@ -218,11 +218,12 @@ function get_markers_ajax() {
 			 * Also ACF Fields with the get_field() function.
 			 */
 			array_push( $markers, array(
+				'id'			=> get_the_id(),
 				'title'			=> get_the_title(),
 				'content'		=> get_the_content(),
-				'location'		=> get_field( 'ACF_GOOGLE_MAPS_FIELD' ),
 				'thumbnail'		=> get_the_post_thumbnail(),
-				'permalink'		=> get_the_permalink()
+				'permalink'		=> get_the_permalink(),
+				// 'location'		=> get_field( 'ACF_GOOGLE_MAPS_FIELD' )
 			) );
 		
 		} wp_reset_postdata(); 
@@ -247,6 +248,12 @@ add_action( 'wp_ajax_nopriv_post_json_ajax', 'post_json_ajax' );
 add_action( 'wp_ajax_post_json_ajax', 'post_json_ajax' );
 function post_json_ajax() {
 	header( 'Content-Type: text/html' );
+	
+	// Get the JSON file that is sent
+	$data = file_get_contents( 'php://input' );
+
+	// Decode the JSON to workable PHP
+	$json = json_decode( $data );
 
 	/**
 	 * Check security of request
@@ -259,20 +266,12 @@ function post_json_ajax() {
 	 * @example 
 	 * $_POST[ 'security' ] is the name to check
 	 */
-	check_ajax_referer( 'wp_ajax_nonce', 'security' );
-	
-	// Get the JSON file that is sent
-	$data = file_get_contents( 'php://input' );
-
-	// Decode the JSON to workable PHP
-	$json = json_decode( $data );
+	check_ajax_referer( 'wp_ajax_nonce', $json->security );
 
 	/**
 	 * Do some thing here with the $json data
 	 */
 	
 	// Send back a response
-	echo true;
-	
-	die();
+	wp_send_json( $json );
 }
