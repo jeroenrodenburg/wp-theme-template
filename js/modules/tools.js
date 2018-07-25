@@ -27,6 +27,7 @@
  */
 
 
+
 /**
  * getParent
  * 
@@ -48,46 +49,6 @@ const getParent = (start, cls) => {
 };
 
 /**
- * getNextSibling
- * 
- * Get element by walking over the next siblings
- * Find the element with a CSS class
- *
- * @function
- * @since   1.0
- * @param   {HTMLElement} start Element to start from
- * @param   {String} cls CSS class to find the element with
- * @returns {HTMLElement}
- */	
-const getNextSibling = (start, cls) => {
-    let el = start;
-    while (el && !el.classList.contains(cls)) {
-        el = el.nextElementSibling;
-    }
-    return el;
-};
-
-/**
- * getPrevSibling
- * 
- * Get element by walking over the previous siblings
- * Find the element with a CSS class
- *
- * @function
- * @since   1.0
- * @param   {HTMLElement} start Element to start from
- * @param   {String} cls CSS class to find the element with
- * @returns {HTMLElement}
- */	
-const getPrevSibling = (start, cls) => {
-    let el = start;
-    while (el && !el.classList.contains(cls)) {
-        el = el.previousElementSibling;
-    }
-    return el;
-};
-
-/**
  * getSiblings
  * 
  * Get all the siblings of given element
@@ -100,21 +61,57 @@ const getPrevSibling = (start, cls) => {
  * @returns {Array} Array of found siblings
  */
 const getSiblings = (start) => {
-    let el = start,
-        sibs = [];
-    if (el.parentElement.children) {
-        let children = el.parentElement.children;
-        sibs = Array.prototype.filter.call(children, (sib) => {
-            return sib !== start;
-        });
+    let children = start.parentElement.children;
+    return Array.prototype.filter.call(children, (sib) => {
+        return sib !== start;
+    });
+};
+
+/**
+ * getNextSiblingWithClass
+ * 
+ * Get element by walking over the next siblings
+ * Find the element with a CSS class
+ *
+ * @function
+ * @since   1.0
+ * @param   {HTMLElement} start Element to start from
+ * @param   {String} cls CSS class to find the element with
+ * @returns {HTMLElement}
+ */	
+const getNextSiblingWithClass = (start, cls) => {
+    let el = start;
+    while (el && !el.classList.contains(cls)) {
+        el = el.nextElementSibling;
     }
-    return sibs;
+    return el;
+};
+
+/**
+ * getPrevSiblingWithClass
+ * 
+ * Get element by walking over the previous siblings
+ * Find the element with a CSS class
+ *
+ * @function
+ * @since   1.0
+ * @param   {HTMLElement} start Element to start from
+ * @param   {String} cls CSS class to find the element with
+ * @returns {HTMLElement}
+ */	
+const getPrevSiblingWithClass = (start, cls) => {
+    let el = start;
+    while (el && !el.classList.contains(cls)) {
+        el = el.previousElementSibling;
+    }
+    return el;
 };
 
 /**
  * removeChildren
  * 
- * Removes all the children of an element and returns the element.
+ * Removes all the children of an element 
+ * and returns the element.
  * 
  * @example
  * const emptyParent = removeChildren(parentElement);
@@ -133,23 +130,25 @@ const removeChildren = (element) => {
 };
 
 /**
- * parseHTML
+ * parseString
  * 
- * Parse string to HTML with a DOMParser
- * function.
+ * Parses a string to a document
+ * with the DOMParser API and returns
+ * a XMLDocument, HTMLDocument or SVGDocument.
  * 
  * @function
  * @since 	1.0
- * @param 	{String} data - String to convert to workable HTML
- * @returns {HTMLElement}
+ * @param 	{String} data String to convert to workable HTML
+ * @param   {String} [mimeType='application/xml'] MimeType to convert the string to
+ * @returns {(XMLDocument|HTMLDocument|SVGDocument)}
  */
-const parseHTML = (data) => {
+const parseString = (data, mimeType = 'application/xml') => {
 	if (data && 'string' === typeof data) {
     	if ('DOMParser' in window) {
 			let parser = new DOMParser();
-			return parser.parseFromString(data, 'text/html');
+            return parser.parseFromString(data, mimeType);
     	} else {
-			throw new Error('DOMParser not supported. Use stringToHTML() function instead');
+			throw new Error('DOMParser not supported.');
 		}
 	}
 };
@@ -186,27 +185,25 @@ const stringToHTML = (data) => {
  * @returns {Object[]} Array with objects with name/value pairs
  */
 const getValues = (form) => {
-    let values = [];
-    for (let i = 0; i < form.elements.length; i += 1) {
-        let el = form.elements[i];
+    return Array.prototype.filter.call(form.elements, (el) => {
         if (
-            (
-                (
-                    el.type !== 'submit' &&
-                    el.type !== 'fieldset'
-                ) ||
-                el.checked === true
-            ) &&
+            ((
+                el.type !== 'submit' && 
+                el.type !== 'button' && 
+                el.type !== 'fieldset') || 
+                el.checked === true ) && 
             el.value !== ''
         ) {
-            values.push({name: el.name, value: el.value});
+            return {
+                name: el.name, 
+                value: el.value
+            };
         }
-    }
-    return values;
+    });
 };
 
 /**
- * getValuesSelected
+ * getSelectedValues
  * 
  * Return an array with the selected fields
  *
@@ -215,22 +212,22 @@ const getValues = (form) => {
  * @param   {HTMLFormElement} form Form element with elements
  * @returns {Object[]} Array with objects with name/value pairs
  */
-const getValuesSelected = (form) => {
-    let values = [];
-    for (let i = 0; i < form.elements.length; i += 1) {
-        let el = form.elements[i];
+const getSelectedValues = (form) => {
+    return Array.prototype.filter.call(form.elements, (el) => {
         if (
             el.tagName === 'SELECT' && 
             el.value !== ''
         ) {
-            values.push({name: el.name, value: el.value});
+            return {
+                name: el.name, 
+                value: el.value
+            };
         }
-    }
-    return values;
+    });
 };
 
 /**
- * getValuesChecked
+ * getCheckedValues
  * 
  * Return an array with the checked inputs
  *
@@ -239,22 +236,20 @@ const getValuesSelected = (form) => {
  * @param   {HTMLFormElement} form Form element with elements
  * @returns {Object[]} Array with objects with name/value pairs
  */
-const getValuesChecked = (form) => {
-    let values = [];
-    for (let i = 0; i < form.elements.length; i += 1) {
-        let el = form.elements[i];
+const getCheckedValues = (form) => {
+    return Array.prototype.filter.call(form.elements, (el) => {
         if (
             el.tagName === 'INPUT' && 
-            (
-                el.type === 'checkbox' || 
-                el.type === 'radio'
-            ) &&
+            (el.type === 'checkbox' || 
+            el.type === 'radio') &&
             el.checked === true
         ) {
-            values.push({name: el.name, value: el.value});
+            return {
+                name: el.name, 
+                value: el.value
+            };
         }
-    }
-    return values;
+    });
 };
 
 /**
@@ -290,27 +285,6 @@ const getValuesPerFieldset = (form) => {
         }
     }
     return fieldsets;
-};
-
-/**
- * createQueryString
- * 
- * Converts an object into a string that can be used with a XMLHttpRequest
- * Works in harmony with the functions: getValues, getValuesSelected, getValuesChecked
- * 
- * @since   1.0
- * @param   {Object[]} params Array with object with name and value for the string
- * @param   {String} params.name Name of field
- * @param   {String} params.value Value of field
- * @returns {String} Queryable string
- */
-const createQueryString = (params) => {
-    if (!params || !(params instanceof Array)) throw new Error('params argument is not given or type of array');
-    let query = params.map((param) => {
-        return `${param.name}=${param.value}`;
-    });
-    query = query.join('&');
-    return `?${query}`;
 };
 
 /**
