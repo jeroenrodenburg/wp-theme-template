@@ -89,6 +89,63 @@ const createQueryStringFromObject = (data = {}) => {
 };
 
 /**
+ * camelToSnake
+ * 
+ * Converts a camel-cased string 
+ * to a snake-cased string and 
+ * returns it.
+ * 
+ * @function
+ * @since	1.0
+ * @param 	{String} string 
+ * @returns	{String}
+ */
+const camelToSnake = string => string.replace(/[A-Z\s]+/g, match => `_${match.toLowerCase()}` );
+
+/**
+ * snakeToCamel
+ * 
+ * Converts a snake-cased string
+ * to a camel-cased string and
+ * returns it.
+ * 
+ * @function
+ * @since	1.0
+ * @param 	{String} string 
+ * @returns	{String}
+ */
+// const snakeToCamel = (string) => {
+// 	return string.replace(/_(?=.)/g, (match, p1) => {
+// 		return string.substring(0, p1) + string.substring(p1 + 1, string.length).toUpperCase();
+// 	});
+// };
+
+/**
+ * convertKeysOfObject
+ * 
+ * Converts the keys of an object
+ * to snake-cased format.
+ * 
+ * @function
+ * @since	1.0
+ * @uses	camelToSnake
+ * @param 	{Object} object
+ * @returns	{Object}
+ */
+const convertKeysOfObject = (object) => {
+	Object.keys(object).forEach((key) => {
+		let snakeKey = camelToSnake(key);
+		Object.defineProperty(
+			object, 
+			snakeKey, 
+			Object.getOwnPropertyDescriptor(object, key)
+		);
+		delete object[key];
+	});
+	return object;
+};
+
+/**
  * getPosts
  * 
  * HTTP GET Request for retrieving
@@ -97,26 +154,34 @@ const createQueryStringFromObject = (data = {}) => {
  * @function
  * @since	1.0
  * @uses	createQueryStringFromArray
- * @param	{Object[]} data Parameters for retrieving markers
- * @param	{String} data.name Name of parameter
- * @param	{String} data.value Value of parameter
+ * @param	{Object[]} args Arguments for retrieving markers
+ * @param	{String} args.name Name of argument
+ * @param	{String} args.value Value of argument
  * @returns	{Promise} Returns a promise with response text
  * 
  * @example
- * getPosts()
- *    .then(data => console.log(data))
- *    .catch(error => console.log(error));
+ * getPosts([
+ * 	  {
+ *       name: 'post_type',
+ *       value: 'post'
+ *    },
+ *    {
+ *       name: 'posts_per_page',
+ *       value: -1
+ *    }
+ * ]).then(data => console.log(data))
+ *   .catch(error => console.log(error));
  */
-const getPosts = (data = []) => {
+const getPosts = (args = []) => {
 
 	// Add action to the data array
-	data.unshift({
+	args.unshift({
 		name: 'action', 
 		value: 'get_posts_ajax'
 	});
 
 	// Create URL to get the markers from
-	let url = `${wp.ajax}${createQueryStringFromArray(data)}`;
+	let url = `${wp.ajax}${createQueryStringFromArray(args)}`;
 
 	// Create new headers
 	let headers = new Headers();
