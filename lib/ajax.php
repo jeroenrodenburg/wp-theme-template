@@ -31,7 +31,7 @@ function load_ajax() {
  * get_posts_ajax
  * 
  * Generic HTTP GET response that processes
- * all the parameter put through the query
+ * all the parameters put through the query
  * to get the posts requested.
  * 
  * @since	1.0
@@ -43,9 +43,6 @@ add_action( 'wp_ajax_nopriv_get_posts_ajax', 'get_posts_ajax') ;
 add_action( 'wp_ajax_get_posts_ajax', 'get_posts_ajax' );
 function get_posts_ajax() {
 	header( 'Content-Type: text/html' );
-
-	// If nonce is not correct do not send a response
-	if ( ! $_GET[ '_wp_nonce' ] || ! wp_verify_nonce( $_GET[ '_wp_nonce' ], 'NONCE_NAME' ) ) wp_die(); 
 
 	// Get the variables from the GET Request
 	$query_post_type		= isset( $_GET[ 'post_type' ] ) ? explode( ',', $_GET[ 'post_type' ] ) : array( 'POST_TYPE' ); 		// Change POST_TYPE for default post type
@@ -264,9 +261,9 @@ function post_json_ajax() {
 	 * of the $_POST argument
 	 * 
 	 * @example 
-	 * $_POST[ 'security' ] is the name to check
+	 * $_POST[ 'wp_rest' ] is the name to check
 	 */
-	check_ajax_referer( 'wp_ajax_nonce', $json->security );
+	check_ajax_referer( 'wp_rest', $json->nonce );
 
 	/**
 	 * Do some thing here with the $json data
