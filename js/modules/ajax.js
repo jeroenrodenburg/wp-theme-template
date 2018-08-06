@@ -29,13 +29,15 @@
 
 
 /**
- * createQueryStringFromArray
+ * arrayToQueryString
  * 
  * Converts an array with objects into
  * a string that can be used in a query
  * 
  * @function
  * @since   1.0
+ * 
+ * @uses	arrayToCSV()
  * @param   {Object[]} [data=[]] Array with object with name and value for the string
  * @param   {String} data.name Name of field
  * @param   {String} data.value Value of field
@@ -53,96 +55,12 @@
  *    }
  * ];
  * 
- * let query = createQueryStringFromArray(data); // = "?action=value&post_type=post,page"
+ * let query = arrayToQueryString(data); // = "?action=value&post_type=post,page"
  */
-const createQueryStringFromArray = (data = []) => {
-    if (!data || !Array.isArray(data)) throw new Error('data argument is not given or type of array');
-    let query = data.map(item => `${item.name}=${item.value}`).join('&');
+const arrayToQueryString = (data = []) => {
+    if (!Array.isArray(data)) throw new Error('data argument is not given or type of array');
+    let query = data.map(item => `${item.name}=${arrayToCSV(item.value)}`).join('&');
     return query.length ? `?${query}` : '';
-};
-
-/**
- * createQueryStringFromObject
- * 
- * Converts an object with keys
- * and values into a string that
- * can be used in a query.
- * 
- * @function
- * @since	1.0
- * @param 	{Object} data Object to convert to string
- * @returns	{String} Queryable string
- * 
- * @example
- * let data = {
- *      action: 'get_posts',
- *      post_type: 'post,page'
- * };
- * 
- * let query = createQueryStringFromObject(data); // = "?action=value&post_type=post,page"
- */
-const createQueryStringFromObject = (data = {}) => {
-	if (!data || 'object' !== typeof data) throw new Error('data argument is not given or type of object');
-	let keys = Object.keys(data);
-	let query = keys.map(item => `${item}=${data[item]}`).join('&');
-    return query.length ? `?${query}` : '';
-};
-
-/**
- * camelToSnake
- * 
- * Converts a camel-cased string 
- * to a snake-cased string and 
- * returns it.
- * 
- * @function
- * @since	1.0
- * @param 	{String} string 
- * @returns	{String}
- */
-const camelToSnake = string => string.replace(/[A-Z\s]+/g, match => `_${match.toLowerCase()}` );
-
-/**
- * snakeToCamel
- * 
- * Converts a snake-cased string
- * to a camel-cased string and
- * returns it.
- * 
- * @function
- * @since	1.0
- * @param 	{String} string 
- * @returns	{String}
- */
-// const snakeToCamel = (string) => {
-// 	return string.replace(/_(?=.)/g, (match, p1) => {
-// 		return string.substring(0, p1) + string.substring(p1 + 1, string.length).toUpperCase();
-// 	});
-// };
-
-/**
- * convertKeysOfObject
- * 
- * Converts the keys of an object
- * to snake-cased format.
- * 
- * @function
- * @since	1.0
- * @uses	camelToSnake
- * @param 	{Object} object
- * @returns	{Object}
- */
-const convertKeysOfObject = (object) => {
-	Object.keys(object).forEach((key) => {
-		let snakeKey = camelToSnake(key);
-		Object.defineProperty(
-			object, 
-			snakeKey, 
-			Object.getOwnPropertyDescriptor(object, key)
-		);
-		delete object[key];
-	});
-	return object;
 };
 
 /**
@@ -153,7 +71,7 @@ const convertKeysOfObject = (object) => {
  * 
  * @function
  * @since	1.0
- * @uses	createQueryStringFromArray
+ * @uses	arrayToQueryString
  * @param	{Object[]} args Arguments for retrieving markers
  * @param	{String} args.name Name of argument
  * @param	{String} args.value Value of argument
@@ -181,7 +99,7 @@ const getPosts = (args = []) => {
 	});
 
 	// Create URL to get the markers from
-	let url = `${wp.ajax}${createQueryStringFromArray(args)}`;
+	let url = `${wp.ajax}${arrayToQueryString(args)}`;
 
 	// Create new headers
 	let headers = new Headers();
@@ -190,7 +108,7 @@ const getPosts = (args = []) => {
 	let options = {
 		method: 'GET',
 		headers: headers,
-		mode: 'cors',
+		mode: 'same-origin',
 		cache: 'default',
 	};
 
@@ -212,7 +130,7 @@ const getPosts = (args = []) => {
  * @function
  * @since	1.0
  * 
- * @uses	createQueryStringFromArray
+ * @uses	arrayToQueryString
  * @param	{Object[]} data Parameters for retrieving markers
  * @param	{String} data.name Name of parameter
  * @param	{String} data.value Value of parameter
@@ -232,7 +150,7 @@ const getMarkers = (data = []) => {
 	});
 
 	// Create URL to get the markers from
-	let url = `${wp.ajax}${createQueryStringFromArray(data)}`;
+	let url = `${wp.ajax}${arrayToQueryString(data)}`;
 
 	// Create new headers
 	let headers = new Headers();
@@ -241,7 +159,7 @@ const getMarkers = (data = []) => {
 	let options = {
 		method: 'GET',
 		headers: headers,
-		mode: 'cors',
+		mode: 'same-origin',
 		cache: 'default',
 	};
 
