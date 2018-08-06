@@ -41,18 +41,25 @@ function custom_style_attributes( $html, $handle, $href, $media ) {
 add_filter( 'script_loader_tag', 'custom_script_attributes', 10, 3 );
 function custom_script_attributes( $tag, $handle, $src ) {
 
-	// Select a script handle to modify
+	// Script that load async
 	$async_attr = 'async';
 	$async_handles = array( 'script' );
 	if ( in_array( $handle, $async_handles ) && THEME_DEV_MODE === false ) {
 		return '<script src="' . $src . '" type="text/javascript" ' . $async_attr . '></script>';
 	}
 
-	// Select a script handle to modify
+	// Scripts that load defer
 	$defer_attr = 'defer';
 	$defer_handles = array( 'google-maps' );
 	if ( in_array( $handle, $defer_handles ) && THEME_DEV_MODE === false ) {
 		return '<script src="' . $src . '" type="text/javascript" ' . $defer_attr . '></script>';
+	}
+
+	// Scripts that are ES6 Modules
+	$module_attr = 'module';
+	$module_handles = array();
+	if ( in_array( $handle, $module_handles ) && THEME_DEV_MODE === false ) {
+		return '<script src="' . $src . '" type="' . $module_attr . '"></script>';
 	}
 
 	return $tag;
@@ -259,7 +266,8 @@ function theme_scripts() {
 		'postType' 		=> get_post_type(),
 		'postId'		=> get_the_id(),
 		'pageTemplate'	=> get_page_template_slug(),
-		'security'		=> wp_create_nonce( 'wp_ajax_nonce' )
+		'rest'			=> esc_url( get_rest_url() ),
+		'nonce'			=> wp_create_nonce( 'wp_rest' )
 	) );
 	wp_enqueue_script( 'script' );
 
