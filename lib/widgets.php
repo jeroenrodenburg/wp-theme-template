@@ -179,7 +179,6 @@ class Social_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
 		$title 			= apply_filters( 'widget_title', $instance[ 'title' ] );
-		$type			= isset( $instance[ 'type' ] ) ? esc_attr( $instance[ 'type' ] ) : 'fas';
 		$facebook 		= isset( $instance[ 'facebook' ] ) ? esc_attr( $instance[ 'facebook' ] ) : '';
 		$twitter 		= isset( $instance[ 'twitter' ] ) ? esc_attr( $instance[ 'twitter' ] ) : '';
 		$instagram 		= isset( $instance[ 'instagram' ] ) ? esc_attr( $instance[ 'instagram' ] ) : '';
@@ -198,13 +197,13 @@ class Social_Widget extends WP_Widget {
 			echo '<div class="socials">';
 				echo '<ul class="socials__list">';
 					
-					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i class="' . $type . ' fa-facebook"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
-					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i class="' . $type . ' fa-twitter"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
-					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i class="' . $type . ' fa-instagram"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
-					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i class="' . $type . ' fa-pinterest"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
-					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i class="' . $type . ' fa-google-plus"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
-					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i class="' . $type . ' fa-linkedin"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
-					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i class="' . $type . ' fa-youtube"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
+					if( $facebook ) { echo '<li class="socials__item"><a class="socials__link" href="' . $facebook . '" rel="external" target="_blank" title="Facebook"><div class="socials__icon"><i class="fab fa-facebook"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Facebook</span>' : '' ) . '</a></li>'; }
+					if( $twitter ) { echo '<li class="socials__item"><a class="socials__link" href="' . $twitter . '" rel="external" target="_blank" title="Twitter"><div class="socials__icon"><i class="fab fa-twitter"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Twitter</span>' : '' ) . '</a></li>'; }
+					if( $instagram ) { echo '<li class="socials__item"><a class="socials__link" href="' . $instagram . '" rel="external" target="_blank" title="Instagram"><div class="socials__icon"><i class="fab fa-instagram"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Instagram</span>' : '' ) . '</a></li>'; }
+					if( $pinterest ) { echo '<li class="socials__item"><a class="socials__link" href="' . $pinterest . '" rel="external" target="_blank" title="Pinterest"><div class="socials__icon"><i class="fab fa-pinterest"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Pinterest</span>' : '' ) . '</a></li>'; }
+					if( $google ) { echo '<li class="socials__item"><a class="socials__link" href="' . $google . '" rel="external" target="_blank" title="Google+"><div class="socials__icon"><i class="fab fa-google-plus"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Google+</span>' : '' ) . '</a></li>'; }
+					if( $linkedin ) { echo '<li class="socials__item"><a class="socials__link" href="' . $linkedin . '" rel="external" target="_blank" title="LinkedIn"><div class="socials__icon"><i class="fab fa-linkedin"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">LinkedIn</span>' : '' ) . '</a></li>'; }
+					if( $youtube ) { echo '<li class="socials__item"><a class="socials__link" href="' . $youtube . '" rel="external" target="_blank" title="Youtube"><div class="socials__icon"><i class="fab fa-youtube"></i></div>' . ( ( $show_labels === true ) ? '<span class="socials__name">Youtube</span>' : '' ) . '</a></li>'; }
 	
 				echo '</ul>';
 			echo '</div>';
@@ -219,7 +218,6 @@ class Social_Widget extends WP_Widget {
 	public function form( $instance ) {
 		// outputs the options form on admin
 		$title 			= ! empty( $instance[ 'title' ] ) ? $instance[ 'title' ] : '';
-		$type			= ! empty( $instance[ 'type' ] ) ? $instance[ 'type' ] : '';
 		$facebook 		= ! empty( $instance[ 'facebook' ] ) ? $instance[ 'facebook' ] : '';
 		$twitter 		= ! empty( $instance[ 'twitter' ] ) ? $instance[ 'twitter' ] : '';
 		$instagram 		= ! empty( $instance[ 'instagram' ] ) ? $instance[ 'instagram' ] : '';
@@ -232,14 +230,6 @@ class Social_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" />
-		</p>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'type' ); ?>">Type of icon</label>
-			<select class="widefat" id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>">
-				<option value="fas" <?php selected( $type, 'fas' ); ?>>Solid</option>
-				<option value="far" <?php selected( $type, 'far' ); ?>>Regular</option>
-				<option value="fal" <?php selected( $type, 'fal' ); ?>>Light (PRO)</option>
-			</select>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'facebook' ); ?>">Facebook</label>
@@ -288,7 +278,6 @@ class Social_Widget extends WP_Widget {
 		// processes widget options to be saved
 		$instance = $old_instance;
 		$instance[ 'title' ] 		= strip_tags( $new_instance[ 'title' ] );
-		$instance[ 'type' ] 		= strip_tags( $new_instance[ 'type' ] );
 		$instance[ 'facebook' ] 	= strip_tags( $new_instance[ 'facebook' ] );
 		$instance[ 'twitter' ] 		= strip_tags( $new_instance[ 'twitter' ] );
 		$instance[ 'instagram' ] 	= strip_tags( $new_instance[ 'instagram' ] );
