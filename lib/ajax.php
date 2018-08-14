@@ -88,6 +88,8 @@ function get_posts_ajax() {
 		's',
 		'post__in',
 		'post__not_in',
+		'meta_key',
+		'meta_value',
 		'_wp_nonce',
 		'_wp_referrer'
 	);
