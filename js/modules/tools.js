@@ -263,28 +263,22 @@ const getCheckedValues = (form) => {
  * @returns {Array} Array with objects
  */
 const getValuesPerFieldset = (form) => {
-    let fieldsets = {};
-    for (let i = 0; i < form.elements.length; i += 1) {
-        if (form.elements[i].type === 'fieldset') {
-            let values = [],
-                fs = form.elements[i];
-            for (let j = 0; j < fs.elements.length; j += 1) {
-                let el = fs.elements[j];
+    return Array.prototype.map
+        .call(form.elements, el => el)
+        .filter((el) => el.tagName === 'FIELDSET')
+        .reduce((acc, cur, i) => {
+            acc[cur.name] = Array.prototype.filter.call(cur.elements, (el) => {
                 if (
                     (
-                        el.tagName === 'INPUT' ||
-                        el.tagName === 'SELECT' ||
+                        el.tagName === 'INPUT' || 
+                        el.tagName === 'SELECT' || 
                         el.tagName === 'TEXTAREA'
                     ) && 
                     el.type !== 'submit'
-                ) {
-                    values.push({name: el.name, value: el.value});
-                }
-            }
-            fieldsets[form.elements[i].name] = values;
-        }
-    }
-    return fieldsets;
+                ) return el;
+            });
+            return acc;
+        }, {});
 };
 
 /**
