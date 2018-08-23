@@ -185,7 +185,7 @@ const stringToHTML = (data) => {
  * @returns {Object[]} Array with objects with name/value pairs
  */
 const getValues = (form) => {
-    return Array.prototype.filter.call(form.elements, (el) => {
+    return [...form.elements].filter((el) => {
         if (
             ((
                 el.type !== 'submit' && 
@@ -213,7 +213,7 @@ const getValues = (form) => {
  * @returns {Object[]} Array with objects with name/value pairs
  */
 const getSelectedValues = (form) => {
-    return Array.prototype.filter.call(form.elements, (el) => {
+    return [...form.elements].filter((el) => {
         if (
             el.tagName === 'SELECT' && 
             el.value !== ''
@@ -237,7 +237,7 @@ const getSelectedValues = (form) => {
  * @returns {Object[]} Array with objects with name/value pairs
  */
 const getCheckedValues = (form) => {
-    return Array.prototype.filter.call(form.elements, (el) => {
+    return [...form.elements].filter((el) => {
         if (
             el.tagName === 'INPUT' && 
             (el.type === 'checkbox' || 
@@ -263,11 +263,10 @@ const getCheckedValues = (form) => {
  * @returns {Array} Array with objects
  */
 const getValuesPerFieldset = (form) => {
-    return Array.prototype.map
-        .call(form.elements, el => el)
+    return [...form.elements]
         .filter((el) => el.tagName === 'FIELDSET')
-        .reduce((acc, cur, i) => {
-            acc[cur.name] = Array.prototype.filter.call(cur.elements, (el) => {
+        .reduce((acc, cur) => {
+            acc[cur.name] = [...cur.elements].filter((el) => {
                 if (
                     (
                         el.tagName === 'INPUT' || 
@@ -275,7 +274,10 @@ const getValuesPerFieldset = (form) => {
                         el.tagName === 'TEXTAREA'
                     ) && 
                     el.type !== 'submit'
-                ) return el;
+                ) return {
+                    name: el.name,
+                    value: el,value
+                };
             });
             return acc;
         }, {});
@@ -297,9 +299,10 @@ const getValuesPerFieldset = (form) => {
  */
 const debounce = (func, wait, immediate) => {
 	let timeout;
-	return () => {
-		let context = this, args = arguments;
-		let later = function() {
+	return function() {
+        let context = this;
+        let args = arguments;
+		let later = () => {
 			timeout = null;
 			if (!immediate) func.apply(context, args);
 		};
@@ -358,4 +361,32 @@ const linkTargetsBlank = (query = 'a[rel="external"]') => {
     let links = document.querySelectorAll(query);
     links.forEach(link => link.setAttribute('target', '_blank'));
     return links;
+};
+
+/**
+ * lazyLoadImages
+ * 
+ * Loops over the images and loads
+ * the image in JS and adds it to the
+ * DOM when the image has fully loaded.
+ * Returns all of the selected images.
+ * 
+ * @function
+ * @since   1.0
+ * @param   {HTMLCollection} [images=document.images]
+ * @returns {HTMLCollection} 
+ */
+const lazyLoadImages = (images = document.images) => {
+    return [...images].forEach((image) => {
+        if (image.hasAttribute('data-src')) {
+            let src = image.getAttribute('data-src');
+            let img = new Image();
+            let imgLoaded = () => {
+                image.src = src;
+                image.removeAttribute('data-src');
+            };
+            img.addEventListener('load', imgLoaded, {once: true});
+            img.src = src;
+        }
+    });
 };
