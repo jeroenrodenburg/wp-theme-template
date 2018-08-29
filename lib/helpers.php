@@ -79,8 +79,11 @@ function the_post_term_names( $taxonomy, $args = array( 'orderby' => 'name', 'or
 }
 
 /**
- * Output a taxonomy inside <option> elements
+ * the_option_terms
+ * 
+ * Output a taxonomy inside <option> elements.
  *
+ * @since	1.0
  * @param 	string $taxonomy
  * @param 	string $orderby
  * @param 	boolean $hide_empty
@@ -102,61 +105,64 @@ function the_option_terms( $taxonomy, $orderby = 'menu_order', $hide_empty = fal
 }
 
 /**
- * Returns a new array with all the children of a taxonomy
+ * get_children_terms
+ * 
+ * Returns a new array with all the children of a taxonomy.
  *
+ * @since	1.0
  * @param 	string $tax - The taxonomy to get all the terms from
  * @param 	string $orderby - The order in which the terms are ordered
  * @param 	boolean $hide_empty - True: only show terms with posts. False: show all terms
  * @return  array
  */
-function get_children_terms( $tax, $orderby = 'menu_order', $hide_empty = false ) {
-	$result = array();
+function get_children_terms( $taxonomy, $orderby = 'menu_order', $hide_empty = false ) {
+	
+	// Create new array to store children.
+	$terms = array();
+
+	// Get all parent terms.
 	$parents = get_terms( array (
-			'taxonomy'		=>	$tax,
+			'taxonomy'		=>	$taxonomy,
 			'orderby'		=>	$orderby,
 			'hide_empty'	=>	$hide_empty,
 			'parent'		=>	0
 		)
 	);
-	if ( $parents && !is_wp_error( $parents ) ) {
+
+	// Loop over parent terms and add all children to the 
+	// $terms array.
+	if ( $parents && ! is_wp_error( $parents ) ) {
 		foreach ( $parents as $parent ) {
+
+			// Get the child terms
 			$children = get_terms( array (
-				'taxonomy'		=> $tax,
-				'orderby'		=> $orderby,
-				'hide_empty'	=> $hide_empty,
-				'parent'		=> $parent->term_id
+					'taxonomy'		=> $taxonomy,
+					'orderby'		=> $orderby,
+					'hide_empty'	=> $hide_empty,
+					'parent'		=> $parent->term_id
 				)
 			);
-			if ( $children && !is_wp_error( $children) ) {
+
+			// Loop over children and add them to $terms array
+			if ( $children && ! is_wp_error( $children ) ) {
 				foreach ( $children as $child ) {
-					array_push( $result, $child );
+					array_push( $terms, $child );
 				}
 			}
+
 		}
 	} 
-	return $result;
+	return $terms;
 }
 
 /**
- * Echoes custom output based on the post type
+ * get_the_user_ip
+ * 
+ * Gets IP from client and 
+ * returns it in a string.
  *
- * @param	string $post
- */
-function the_post_type( $post = null ) {
-	$p = get_post_type( $post );
-	if ( $p === 'page' ) {
-		echo 'pagina';
-	} else if ( $p === 'post' ) {
-		echo 'nieuws';
-	} else {
-		echo $p;
-	}
-}
-
-/**
- * Get IP from client
- *
- * @return	string $ip;
+ * @since	1.0
+ * @return	string
  */
 function get_the_user_ip() {
 	if ( ! empty( $_SERVER[ 'HTTP_CLIENT_IP' ] ) ) {
@@ -170,59 +176,200 @@ function get_the_user_ip() {
 }
 
 /**
- * Get Woocommerce excerpt
+ * is_available_between
  *
- * @param 	number $limit
- * @return	string
+ * Checks between two dates if
+ * the start date and end date overlap
+ * previous start and end dates.
+ *
+ * @since	1.0
+ * @param	date $new_start
+ * @param	date $new_end
+ * @param	date $prev_start
+ * @param	date $prev_end
+ * @return	boolean
  */
-function woo_get_excerpt( $limit = 20 ) {
-	$excerpt = explode(' ', get_the_excerpt(), $limit);
-	if (count($excerpt) >= $limit) {
-		array_pop($excerpt);
-		$excerpt = implode(" ", $excerpt) . '...';
-	} else {
-		$excerpt = implode(" ", $excerpt);
-	}
-	$excerpt = preg_replace('`\[[^\]]*\]`', '', $excerpt);
-	return $excerpt;
+function is_available_between( $new_start, $new_end, $prev_start, $prev_end ) {
+	return (
+		( $new_start < $prev_start && 
+		$new_end <= $prev_start ) || 
+		( $new_start >= $prev_end  && 
+		$new_end > $prev_end )
+	);
 }
 
 /**
- * Echo Woocommerce excerpt
+ * date_range
+ * 
+ * Creating date collection between two dates
  *
- * @param 	number $limit
+ * @example
+ * // Example 1
+ * date_range( '2014-01-01', "2014-01-20", "+1 day", "m/d/Y");
+ *
+ * @example
+ * // Example 2. you can use even time
+ * date_range("01:00:00", "23:00:00", "+1 hour", "H:i:s");
+ *
+ * @since	1.0
+ * @author	Ali OYGUR <alioygur@gmail.com>
+ * @param	string $first since any date, time or datetime format
+ * @param	string $last until any date, time or datetime format
+ * @param	string $step step
+ * @param	string $format date of output format
+ * @return	array
  */
-function woo_the_excerpt( $limit = 20 ) {
-	$excerpt = woo_get_excerpt( $limit );
-	if ($excerpt) echo $excerpt;
-}
+function date_range( $first, $last, $step = '+1 day', $format = 'd/m/Y' ) {
 
-/**
- * Get Woocommerce content
- *
- * @param 	number $limit
- * @return	string
- */
-function woo_get_content( $limit = 20 ) {
-    $content = explode(' ', get_the_content(), $limit);
-    if (count($content) >= $limit) {
-        array_pop($content);
-        $content = implode(" ", $content) . '...';
-    } else {
-        $content = implode(" ", $content);
+    $dates = array();
+    $current = strtotime( $first );
+    $last = strtotime( $last );
+
+    while( $current <= $last ) {
+        $dates[] = date( $format, $current );
+        $current = strtotime( $step, $current );
     }
-    $content = preg_replace('/\[.+\]/','', $content);
-    $content = apply_filters('the_content', $content);
-    $content = str_replace(']]>', ']]&gt;', $content);
-    return $content;
+
+    return $dates;
 }
 
 /**
- * Echo Woocommerce content
- *
- * @param 	number $limit
+ * the_breadcrumb
+ * 
+ * This functions outputs a clickable breadcrumb
+ * path with some customization options.
+ * 
+ * @since	1.0
+ * @param	boolean $show_on_home Shows the breadcrumb on home
+ * @param	string $delimiter Character or symbol to split the items with
+ * @param	string $home Name of home page if it is shown
+ * @param	boolean $show_current Insert the current page into breadcrumb
+ * @param	string $before Current item html before
+ * @param	string $after Current item html after
  */
-function woo_the_content( $limit = 20 ) {
-	$content = woo_get_content( $limit );
-	if ($content) echo $content;
+function the_breadcrumb( $show_on_home = false, $delimiter = '/', $home = 'Home', $show_current = true, $before = '<span class="current">', $after = '</span>' ) {
+
+	global $post;
+	$home_link = get_bloginfo( 'url' );
+	
+	// Home or front page
+	if ( is_home() || is_front_page() ) {
+
+		if ( $show_on_home === true ) echo '<div class="breadcrumb"><a href="' . $home_link . '">' . $home . '</a></div>';
+
+	// All other cases
+	} else {
+
+		echo '<div class="breadcrumb"><a href="' . $home_link . '">' . $home . '</a> ' . $delimiter . ' ';
+
+		// Category
+		if ( is_category() ) {
+			$this_cat = get_category( get_query_var( 'cat' ), false );
+			if ( $this_cat->parent != 0 ) echo get_category_parents( $this_cat->parent, TRUE, ' ' . $delimiter . ' ' );
+			echo $before . 'Archive by category "' . single_cat_title( '', false ) . '"' . $after;
+		} 
+		
+		// Search
+		elseif ( is_search() ) {
+			echo $before . 'Search results for "' . get_search_query() . '"' . $after;
+		} 
+		
+		// Day
+		elseif ( is_day() ) {
+			echo '<a href="' . get_year_link( get_the_time( 'Y' )) . '">' . get_the_time( 'Y' ) . '</a> ' . $delimiter . ' ';
+			echo '<a href="' . get_month_link( get_the_time( 'Y' ), get_the_time( 'm' )) . '">' . get_the_time( 'F' ) . '</a> ' . $delimiter . ' ';
+			echo $before . get_the_time( 'd' ) . $after;
+		} 
+		
+		// Month
+		elseif ( is_month() ) {
+			echo '<a href="' . get_year_link(get_the_time( 'Y' )) . '">' . get_the_time( 'Y' ) . '</a> ' . $delimiter . ' ';
+			echo $before . get_the_time( 'F' ) . $after;
+		} 
+		
+		// Year
+		elseif ( is_year() ) {
+			echo $before . get_the_time( 'Y' ) . $after;
+		} 
+		
+		// Single but not attachment
+		elseif ( is_single() && ! is_attachment() ) {
+			if ( get_post_type() != 'post' ) {
+				$post_type = get_post_type_object(get_post_type());
+				$slug = $post_type->rewrite;
+				echo '<a href="' . $home_link . '/' . $slug['slug'] . '/">' . $post_type->labels->singular_name . '</a>';
+				if ( $show_current === true ) echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+			} else {
+				$cat = get_the_category(); $cat = $cat[ 0 ];
+				$cats = get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
+				if ( $show_current === false ) $cats = preg_replace( "#^(.+)\s$delimiter\s$#", "$1", $cats );
+				echo $cats;
+				if ( $show_current === true ) echo $before . get_the_title() . $after;
+			}
+		} 
+		
+		// Other
+		elseif ( ! is_single() && ! is_page() && get_post_type() != 'post' && ! is_404() ) {
+			$post_type = get_post_type_object( get_post_type() );
+			echo $before . $post_type->labels->singular_name . $after;
+		} 
+		
+		// Attachment
+		elseif ( is_attachment() ) {
+			$parent = get_post( $post->post_parent );
+			$cat = get_the_category( $parent->ID ); $cat = $cat[ 0 ];
+			echo get_category_parents( $cat, TRUE, ' ' . $delimiter . ' ' );
+			echo '<a href="' . get_permalink( $parent ) . '">' . $parent->post_title . '</a>';
+			if ( $show_current === true ) echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+		} 
+		
+		// Page
+		elseif ( is_page() && ! $post->post_parent ) {
+			if ( $show_current === true ) echo $before . get_the_title() . $after;
+		} 
+		
+		// Page with parent
+		elseif ( is_page() && $post->post_parent ) {
+			$parent_id  = $post->post_parent;
+			$breadcrumbs = array();
+			while ( $parent_id ) {
+				$page = get_page( $parent_id );
+				$breadcrumbs[] = '<a href="' . get_permalink( $page->ID ) . '">' . get_the_title( $page->ID ) . '</a>';
+				$parent_id  = $page->post_parent;
+			}
+			$breadcrumbs = array_reverse( $breadcrumbs );
+			for ( $i = 0; $i < count( $breadcrumbs ); $i++ ) {
+				echo $breadcrumbs[ $i ];
+				if ( $i != count( $breadcrumbs ) -1 ) echo ' ' . $delimiter . ' ';
+			}
+			if ( $show_current === true ) echo ' ' . $delimiter . ' ' . $before . get_the_title() . $after;
+		} 
+		
+		// Tag
+		elseif ( is_tag() ) {
+			echo $before . 'Posts tagged "' . single_tag_title( '', false ) . '"' . $after;
+		} 
+		
+		// Author
+		elseif ( is_author() ) {
+			global $author;
+			$userdata = get_userdata( $author );
+			echo $before . 'Articles posted by ' . $userdata->display_name . r;
+		} 
+		
+		// 404
+		elseif ( is_404() ) {
+			echo $before . 'Error 404' . $after;
+		}
+
+		// Pagination
+		if ( get_query_var( 'paged' ) ) {
+			if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';
+			echo __( 'Page' ) . ' ' . get_query_var( 'paged' );
+			if ( is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
+		}
+		echo '</div>';
+
+	}
+
 }
