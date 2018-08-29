@@ -26,22 +26,50 @@
  * SOFTWARE.
  */
 
+
+/**
+ * Destructuring of wp.blocks.registerBlcokType
+ * @type    {Function}
+ */
 const { registerBlockType } = wp.blocks;
+
+/**
+ * Destructuring of wp.element.createElement
+ * @type    {Function}
+ */
+const { createElement } = wp.element;
+
+/**
+ * Destructuring of wp.editor.RichText
+ * @type    {Object}
+ */
+const { RichText } = wp.editor;
+
+/**
+ * Style of the gutenberg block in the editor
+ * @type    {Object}
+ */
 const blockStyle = { 
     backgroundColor: '#900', 
     color: '#fff', 
     padding: '20px' 
 };
 
-registerBlockType( 'gutenberg-boilerplate', {
-    title: 'Hello World (Step 1)',
+/**
+ * Register the block.
+ * This inserts the block into the 
+ * editor. All properties may be edited
+ * for further customization.
+ */
+registerBlockType( 'control/gutenberg-boilerplate', {
+    title: 'Hello World',
     icon: 'universal-access-alt',
     category: 'layout',
     edit() {
-        return <p style={ blockStyle }>Hello editor.</p>;
+        return createElement( 'p', { style: blockStyle }, 'Hello Editor' );
     },
     save() {
-        return <p style={ blockStyle }>Hello saved content.</p>;
+        return createElement( 'p', { style: blockStyle }, 'Hello Saved Content' );
     },
 } );
 
