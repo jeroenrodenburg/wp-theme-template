@@ -627,12 +627,12 @@ button[type="reset"]:active {
 }
 
 .gform_fields {
-
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .gform_fields .gfield {
-	display: flex;
-	flex-wrap: wrap;
+	flex: 1 1 auto;
 }
 
 .gform_fields .gfield.gfield_error {
@@ -641,6 +641,10 @@ button[type="reset"]:active {
 
 .gform_fields .gfield .gfield_label {
 	
+}
+
+.gform_fields .gfield.gfield_html {
+
 }
 
 .gform_fields .gfield .gfield_label.gfield_label--focus {
@@ -664,19 +668,23 @@ button[type="reset"]:active {
 
 }
 
-.gform_fields .gfield .ginput_container .gfield_checkbox {
+.gform_fields .gfield .ginput_container .gfield_checkbox,
+.gform_fields .gfield .ginput_container .gfield_radio {
 
 }
 
-.gform_fields .gfield .ginput_container .gfield_checkbox > li {
+.gform_fields .gfield .ginput_container .gfield_checkbox > li,
+.gform_fields .gfield .ginput_container .gfield_radio > li {
 	
 }
 
-.gform_fields .gfield .ginput_container .gfield_checkbox > li label {
+.gform_fields .gfield .ginput_container .gfield_checkbox > li label,
+.gform_fields .gfield .ginput_container .gfield_radio > li label {
     
 }
 
-.gform_fields .gfield .ginput_container .gfield_checkbox > li input {
+.gform_fields .gfield .ginput_container .gfield_checkbox > li input,
+.gform_fields .gfield .ginput_container .gfield_radio > li input {
     
 }
 
