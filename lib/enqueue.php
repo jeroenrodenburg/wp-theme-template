@@ -142,7 +142,7 @@ function theme_scripts() {
 	 * jQuery 
 	 * @link	http://api.jquery.com/
 	 */
-	// wp_register_script( 'jquery', '//code.jquery.com/jquery-3.3.1.min.js', false, '3.3.1', true );
+	wp_register_script( 'jquery', '//code.jquery.com/jquery-3.3.1.min.js', false, '3.3.1', false );
 	// wp_enqueue_script( 'jquery' );
 	
 	/**

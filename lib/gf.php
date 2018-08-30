@@ -53,3 +53,21 @@ function custom_gf_submit_button( $button, $form ) {
  * @link	https://docs.gravityforms.com/gform_init_scripts_footer/
  */
 add_filter( 'gform_init_scripts_footer', '__return_true' );
+
+/**
+ * enqueue_gform_scripts
+ * 
+ * Enqueues script that are needed for gforms.
+ * This gives us the control to load in scripts 
+ * only when GForms is used on the page.
+ * 
+ * @since	1.0
+ * @link	https://docs.gravityforms.com/gform_enqueue_scripts/
+ * 
+ * @param	GF_Form $form
+ * @param	boolean $is_ajax
+ */
+add_action( 'gform_enqueue_scripts', 'enqueue_gform_scripts', 10, 2 );
+function enqueue_gform_scripts( $form, $is_ajax ) {
+	wp_enqueue_script( 'jquery' );
+}
