@@ -325,9 +325,27 @@ const debounce = (func, wait, immediate) => {
  * @param   {Number} max Max value
  * @returns {Number} Random number
  */
-const getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+/**
+ * stringCommaToPoint
+ * 
+ * @function
+ * @since   1.0
+ * @param   {String} str String with comma's.
+ * @returns {String} Modified string with points instead of comma's.
+ */
+const stringCommaToPoint = (str) => str.replace(/,/g, '.');
+
+/**
+ * stringPointToComma
+ * 
+ * @function
+ * @since   1.0
+ * @param   {String} str String with points.
+ * @returns {String} Modified string with comma's instead of points.
+ */
+const stringPointToComma = (str) => str.replace(/./g, ',');
 
 /**
  * cssPropertyValueSupported
