@@ -37,6 +37,8 @@
  *
  * @function
  * @since 	1.0
+ * 
+ * @returns {Function}
  */
 const toggleClassOnScroll = (() => {
 
@@ -126,5 +128,82 @@ const tabFocus = (event) => {
 
     // Listen for tabs
     window.addEventListener('keydown', onKeyDown);
+
+};
+
+/**
+ * scrollBarMove
+ * 
+ * Creates a function that will size a element according
+ * to the amount the user has scrolled the page.
+ * For example, if the page has been scrolled to the half 
+ * point, the element's size would be 50%. 3/4 scrolled 
+ * and the element would be 75% in size, and so on.
+ * 
+ * @function
+ * @since   1.0
+ * 
+ * @param   {(String|HTMLElement)} scrollBarElement
+ * @returns {Function}
+ */
+const scrollBarMove = (scrollBarElement) => {
+
+    /**
+     * Create variable for scrollBar.
+     * @type    {null}
+     */
+    let scrollBar = null;
+
+    /**
+     * Get the scrollbar element.
+     * @type    {}
+     */
+    if (!scrollBarElement) return;
+    if ('string' === typeof scrollBarElement) {
+        scrollBar = document.querySelector(scrollBarElement);
+    } else if (scrollBarElement instanceof HTMLElement) {
+        scrollBar = scrollBarElement
+    }
+    
+    // Check if the element is not invalid.
+    if (!scrollBar) return;
+
+    /**
+     * Return an anonymous function to create
+     * a closure.
+     */
+    return () => {
+
+        /**
+         * The scrollable height of the document.
+         * @type    {Number}
+         */
+        let scrollHeight = document.documentElement.scrollHeight;
+
+        /**
+         * The inner height of the window object.
+         * @type    {Number}
+         */
+        let windowHeight = window.innerHeight;
+
+        /**
+         * The current scroll position.
+         * @type    {Number}
+         */
+        let scrollTop = document.scrollingElement ? document.scrollingElement.scrollTop : document.documentElement.scrollTop;
+        
+        /**
+         * The percentage of the amount scrolled.
+         * @type    {Number}
+         */
+        let percentage = scrollTop / (scrollHeight - windowHeight) * 100;
+
+        /**
+         * Apply the transformation to the scrollbar.
+         */
+        scrollBar.style.webkitTransform = `translate3d(${percentage}%, 0, 0)`;
+        scrollBar.style.mozTransform = `translate3d(${percentage}%, 0, 0)`;
+        scrollBar.style.transform = `translate3d(${percentage}%, 0, 0)`;
+    };
 
 };
