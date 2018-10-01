@@ -20,10 +20,8 @@ add_filter( 'style_loader_tag', 'custom_style_attributes', 10, 4 );
 function custom_style_attributes( $html, $handle, $href, $media ) {
 	// Handles to perform the task on
 	$handles = array( 'style' );
-	if ( in_array( $handle, $handles) && THEME_DEV_MODE === false ) {
-		return '
-			<link href="' . $href . '" rel="preload" as="style">
-			<link href="' . $href . '" rel="stylesheet" media="' . $media . '">';
+	if ( in_array( $handle, $handles) ) {
+		return '<link id="' . $handle . '-css" href="' . $href . '" rel="stylesheet" media="none" onload="this.media=' . $media . '">';
 	}
 	return $html;
 }
@@ -44,22 +42,22 @@ function custom_script_attributes( $tag, $handle, $src ) {
 	// Script that load async
 	$async_attr = 'async';
 	$async_handles = array( 'script' );
-	if ( in_array( $handle, $async_handles ) && THEME_DEV_MODE === false ) {
-		return '<script src="' . $src . '" type="text/javascript" ' . $async_attr . '></script>';
+	if ( in_array( $handle, $async_handles ) ) {
+		return '<script id="' . $handle . '-js" src="' . $src . '" type="text/javascript" ' . $async_attr . '></script>';
 	}
 
 	// Scripts that load defer
 	$defer_attr = 'defer';
 	$defer_handles = array( 'google-maps' );
-	if ( in_array( $handle, $defer_handles ) && THEME_DEV_MODE === false ) {
-		return '<script src="' . $src . '" type="text/javascript" ' . $defer_attr . '></script>';
+	if ( in_array( $handle, $defer_handles ) ) {
+		return '<script id="' . $handle . '-js" src="' . $src . '" type="text/javascript" ' . $defer_attr . '></script>';
 	}
 
 	// Scripts that are ES6 Modules
 	$module_attr = 'module';
 	$module_handles = array();
-	if ( in_array( $handle, $module_handles ) && THEME_DEV_MODE === false ) {
-		return '<script src="' . $src . '" type="' . $module_attr . '"></script>';
+	if ( in_array( $handle, $module_handles ) ) {
+		return '<script id="' . $handle . '-js" src="' . $src . '" type="' . $module_attr . '"></script>';
 	}
 
 	return $tag;
