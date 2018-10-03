@@ -28,6 +28,11 @@ gulp.task('css', () => {
 			browsers: ['last 2 versions'],
 			cascade: false
 		}))
+		.on('error', function (err) {
+            console.log(err.toString());
+
+            this.emit('end');
+        })
 		.pipe(cleanCSS({compatibility: '*'}))
 		.pipe(gulp.dest('./dist/css/'));
 });

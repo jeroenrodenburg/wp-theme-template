@@ -18,12 +18,12 @@
  */
 add_filter( 'style_loader_tag', 'custom_style_attributes', 10, 4 );
 function custom_style_attributes( $html, $handle, $href, $media ) {
-	// Handles to perform the task on
-	$handles = array( 'style' );
-	if ( in_array( $handle, $handles) ) {
-		return '<link id="' . $handle . '-css" href="' . $href . '" rel="stylesheet" media="none" onload="this.media=' . $media . '">';
-	}
-	return $html;
+    // Handles to perform the task on
+    $handles = array( 'fancybox', 'swiper', 'slick', 'aos', 'style' );
+    if ( in_array( $handle, $handles) ) {
+        return '<link id="' . $handle . '-css" href="' . $href . '" rel="stylesheet" media="none" onload="this.media=\'' . $media . '\'">';
+    }
+    return $html;
 }
 
 /**
@@ -296,7 +296,7 @@ function theme_scripts() {
 			'id'			=> get_the_id(),
 			'title'			=> get_the_title(),
 			'type'			=> get_post_type(),
-			'template'		=> get_the_template()
+			'template'		=> get_page_template()
 		),
 		'rest'			=> esc_url( get_rest_url() ),
 		'nonce'			=> wp_create_nonce( 'wp_rest' )
