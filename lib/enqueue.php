@@ -258,37 +258,6 @@ function theme_scripts() {
 	 */
 	$script_path = THEME_DEV_MODE ? '/js/' : '/dist/js/';
 	wp_register_script( 'script', get_template_directory_uri() . $script_path . 'script.js', false, false, true );
-	wp_add_inline_script( 'script', '
-		/* <![CDATA[ */
-			(function () {
-				if (!("Promise" in window)) {
-					var promiseScript = document.createElement("script");
-					promiseScript.src = "' . get_template_directory_uri() . '/js/polyfills/promise.polyfill.min.js";
-					document.body.appendChild(promiseScript);
-				}
-				if (!("fetch" in window)) {
-					var fetchScript = document.createElement("script");
-					fetchScript.src = "' . get_template_directory_uri() . '/js/polyfills/fetch.polyfill.min.js";
-					document.body.appendChild(fetchScript);
-				}
-				if (!("IntersectionObserver" in window)) {
-					var intersectionScript = document.createElement("script");
-					intersectionScript.src = "' . get_template_directory_uri() . '/js/polyfills/intersectionobserver.polyfill.min.js";
-					document.body.appendChild(intersectionScript);
-				}
-				if (!("DOMParser" in window)) {
-					var domParserScript = document.createElement("script");
-					domParserScript.src = "' . get_template_directory_uri() . '/js/polyfills/domparser.polyfill.min.js";
-					document.body.appendChild(domParserScript);
-				}
-				if (!("scroll" in window) || !("scrollBy" in window) || !("scrollTo" in window)) {
-					var smoothScrollScript = document.createElement("script");
-					smoothScrollScript.src = "' . get_template_directory_uri() . '/js/polyfills/smoothscroll.polyfill.min.js";
-					document.body.appendChild(smoothScrollScript);
-				}
-			}());
-		/* ]]> */
-	', 'before' );
 	wp_localize_script( 'script', 'wp', array( 
 		'ajax' 			=> admin_url( 'admin-ajax.php' ), 
 		'theme' 		=> get_template_directory_uri(),
