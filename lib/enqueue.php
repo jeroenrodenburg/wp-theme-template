@@ -265,7 +265,7 @@ function theme_scripts() {
 			'id'			=> get_the_id(),
 			'title'			=> get_the_title(),
 			'type'			=> get_post_type(),
-			'template'		=> get_page_template()
+			'template'		=> basename( get_page_template() )
 		),
 		'rest'			=> esc_url( get_rest_url() ),
 		'nonce'			=> wp_create_nonce( 'wp_rest' )
