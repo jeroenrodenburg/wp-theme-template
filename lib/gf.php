@@ -41,9 +41,10 @@ function custom_gf_gfield_content( $field_content, $field, $value, $entry_id, $f
  * @param 	object $form The form
  * @return	string The new button
  */
+
 add_filter( 'gform_submit_button', 'custom_gf_submit_button', 10, 2 );
 function custom_gf_submit_button( $button, $form ) {
-	return '<button type="submit" class="button" id="gform_submit_button_' . $form[ 'id' ] . '">' . $form[ 'button' ][ 'text' ] . '</button>';
+	return '<button type="submit" class="button gform_button" id="gform_submit_button_' . $form[ 'id' ] . '" onclick="if(window[\'gf_submitting_1\']){return false;}  window[\'gf_submitting_1\']=true;" onkeypress="if( event.keyCode == 13 ){ if(window[\'gf_submitting_1\']){return false;} window[\'gf_submitting_1\']=true;  jQuery(\'#gform_1\').trigger(\'submit\',[true]); }">' . $form[ 'button' ][ 'text' ] . '</button>';
 }
 
 /**
