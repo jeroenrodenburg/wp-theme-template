@@ -20,29 +20,46 @@ define( 'THEME_DEV_MODE', true );
  * All the files and definitions should be placed
  * in the LIB folder and be called here below.
  * 
- * @example
- * locate_template( 'path-to-folder.php', true, true );
  */
-locate_template( 'lib/acf.php', true, true );             // Advanced Custom Fields
-locate_template( 'lib/admin.php', true, true );           // Custom admin settings
-locate_template( 'lib/ajax.php', true, true );            // Ajax functions
-locate_template( 'lib/cleanup.php', true, true );         // Head cleanup
-locate_template( 'lib/cookie.php', true, true );          // Cookie related functions
-locate_template( 'lib/customizer.php', true, true );      // Customizer modifications
-locate_template( 'lib/enqueue.php', true, true );         // Enqueue CSS and JS
-locate_template( 'lib/filters.php', true, true );         // Filter hooks
-locate_template( 'lib/gf.php', true, true );              // Gravity Forms
-locate_template( 'lib/gutenberg.php', true, true );		  // Gutenberg modifications
-locate_template( 'lib/helpers.php', true, true );         // Helper functions
-locate_template( 'lib/meta.php', true, true );            // Meta functions
-locate_template( 'lib/navigation.php', true, true );      // Navigation registeration and Walkers
-locate_template( 'lib/post-types.php', true, true );      // Custom post types
-locate_template( 'lib/rest.php', true, true );            // Rest settings
-locate_template( 'lib/sidebars.php', true, true );        // Sidebar registration
-locate_template( 'lib/taxonomies.php', true, true );      // Custom taxonomies
-locate_template( 'lib/theme-support.php', true, true );   // Theme support settings
-locate_template( 'lib/widgets.php', true, true );         // Custom widgets
-locate_template( 'lib/woocommerce.php', true, true );     // Woocommerce settings
-locate_template( 'lib/wpml.php', true, true );			  // WPML configuration
+$templates = array(
+
+	// Core modifications
+	'lib/customizer.php',			// Customizer modifications
+	'lib/enqueue.php',				// Enqueue CSS and JS
+	'lib/filters.php',				// Filter hooks
+	'lib/rest.php',					// Rest API configuration
+	'lib/cleanup.php',				// Head cleanup
+	
+	// Custom additions
+	'lib/ajax.php',					// Ajax functions
+	'lib/helpers.php',				// Helper functions
+	'lib/meta.php',					// Meta functions
+	'lib/cookie.php',				// Cookie functions
+	
+	// Theme customizations
+	'lib/admin.php',				// Custom admin settings
+	'lib/theme-support.php',		// Theme support configuration
+	'lib/navigation.php',			// Navigation registration and Nav Walkers
+	'lib/post-types.php',			// Post Types registration
+	'lib/taxonomies.php',			// Taxonomies registration
+	'lib/sidebars.php',				// Sidebars registration
+	'lib/widgets.php',				// Widget registration
+	
+	// Plugin configurations and modifications
+	'lib/gutenberg.php',			// Gutenberg modifications
+	'lib/acf.php',					// Advanced Custom Fields
+	'lib/gf.php',					// Gravity Form modifications
+	'lib/woocommerce.php',			// Woocommerce modifications
+	'lib/wpml.php',					// WPML modifications
+);
+
+/**
+ * Loop over all the paths and locate the
+ * templates. This will include all files into
+ * this functions.php file.
+ */
+foreach ( $templates as $template ) {
+	locate_template( $template, true, true );
+}
 
 ?>
