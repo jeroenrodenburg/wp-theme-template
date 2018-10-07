@@ -2,8 +2,9 @@
 
 // Get gulp packages
 const gulp = require('gulp');
-const autoprefixer = require('gulp-autoprefixer');
-const cleanCSS = require('gulp-clean-css');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
+const cssnano = require('cssnano');
 const babel = require('gulp-babel');
 const minify = require('gulp-babel-minify');
 const criticalCSS = require('gulp-penthouse');
@@ -23,17 +24,16 @@ const faviconDataFile = 'faviconData.json';
  * 
  */
 gulp.task('css', () => {
-	return gulp.src('./style.css')
-		.pipe(autoprefixer({
+	const processors = [
+		autoprefixer({
 			browsers: ['last 2 versions'],
 			cascade: false
-		}))
-		.on('error', function (err) {
-            console.log(err.toString());
-
-            this.emit('end');
-        })
-		.pipe(cleanCSS({compatibility: '*'}))
+		}),
+		cssnano,
+	  ];
+	return gulp.src('./style.css')
+		.pipe(postcss(processors))
+		.on('error', (error) => console.log(error.toString()))
 		.pipe(gulp.dest('./dist/css/'));
 });
 
