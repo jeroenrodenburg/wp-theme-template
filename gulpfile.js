@@ -23,7 +23,7 @@ const faviconDataFile = 'faviconData.json';
  * {@link https://github.com/postcss/autoprefixer#options}
  * 
  */
-gulp.task('css', () => {
+gulp.task('styles', () => {
 	const processors = [
 		autoprefixer({
 			browsers: ['last 2 versions'],
@@ -48,13 +48,25 @@ gulp.task('css', () => {
  * {@link https://babeljs.io/docs/usage/api/}
  * 
  */
-gulp.task('js', () => {
+gulp.task('scripts', () => {
 	return gulp.src('./js/script.js')
 		.pipe(babel({
 			presets: ['env']
 		}))
 		.pipe(minify())
 		.pipe(gulp.dest('./dist/js/'));
+});
+
+/**
+ * Watch gulp task
+ * 
+ * Watch for all the CSS and JS files and execute 'styles' 
+ * and 'scripts' tasks when a change is made in the files in the paths.
+ * 
+ */
+gulp.task('watch', () => {
+	gulp.watch('./style.css', ['styles']);
+	gulp.watch('./js/script.js', ['scripts']);
 });
 
 /**
@@ -104,7 +116,7 @@ gulp.task('critical', () => {
 				height: 900,
 				userAgent: 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' // pretend to be googlebot when grabbing critical page styles.
 			}))
-			.pipe(cleanCSS({compatibility: '*'}))
+			.pipe(postcss(cssnano))
 			.pipe(gulp.dest('./dist/critical/'));
 	});
 });
@@ -193,13 +205,4 @@ gulp.task('favicon', (done) => {
  * all of the files that are being watched.
  * 
  */
-gulp.task('default', ['css', 'js']);
-
-/**
- * Watch gulp task
- * 
- * Watch for all the CSS files and execute 'default' 
- * when a change is made in the files in the paths.
- * 
- */
-gulp.watch(['./style.css', './js/script.js'], ['default']);
+gulp.task('default', ['watch']);
