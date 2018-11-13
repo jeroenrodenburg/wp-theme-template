@@ -373,3 +373,38 @@ function the_breadcrumb( $show_on_home = false, $delimiter = '/', $home = 'Home'
 	}
 
 }
+
+/**
+ * get_reading_time
+ * 
+ * Calculate the reading time based on 
+ * the amount of words divided by the
+ * average reading speed per word.
+ * 
+ * @since	1.0
+ * @param	WP_Post $post
+ * @param	integer $wpm Average words per minute
+ * @return	integer
+ */
+function get_reading_time( $post = null, $wpm = 302 ) {
+	$content = get_the_content();
+	$words = explode( ' ', $content );
+	$length = count( $words );
+	$minutes = round( $length / $wpm );
+	if ( $minutes < 1 ) $minutes = 1;
+	return $minutes;
+}
+
+/**
+ * the_reading_time
+ * 
+ * Gets the reading time of the 
+ * current post and echoes it.
+ * 
+ * @since	1.0
+ */
+function the_reading_time() {
+	global $post;
+	$reading_time = get_reading_time( $post );
+	echo $reading_time;
+}
