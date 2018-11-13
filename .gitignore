@@ -1,6 +1,7 @@
 # gitignore for wp-theme-template
 
 # Folders
+.vscode
 dist
 node_modules
 
