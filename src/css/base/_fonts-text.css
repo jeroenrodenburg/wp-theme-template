@@ -1,0 +1,196 @@
+/**
+ * Fonts & Texts
+ *
+ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: 700;
+	font-style: normal;
+}
+
+h1 {
+	margin: 2.5rem 0 1.5rem;
+}
+
+h2 {
+	margin: 2rem 0 1rem;
+}
+
+h3 {
+	margin: 2rem 0 1rem;
+}
+
+h4 {
+	margin: 2rem 0 1rem;
+}
+
+h5 {
+	margin: 1.5rem 0 1rem;
+}
+
+h6 {
+	margin: 1.5rem 0 1rem;
+}
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+	margin-top: 0;
+}
+
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child,
+h6:last-child {
+	margin-bottom: 0;
+}
+
+p {
+	font-size: 0.875em;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.5;
+	margin: 1rem 0;
+}
+
+p > a {
+	display: inline;
+}
+
+ul {
+	list-style: disc;
+	margin: 1rem 0;
+}
+
+ol {
+	list-style: decimal-leading-zero;
+	margin: 1rem 0;
+}
+
+ul > li {
+	font-size: 0.875em;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+ol > li {
+	font-size: 0.875em;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+ul > li > a {
+	display: inline;
+}
+
+ul > li > a:hover,
+ul > li > a:focus {
+
+}
+
+ol > li > a {
+	display: inline;
+}
+
+ol > li > a:hover,
+ol > li > a:focus {
+
+}
+
+q {
+	font-size: 0.875em;
+	font-weight: 400;
+	font-style: normal;
+	line-height: 1.5;
+	margin: 1rem 0;
+	quotes: "“" "”" "‘" "’";
+}
+
+blockquote {
+	display: block;
+	quotes: "“" "”" "‘" "’";
+}
+
+q::before,
+blockquote::before {
+	content: open-quote;
+}
+
+q::after,
+blockquote::after {
+	content: close-quote;
+}
+
+p:first-child,
+ul:first-child,
+ol:first-child,
+q:first-child,
+blockquote:first-child {
+	margin-top: 0;
+}
+
+p:last-child,
+ul:last-child,
+ol:last-child,
+q:last-child,
+blockquote:last-child {
+	margin-bottom: 0;
+}
+
+strong {
+	font-weight: 700;
+}
+
+em {
+	font-style: italic;
+}
+
+mark {
+	background: #000000;
+	color: #ffffff;
+}
+
+sup {
+	font-size: 50%;
+	vertical-align: top;
+}
+
+sub {
+	font-size: 50%;
+	vertical-align: bottom;
+}
+
+/* 480px and up */
+@media all and (min-width: 30em) {
+
+}
+
+/* 768px and up */
+@media all and (min-width: 48em) {
+	
+}
+
+/* 992px and up */
+@media all and (min-width: 62em) {
+
+}
+
+/* 1280px and up */
+@media all and (min-width: 80em) {
+	
+}
+
+/* 1440px and up */
+@media all and (min-width: 90em) {
+	
+}

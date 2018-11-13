@@ -1,0 +1,131 @@
+/**
+ * Gravity Forms CSS
+ *
+ */
+
+.gform_wrapper {
+
+}
+
+.gform_heading {
+
+}
+
+.gform_body {
+
+}
+
+.gform_footer {
+
+}
+
+.gform_title {
+
+}
+
+.gform_fields {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.gform_fields .gfield {
+	flex: 1 1 auto;
+}
+
+.gform_fields .gfield.gfield_error {
+
+}
+
+.gform_fields .gfield .gfield_label {
+	
+}
+
+.gform_fields .gfield.gfield_html {
+
+}
+
+.gform_fields .gfield .gfield_label.gfield_label--focus {
+	
+}
+
+.gform_fields .gfield .ginput_container {
+
+}
+
+.gform_fields .gfield .ginput_container input,
+.gform_fields .gfield .ginput_container textarea {
+
+}
+
+.gform_fields .gfield .ginput_container .gform_fileupload_multifile {
+
+}
+
+.gform_fields .gfield .ginput_container .gform_fileupload_multifile .gform_drop_area {
+
+}
+
+.gform_fields .gfield .ginput_container .gfield_checkbox,
+.gform_fields .gfield .ginput_container .gfield_radio {
+
+}
+
+.gform_fields .gfield .ginput_container .gfield_checkbox > li,
+.gform_fields .gfield .ginput_container .gfield_radio > li {
+	
+}
+
+.gform_fields .gfield .ginput_container .gfield_checkbox > li label,
+.gform_fields .gfield .ginput_container .gfield_radio > li label {
+    
+}
+
+.gform_fields .gfield .ginput_container .gfield_checkbox > li input,
+.gform_fields .gfield .ginput_container .gfield_radio > li input {
+    
+}
+
+.gform_fields .gfield .gfield_description {
+	
+}
+
+.gform_footer .gform_button {
+
+}
+
+.gform_wrapper .validation_error {
+
+}
+
+.gform_wrapper .validation_message {
+
+}
+
+.gform_hidden {
+	display: none;
+}
+
+/* 480px and up */
+@media all and (min-width: 30em) {
+
+}
+
+/* 768px and up */
+@media all and (min-width: 48em) {
+	
+}
+
+/* 992px and up */
+@media all and (min-width: 62em) {
+
+}
+
+/* 1280px and up */
+@media all and (min-width: 80em) {
+	
+}
+
+/* 1440px and up */
+@media all and (min-width: 90em) {
+	
+}

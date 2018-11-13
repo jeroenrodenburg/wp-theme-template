@@ -1,0 +1,86 @@
+/**
+ * General CSS
+ *
+ */
+
+::-moz-selection {
+
+}
+
+::selection {
+
+}
+
+*, *::before, *::after {
+	box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+}
+
+html.no-js {
+
+}
+
+body {
+	font-size: 16px;
+	font-display: fallback;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	scroll-behavior: smooth;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+a {
+	display: block;
+	text-decoration: none;
+}
+
+a:link {
+
+}
+
+a:visited {
+
+}
+
+
+/* 480px and up */
+@media all and (min-width: 30em) {
+
+}
+
+/* 768px and up */
+@media all and (min-width: 48em) {
+	
+}
+
+/* 992px and up */
+@media all and (min-width: 62em) {
+
+	a:hover,
+	a:focus {
+
+	}
+	
+}
+
+/* 1280px and up */
+@media all and (min-width: 80em) {
+	
+}
+
+/* 1440px and up */
+@media all and (min-width: 90em) {
+	
+}

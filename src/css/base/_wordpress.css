@@ -1,0 +1,116 @@
+/**
+ * WordPress CSS
+ *
+ */
+
+.logged-in {
+
+}
+
+.wp-custom-logo {
+
+}
+
+p img.alignnone,
+p img.aligncenter,
+p img.alignleft,
+p img.alignright {
+	display: block;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+img.alignnone {
+	float: none;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+img.aligncenter {
+	display: block; 
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img.alignleft {
+	float: left;
+	margin-right: 1rem;
+}
+
+img.alignright {
+	float: right;
+	margin-left: 1rem;
+}
+
+img.size-full {
+
+}
+
+img.size-large {
+	
+}
+
+img.size-medium {
+	
+}
+
+img.size-thumbnail {
+	
+}
+
+.wp-caption {
+
+}
+
+.wp-caption.alignnone {
+
+}
+
+.wp-caption.alignleft {
+
+}
+
+.wp-caption.alignright {
+
+}
+
+.wp-caption img {
+
+}
+
+.wp-caption p.caption-text {
+
+}
+
+.screen-reader-text {
+
+}
+
+.screen-reader-text:focus {
+
+}
+
+/* 480px and up */
+@media all and (min-width: 30em) {
+
+}
+
+/* 768px and up */
+@media all and (min-width: 48em) {
+	
+}
+
+/* 992px and up */
+@media all and (min-width: 62em) {
+
+}
+
+/* 1280px and up */
+@media all and (min-width: 80em) {
+	
+}
+
+/* 1440px and up */
+@media all and (min-width: 90em) {
+	
+}
