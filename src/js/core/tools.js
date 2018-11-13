@@ -40,7 +40,7 @@
  * @param   {String} cls CSS class to find the element with
  * @returns {HTMLElement}
  */	
-const getParent = (start, cls) => {
+export const getParent = (start, cls) => {
     let el = start;
     while (el && !el.classList.contains(cls)) {
         el = el.parentElement;
@@ -60,7 +60,7 @@ const getParent = (start, cls) => {
  * @param   {HTMLElement} start  Element to start from
  * @returns {Array} Array of found siblings
  */
-const getSiblings = (start) => {
+export const getSiblings = (start) => {
     let children = start.parentElement.children;
     return Array.prototype.filter.call(children, (sib) => {
         return sib !== start;
@@ -79,7 +79,7 @@ const getSiblings = (start) => {
  * @param   {String} cls CSS class to find the element with
  * @returns {HTMLElement}
  */	
-const getNextSiblingWithClass = (start, cls) => {
+export const getNextSiblingWithClass = (start, cls) => {
     let el = start;
     while (el && !el.classList.contains(cls)) {
         el = el.nextElementSibling;
@@ -99,7 +99,7 @@ const getNextSiblingWithClass = (start, cls) => {
  * @param   {String} cls CSS class to find the element with
  * @returns {HTMLElement}
  */	
-const getPrevSiblingWithClass = (start, cls) => {
+export const getPrevSiblingWithClass = (start, cls) => {
     let el = start;
     while (el && !el.classList.contains(cls)) {
         el = el.previousElementSibling;
@@ -122,7 +122,7 @@ const getPrevSiblingWithClass = (start, cls) => {
  * @param   {HTMLElement} element HTMLElement to remove children of
  * @returns {HTMLElement} Returns the element with children removed
  */
-const removeChildren = (element) => {
+export const removeChildren = (element) => {
     while (element && element.firstElementChild) {
         element.removeChild(element.firstElementChild);
     }
@@ -142,14 +142,11 @@ const removeChildren = (element) => {
  * @param   {String} [mimeType='application/xml'] MimeType to convert the string to
  * @returns {(XMLDocument|HTMLDocument|SVGDocument)}
  */
-const parseString = (data, mimeType = 'application/xml') => {
+export const parseString = (data, mimeType = 'application/xml') => {
 	if (data && 'string' === typeof data) {
-    	if ('DOMParser' in window) {
-			let parser = new DOMParser();
-            return parser.parseFromString(data, mimeType);
-    	} else {
-			throw new Error('DOMParser not supported.');
-		}
+    	if (!'DOMParser' in window) throw new Error('DOMParser not supported.');
+        let parser = new DOMParser();
+        return parser.parseFromString(data, mimeType);
 	}
 };
 
@@ -173,6 +170,7 @@ const stringToHTML = (data) => {
 		throw new Error('data argument is not present or not a string');
 	}
 };
+    
 
 /**
  * getValues
@@ -297,7 +295,7 @@ const getValuesPerFieldset = (form) => {
  * @param   {Number} wait Time to wait before firing
  * @param   {Boolean} immediate Fire immediately or not
  */
-const debounce = (func, wait, immediate) => {
+export const debounce = (func, wait, immediate) => {
 	let timeout;
 	return function() {
         let context = this;
@@ -325,7 +323,7 @@ const debounce = (func, wait, immediate) => {
  * @param   {Number} max Max value
  * @returns {Number} Random number
  */
-const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+export const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 /**
  * stringCommaToPoint
@@ -335,7 +333,7 @@ const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) +
  * @param   {String} str String with comma's.
  * @returns {String} Modified string with points instead of comma's.
  */
-const stringCommaToPoint = (str) => str.replace(/,/g, '.');
+export const stringCommaToPoint = (str) => str.replace(/,/g, '.');
 
 /**
  * stringPointToComma
@@ -345,7 +343,7 @@ const stringCommaToPoint = (str) => str.replace(/,/g, '.');
  * @param   {String} str String with points.
  * @returns {String} Modified string with comma's instead of points.
  */
-const stringPointToComma = (str) => str.replace(/./g, ',');
+export const stringPointToComma = (str) => str.replace(/./g, ',');
 
 /**
  * cssPropertyValueSupported
@@ -359,7 +357,7 @@ const stringPointToComma = (str) => str.replace(/./g, ',');
  * @param	{String} value Value of property to check
  * @returns	{Boolean}
  */
-const cssPropertyValueSupported = (prop, value) => {
+export const cssPropertyValueSupported = (prop, value) => {
     let d = document.createElement('div');
     d.style[prop] = value;
     return d.style[prop] === value;
@@ -375,7 +373,7 @@ const cssPropertyValueSupported = (prop, value) => {
  * @param   {String} [query=a[rel="external"]]
  * @returns	{NodeList}
  */
-const linkTargetsBlank = (query = 'a[rel="external"]') => {
+export const linkTargetsBlank = (query = 'a[rel="external"]') => {
     let links = document.querySelectorAll(query);
     links.forEach(link => link.setAttribute('target', '_blank'));
     return links;

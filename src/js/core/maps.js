@@ -2,7 +2,7 @@
 
 /**
  *	@author Control <info@controldigital.nl>
- *	@file google-maps.js
+ *	@file maps.js
  *	@version 1.0
  *	@license
  *	Copyright (c) 2018 Control.
@@ -38,7 +38,7 @@
  * @param	{Object=} options Options for the google.maps.Map class
  * @returns {<google.maps.Map>}
  */
-const createMap = (mapElement, options = {center: {lat: 52.3935744, lng: 4.8944151}, zoom: 8}) => {
+export const createMap = (mapElement, options = {center: {lat: 52.3935744, lng: 4.8944151}, zoom: 8}) => {
 
 	// Get the map elements
 	let element;
@@ -104,7 +104,7 @@ const createMap = (mapElement, options = {center: {lat: 52.3935744, lng: 4.89441
  * @param 	{<google.maps.Map>} map Google maps map instance
  * @returns	{Promise} Returns map on resolve and an error on reject
  */
-const centerMap = (map) => {
+export const centerMap = (map) => {
 	return new Promise((resolve, reject) => {
 		if (map && map instanceof google.maps.Map) {
 			if (!map.bounds.isEmpty()) {
@@ -130,7 +130,7 @@ const centerMap = (map) => {
  * @param 	{<google.maps.Marker>} marker
  * @param 	{String} content
  */
-const attachInfoWindow = (marker, content, map) => {
+export const attachInfoWindow = (marker, content, map) => {
 
 	marker.addListener('click', function () {
 		if (map.infowindow) map.infowindow.close();
@@ -155,7 +155,7 @@ const attachInfoWindow = (marker, content, map) => {
  * @param 	{<google.maps.Map>} map Google maps map instance
  * @returns {Promise} returns the map object on resolve
  */
-const addMarker = (position, map) => {
+export const addMarker = (position, map) => {
 	return new Promise((resolve, reject) => {
 		if (position && map && map instanceof google.maps.Map) {
 
@@ -202,7 +202,7 @@ const addMarker = (position, map) => {
  * @param 	{<google.maps.Map>} map Google maps map instance
  * @returns {Promise} returns the map object on resolve
  */
-const addMarkers = (markers, map) => {
+export const addMarkers = (markers, map) => {
 	if (markers && map && map instanceof google.maps.Map) {
 
 		// Loop over markers and return the promise from addMarker
@@ -221,7 +221,7 @@ const addMarkers = (markers, map) => {
  * @param 	{<google.maps.Map>} map 
  * @returns {Promise} returns the map object on resolve
  */
-const removeMarkers = (map) => {
+export const removeMarkers = (map) => {
 	return new Promise((resolve, reject) => {
 		if (map && map instanceof google.maps.Map) {
 
@@ -269,7 +269,7 @@ const removeMarkers = (map) => {
  * @param 	{Object=} options 
  * @returns	{Promise}
  */
-const addPolyline = (position, map, options = {geodesic: true, strokeColor: '#ff0000', strokeOpacity: 1.0, strokeWeight: 2}) => {
+export const addPolyline = (position, map, options = {geodesic: true, strokeColor: '#ff0000', strokeOpacity: 1.0, strokeWeight: 2}) => {
 	return new Promise((resolve, reject) => {
 		if (position && map && map instanceof google.maps.Map) {
 
@@ -305,7 +305,7 @@ const addPolyline = (position, map, options = {geodesic: true, strokeColor: '#ff
  * @param 	{<google.maps.Map>} map 
  * @returns {Promise} returns the map object on resolve
  */
-const removePolylines = (map) => {
+export const removePolylines = (map) => {
 	return new Promise((resolve, reject) => {
 		if (map && map instanceof google.maps.Map) {
 
@@ -355,7 +355,7 @@ const removePolylines = (map) => {
  * @param 	{Object=} options 
  * @returns	{Promise}
  */
-const addPolygon = (position, map, options = {strokeColor: '#ff0000', strokeOpacity: 0.8, strokeWeight: 2, fillColor: '#ff000', fillOpacity: 0.35}) => {
+export const addPolygon = (position, map, options = {strokeColor: '#ff0000', strokeOpacity: 0.8, strokeWeight: 2, fillColor: '#ff000', fillOpacity: 0.35}) => {
 	return new Promise((resolve, reject) => {
 		if (position && map && map instanceof google.maps.Map) {
 
@@ -391,7 +391,7 @@ const addPolygon = (position, map, options = {strokeColor: '#ff0000', strokeOpac
  * @param 	{<google.maps.Map>} map 
  * @returns {Promise} returns the map object on resolve
  */
-const removePolygons = (map) => {
+export const removePolygons = (map) => {
 	return new Promise((resolve, reject) => {
 		if (map && map instanceof google.maps.Map) {
 

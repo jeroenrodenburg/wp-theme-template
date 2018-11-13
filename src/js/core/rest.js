@@ -2,7 +2,7 @@
 
 /**
  * @author Control <info@controldigital.nl>
- * @file ajax.js
+ * @file rest.js
  * @version 1.0
  * @license
  * Copyright (c) 2018 Control.
@@ -27,166 +27,12 @@
  */
 
 /**
- * arrayToCSV
- * 
- * Converts an array into a 
- * comma seperated value (CSV) string.
- * 
- * @function
- * @since	1.0
- * 
- * @param	{Array} data Array to convert to CSV string.
- * @returns	{*} Orignal data or CSV string.
+ * Import functions from convert
  */
-const arrayToCSV = (data = []) => {
-	if (!Array.isArray(data)) return data;
-	let csvString = data.join(',');
-	return csvString;
-};
+import { convertKeysOfObject, objectToQueryString } from './convert';
 
 /**
- * objectToCSV
- * 
- * Converts an object into a
- * comma seperated value (CSV) string.
- * 
- * @function
- * @since	1.0
- * 
- * @param 	{Object} data Object to convert to CSV string.
- * @returns	{*}	Orignal data or CSV string.
- */
-const objectToCSV = (data = {}) => {
-	if ('object' !== typeof data) return data;
-	let keys = Object.keys(data);
-	let csvString = keys.map(key => `${key}=${data[key]}`).join(',');
-	return csvString;
-};
-
-/**
- * arrayToQueryString
- * 
- * Converts an array with objects into
- * a string that can be used in a query
- * 
- * @function
- * @since   1.0
- * 
- * @uses	arrayToCSV()
- * @param   {Object[]} [data=[]] Array with object with name and value for the string
- * @param   {String} data.name Name of field
- * @param   {String} data.value Value of field
- * @returns {String} Queryable string
- * 
- * @example
- * let data = [
- *    {
- *       name: 'action',
- *       value: 'get_posts'
- *    },
- *    {
- *       name: 'post_type',
- *       value: 'post,page'
- *    }
- * ];
- * 
- * let query = arrayToQueryString(data); // = "?action=value&post_type=post,page"
- */
-const arrayToQueryString = (data = []) => {
-    if (!Array.isArray(data)) throw new Error('data argument is not given or type of array');
-    let query = data.map(item => `${item.name}=${arrayToCSV(item.value)}`).join('&');
-    return query.length ? `?${query}` : '';
-};
-
-/**
- * objectToQueryString
- * 
- * Converts an object with keys
- * and values into a string that
- * can be used in a query.
- * 
- * @function
- * @since	1.0
- * 
- * @uses	arrayToCSV()
- * @param 	{Object} data Object to convert to string
- * @returns	{String} Queryable string
- * 
- * @example
- * let data = {
- *      action: 'get_posts',
- *      post_type: 'post,page'
- * };
- * 
- * let query = objectToQueryString(data); // = "?action=value&post_type=post,page"
- */
-const objectToQueryString = (data = {}) => {
-	if (!data || 'object' !== typeof data) throw new Error('data argument is not given or type of object');
-	let keys = Object.keys(data);
-	let query = keys.map(item => `${item}=${arrayToCSV(data[item])}`).join('&');
-    return query.length ? `?${query}` : '';
-};
-
-/**
- * camelToSnake
- * 
- * Converts a camel-cased string 
- * to a snake-cased string and 
- * returns it.
- * 
- * @function
- * @since	1.0
- * 
- * @param 	{String} string 
- * @returns	{String}
- */
-const camelToSnake = string => string.replace(/[A-Z\s]+/g, match => `_${match.toLowerCase()}`);
-
-/**
- * snakeToCamel
- * 
- * Converts a snake-cased string
- * to a camel-cased string and
- * returns it.
- * 
- * @function
- * @since	1.0
- * 
- * @param 	{String} string 
- * @returns	{String}
- */
-const snakeToCamel = string => string.replace(/_\w/g, match => match[1].toUpperCase());
-
-/**
- * convertKeysOfObject
- * 
- * Converts the keys of an object
- * to snake-cased format.
- * 
- * @function
- * @since	1.0
- * 
- * @uses	camelToSnake
- * @param 	{Object} object
- * @returns	{Object}
- */
-const convertKeysOfObject = (object) => {
-	Object.keys(object).forEach((key) => {
-		let snakeKey = camelToSnake(key);
-		if (snakeKey !== key) {
-			Object.defineProperty(
-				object, 
-				snakeKey, 
-				Object.getOwnPropertyDescriptor(object, key)
-			);
-			delete object[key];
-		}
-	});
-	return object;
-};
-
-/**
- * getRestData()
+ * getWPRest()
  * 
  * Fetches the posts of this WordPress site
  * through the REST API. The function is an async
@@ -201,7 +47,7 @@ const convertKeysOfObject = (object) => {
  * @param	{String} [rest=wp.rest] Url of REST API.
  * @returns	{Promise}
  */
-const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.rest) => {
+export const getWPRest = async (args = {}, route = '/wp/v2/posts', rest = wp.rest) => {
 
 	// Check if args parameter is set and if it is an object.
 	if (!args || 'object' !== typeof args) throw new Error('Args not set or not an object');
@@ -251,7 +97,7 @@ const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.rest) =>
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{Object} [args={}] 
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -284,9 +130,9 @@ const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.rest) =>
  * 	order: 'desc'
  * }).then(posts);
  */
-const getPosts = async (args = {}) => {
+export const getPosts = async (args = {}) => {
 	const route = 'wp/v2/posts/';
-	let response = await getRestData(args, route);
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -300,7 +146,7 @@ const getPosts = async (args = {}) => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{Object} [args={}] 
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -320,9 +166,9 @@ const getPosts = async (args = {}) => {
  * @example
  * getCategories().then(categories);
  */
-const getCategories = async (args = {}) => {
+export const getCategories = async (args = {}) => {
 	const route = 'wp/v2/categories/';
-	let response = await getRestData(args, route);
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -336,7 +182,7 @@ const getCategories = async (args = {}) => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{Object} [args={}] 
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -356,9 +202,9 @@ const getCategories = async (args = {}) => {
  * @example
  * getTags().then(tags);
  */
-const getTags = async (args = {}) => {
+export const getTags = async (args = {}) => {
 	const route = 'wp/v2/tags/';
-	let response = await getRestData(args, route);
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -372,7 +218,7 @@ const getTags = async (args = {}) => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{Object} [args={}] 
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -398,9 +244,9 @@ const getTags = async (args = {}) => {
  * @example
  * getPages().then(pages);
  */
-const getPages = async (args = {}) => {
+export const getPages = async (args = {}) => {
 	const route = 'wp/v2/pages/';
-	let response = await getRestData(args, route);
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -414,7 +260,7 @@ const getPages = async (args = {}) => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{Object} [args={}] 
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -443,8 +289,8 @@ const getPages = async (args = {}) => {
  * @example
  * getComments().then(comments);
  */
-const getComments = async (args = {}, route = 'wp/v2/comments/') => {
-	let response = await getRestData(args, route);
+export const getComments = async (args = {}, route = 'wp/v2/comments/') => {
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -458,7 +304,7 @@ const getComments = async (args = {}, route = 'wp/v2/comments/') => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{Object} [args={}] 
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -468,9 +314,9 @@ const getComments = async (args = {}, route = 'wp/v2/comments/') => {
  * @example
  * getTaxonomies().then(taxonomies);
  */
-const getTaxonomies = async (args = {}) => {
+export const getTaxonomies = async (args = {}) => {
 	const route = 'wp/v2/taxonomies/';
-	let response = await getRestData(args, route);
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -484,7 +330,7 @@ const getTaxonomies = async (args = {}) => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{Object} [args={}] 
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -510,8 +356,8 @@ const getTaxonomies = async (args = {}) => {
  * @example
  * getMedia().then(media);
  */
-const getMedia = async (args = {}, route = 'wp/v2/media/') => {
-	let response = await getRestData(args, route);
+export const getMedia = async (args = {}, route = 'wp/v2/media/') => {
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -525,7 +371,7 @@ const getMedia = async (args = {}, route = 'wp/v2/media/') => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{Object} [args={}] 
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -546,8 +392,8 @@ const getMedia = async (args = {}, route = 'wp/v2/media/') => {
  * @example
  * getUsers().then(users);
  */
-const getUsers = async (args = {}, route = 'wp/v2/users/') => {
-	let response = await getRestData(args, route);
+export const getUsers = async (args = {}, route = 'wp/v2/users/') => {
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -561,7 +407,7 @@ const getUsers = async (args = {}, route = 'wp/v2/users/') => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param	{Object} args
  * @param	{String} [args.context='view'] Scope under which the request is made; determines fields present in response.
@@ -571,8 +417,8 @@ const getUsers = async (args = {}, route = 'wp/v2/users/') => {
  * @example
  * getPostTypes().then(postTypes);
  */
-const getPostTypes = async (args = {}, route = 'wp/v2/types/') => {
-	let response = await getRestData(args, route);
+export const getPostTypes = async (args = {}, route = 'wp/v2/types/') => {
+	let response = await getWPRest(args, route);
 	return response;
 };
 
@@ -586,7 +432,7 @@ const getPostTypes = async (args = {}, route = 'wp/v2/types/') => {
  * 
  * @function
  * @since	1.0
- * @uses	getRestData
+ * @uses	getWPRest
  * 
  * @param 	{String} [route='/wp/v2/settings/'] Path to the pages endpoint.
  * @returns {Promise}
@@ -594,8 +440,8 @@ const getPostTypes = async (args = {}, route = 'wp/v2/types/') => {
  * @example
  * getSettings().then(settings);
  */
-const getSettings = async (route = 'wp/v2/settings/') => {
+export const getSettings = async (route = 'wp/v2/settings/') => {
 	let args = {};
-	let response = await getRestData(args, route);
+	let response = await getWPRest(args, route);
 	return response;
 };

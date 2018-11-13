@@ -36,7 +36,7 @@
  * @param	{(String|HTMLVideoElement)} videoElement
  * @returns	{HTMLVideoElement}
  */
-const getVideo = (videoElement) => {
+export const getVideo = (videoElement) => {
 	return videoElement ?
 		'string' === typeof videoElement ? 
 			document.querySelector(videoElement) :
@@ -56,7 +56,7 @@ const getVideo = (videoElement) => {
  * @param	{(String|HTMLVideoElement[])} videoElements
  * @returns	{HTMLVideoElement[]}
  */
-const getVideos = (videoElements) => {
+export const getVideos = (videoElements) => {
 	return videoElements ?
 		'string' === typeof videoElements ?
 			document.querySelectorAll(videoElements) :
@@ -79,7 +79,7 @@ const getVideos = (videoElements) => {
  * @param	{(String|HTMLVideoElement)} videoElement String or result of document.querySelector()
  * @returns	{Promise}
  */
-const playVideo = (videoElement) => {
+export const playVideo = (videoElement) => {
 	let video = videoElement ?
 		getVideo(videoElement) :
 		null;
@@ -98,7 +98,7 @@ const playVideo = (videoElement) => {
  * @param	{(String|HTMLVideoElement)} videoElement String or result of document.querySelector()
  * @returns	{HTMLVideoElement}
  */
-const pauseVideo = (videoElement) => {
+export const pauseVideo = (videoElement) => {
 	let video = videoElement ?
 		getVideo(videoElement) :
 		null;
@@ -118,7 +118,7 @@ const pauseVideo = (videoElement) => {
  * @param	{(String|HTMLVideoElement[])} videoElements String or result of document.querySelectorAll()
  * @returns	{Promise[]}
  */
-const playVideos = (videoElements) => {
+export const playVideos = (videoElements) => {
 	let videos = videoElements ?
 		getVideos(videoElements) :
 		[];
@@ -139,7 +139,7 @@ const playVideos = (videoElements) => {
  * @param	{(String|HTMLVideoElement[])} videoElements String or result of document.querySelectorAll()
  * @returns	{(NodeList|HTMLCollection)}
  */
-const pauseVideos = (videoElements) => {
+export const pauseVideos = (videoElements) => {
 	let videos = videoElements ?
 		getVideos(videoElements) :
 		[];
@@ -159,7 +159,7 @@ const pauseVideos = (videoElements) => {
  * @param	{Boolean} [mute=true] True or False if the video should be muted
  * @returns	{(HTMLVideoElement|null)}
  */
-const muteVideo = (videoElement, mute = true) => {
+export const muteVideo = (videoElement, mute = true) => {
 	let video = videoElement ?
 		getVideo(videoElement) :
 		null;
@@ -177,7 +177,7 @@ const muteVideo = (videoElement, mute = true) => {
  * @param 	{Number} volume Decimal range value from 0 to 1
  * @returns	{(HTMLVideoElement|null)}
  */
-const setVolumeVideo = (videoElement, volume = 1) => {
+export const setVolumeVideo = (videoElement, volume = 1) => {
 	let video = videoElement ?
 		getVideo(videoElement) :
 		null;
@@ -197,7 +197,7 @@ const setVolumeVideo = (videoElement, volume = 1) => {
  * @param	{(String|HTMLVideoElement[])} videoElements String or result of document.querySelectorAll()
  * @returns {HTMLCollection} An array with all the found video elements on the page
  */
-const lazyLoadVideos = (videoElements) => {
+export const lazyLoadVideos = (videoElements) => {
 	let videos = videoElements ?
 		getVideos(videoElements) :
 		[];

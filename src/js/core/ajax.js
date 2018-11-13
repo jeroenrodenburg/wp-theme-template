@@ -27,41 +27,8 @@
  */
 
 
-
-/**
- * arrayToQueryString
- * 
- * Converts an array with objects into
- * a string that can be used in a query
- * 
- * @function
- * @since   1.0
- * 
- * @uses	arrayToCSV()
- * @param   {Object[]} [data=[]] Array with object with name and value for the string
- * @param   {String} data.name Name of field
- * @param   {String} data.value Value of field
- * @returns {String} Queryable string
- * 
- * @example
- * let data = [
- *    {
- *       name: 'action',
- *       value: 'get_posts'
- *    },
- *    {
- *       name: 'post_type',
- *       value: 'post,page'
- *    }
- * ];
- * 
- * let query = arrayToQueryString(data); // = "?action=value&post_type=post,page"
- */
-const arrayToQueryString = (data = []) => {
-    if (!Array.isArray(data)) throw new Error('data argument is not given or type of array');
-    let query = data.map(item => `${item.name}=${arrayToCSV(item.value)}`).join('&');
-    return query.length ? `?${query}` : '';
-};
+// Import convert functions
+import { arrayToQueryString } from './convert';
 
 /**
  * getPosts
@@ -90,7 +57,7 @@ const arrayToQueryString = (data = []) => {
  * ]).then(data => console.log(data))
  *   .catch(error => console.log(error));
  */
-const getPosts = (args = []) => {
+export const getPosts = (args = []) => {
 
 	// Add action to the data array
 	args.unshift({
@@ -141,7 +108,7 @@ const getPosts = (args = []) => {
  *    .then(data => console.log(data))
  *    .catch(error => console.log(error));
  */
-const getMarkers = (data = []) => {
+export const getMarkers = (data = []) => {
 
 	// Add action to the data array
 	data.unshift({
@@ -183,7 +150,7 @@ const getMarkers = (data = []) => {
  * @param	{Object[]} data Object with data to send
  * @returns	{Promise} Returns a promise with JSON
  */
-const postJson = (data = {}) => {
+export const postJson = (data = {}) => {
 
 	// Add nonce security property to data
 	data = Object.assign(data, {
@@ -226,7 +193,7 @@ const postJson = (data = {}) => {
  * @param 	{String} url URL to get the data from
  * @param 	{Function} callback Function to fires when a response is received
  */
-const get = (url, callback) => {
+export const get = (url, callback) => {
 	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4 && xhr.status === 200) {
@@ -250,7 +217,7 @@ const get = (url, callback) => {
  * @param 	{String} params Data to send
  * @param 	{Function} callback Function to fires when a response is received
  */
-const post = (url, params, callback) => {
+export const post = (url, params, callback) => {
 	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function () {
 		if (xhr.readyState === 4 && xhr.status === 200) {

@@ -2,7 +2,7 @@
 
 /**
  * @author Control <info@controldigital.nl>
- * @file gravity-forms.js
+ * @file gf.js
  * @version 1.0
  * @license
  * Copyright (c) 2018 Control.
@@ -38,7 +38,7 @@
  * @since	1.0
  * @param 	{Event} event 
  */
-const gfFocusLabel = (event) => {
+export const gfFocusLabel = (event) => {
 	if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
 		let parent = event.target.parentNode;
 		if (parent.classList.contains('ginput_container')) {
@@ -61,7 +61,7 @@ const gfFocusLabel = (event) => {
  * @since	1.0
  * @param 	{Event} event 
  */
-const gfBlurLabel = (event) => {
+export const gfBlurLabel = (event) => {
 	if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
 		if (event.target.value === '') {
 			let parent = event.target.parentNode;

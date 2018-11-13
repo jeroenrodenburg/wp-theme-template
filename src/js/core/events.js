@@ -40,7 +40,7 @@
  * 
  * @returns {Function}
  */
-const toggleClassOnScroll = (() => {
+export const toggleClassOnScroll = (() => {
 
     /**
      * Element to toggle classes on
@@ -96,7 +96,7 @@ const toggleClassOnScroll = (() => {
  * 
  * @param   {Event} event
  */
-const tabFocus = (event) => {
+export const tabFocus = (event) => {
 
     let cls = '--tab',
         onKeyDown,
@@ -146,7 +146,7 @@ const tabFocus = (event) => {
  * @param   {(String|HTMLElement)} scrollBarElement
  * @returns {Function}
  */
-const scrollBarMove = (scrollBarElement) => {
+export const scrollBarMove = (scrollBarElement) => {
 
     /**
      * Create variable for scrollBar.

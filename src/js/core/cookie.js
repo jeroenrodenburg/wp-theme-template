@@ -43,7 +43,7 @@
  * @param   {String} domain The domain to store the cookie
  * @returns {String} Returns the cookie string
  */
-const setCookie = (name, value, expire, path = '/', domain = location.hostname.replace(/^www\./i, "")) => {
+export const setCookie = (name, value, expire, path = '/', domain = location.hostname.replace(/^www\./i, "")) => {
     let date = new Date(),
         expires;
     date.setTime(date.getTime() + (expire * 24 * 3600 * 1000));
@@ -63,7 +63,7 @@ const setCookie = (name, value, expire, path = '/', domain = location.hostname.r
  * @param 	{String} name Cookie to fetch
  * @returns {(String|Boolean)} Returns cookie on success, false on fail
  */
-const getCookie = (name) => {
+export const getCookie = (name) => {
     let nameExpression = name + '=',
         cookies = document.cookie.split(';');
     for (let i = 0; i < cookies.length; i += 1) {
@@ -85,7 +85,7 @@ const getCookie = (name) => {
  * @param 	{String} name Cookie to delete
  * @returns {String} Returns the cookie
  */
-const deleteCookie = (name) => {
+export const deleteCookie = (name) => {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
     return document.cookie;
 };
@@ -114,7 +114,7 @@ const deleteCookie = (name) => {
  * @param	{HTMLElement} [location] to append
  * @returns	{(HTMLScriptElement|HTMLElement)} Returns the appended script
  */
-const insertNonFuncScripts = (entry) => {
+export const insertNonFuncScripts = (entry) => {
     if (!entry || 'object' !== typeof entry) return;
     let code = entry.hasOwnProperty('script') ? entry.script : false,
         source = entry.hasOwnProperty('src') ? entry.src : false,  
@@ -143,7 +143,7 @@ const insertNonFuncScripts = (entry) => {
  * @uses    insertInlineScript
  * @param   {Event} event
  */
-const addNonFuncScript = (event) => {
+export const addNonFuncScript = (event) => {
 
     /** 
      * Cookie to find.
