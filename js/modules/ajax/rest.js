@@ -171,7 +171,8 @@ const snakeToCamel = string => string.replace(/_\w/g, match => match[1].toUpperC
  * @returns	{Object}
  */
 const convertKeysOfObject = (object) => {
-	Object.keys(object).forEach((key) => {
+	let keys = Object.keys(object);
+	keys.forEach((key) => {
 		let snakeKey = camelToSnake(key);
 		if (snakeKey !== key) {
 			Object.defineProperty(
@@ -201,7 +202,7 @@ const convertKeysOfObject = (object) => {
  * @param	{String} [rest=wp.rest] Url of REST API.
  * @returns	{Promise}
  */
-const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.rest) => {
+export const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.rest) => {
 
 	// Check if args parameter is set and if it is an object.
 	if (!args || 'object' !== typeof args) throw new Error('Args not set or not an object');
@@ -284,7 +285,7 @@ const getRestData = async (args = {}, route = '/wp/v2/posts', rest = wp.rest) =>
  * 	order: 'desc'
  * }).then(posts);
  */
-const getPosts = async (args = {}) => {
+export const getPosts = async (args = {}) => {
 	const route = 'wp/v2/posts/';
 	let response = await getRestData(args, route);
 	return response;
@@ -320,7 +321,7 @@ const getPosts = async (args = {}) => {
  * @example
  * getCategories().then(categories);
  */
-const getCategories = async (args = {}) => {
+export const getCategories = async (args = {}) => {
 	const route = 'wp/v2/categories/';
 	let response = await getRestData(args, route);
 	return response;
@@ -356,7 +357,7 @@ const getCategories = async (args = {}) => {
  * @example
  * getTags().then(tags);
  */
-const getTags = async (args = {}) => {
+export const getTags = async (args = {}) => {
 	const route = 'wp/v2/tags/';
 	let response = await getRestData(args, route);
 	return response;
@@ -398,7 +399,7 @@ const getTags = async (args = {}) => {
  * @example
  * getPages().then(pages);
  */
-const getPages = async (args = {}) => {
+export const getPages = async (args = {}) => {
 	const route = 'wp/v2/pages/';
 	let response = await getRestData(args, route);
 	return response;
@@ -443,7 +444,7 @@ const getPages = async (args = {}) => {
  * @example
  * getComments().then(comments);
  */
-const getComments = async (args = {}, route = 'wp/v2/comments/') => {
+export const getComments = async (args = {}, route = 'wp/v2/comments/') => {
 	let response = await getRestData(args, route);
 	return response;
 };
@@ -468,7 +469,7 @@ const getComments = async (args = {}, route = 'wp/v2/comments/') => {
  * @example
  * getTaxonomies().then(taxonomies);
  */
-const getTaxonomies = async (args = {}) => {
+export const getTaxonomies = async (args = {}) => {
 	const route = 'wp/v2/taxonomies/';
 	let response = await getRestData(args, route);
 	return response;
@@ -510,7 +511,7 @@ const getTaxonomies = async (args = {}) => {
  * @example
  * getMedia().then(media);
  */
-const getMedia = async (args = {}, route = 'wp/v2/media/') => {
+export const getMedia = async (args = {}, route = 'wp/v2/media/') => {
 	let response = await getRestData(args, route);
 	return response;
 };
@@ -546,7 +547,7 @@ const getMedia = async (args = {}, route = 'wp/v2/media/') => {
  * @example
  * getUsers().then(users);
  */
-const getUsers = async (args = {}, route = 'wp/v2/users/') => {
+export const getUsers = async (args = {}, route = 'wp/v2/users/') => {
 	let response = await getRestData(args, route);
 	return response;
 };
@@ -571,7 +572,7 @@ const getUsers = async (args = {}, route = 'wp/v2/users/') => {
  * @example
  * getPostTypes().then(postTypes);
  */
-const getPostTypes = async (args = {}, route = 'wp/v2/types/') => {
+export const getPostTypes = async (args = {}, route = 'wp/v2/types/') => {
 	let response = await getRestData(args, route);
 	return response;
 };
@@ -594,7 +595,7 @@ const getPostTypes = async (args = {}, route = 'wp/v2/types/') => {
  * @example
  * getSettings().then(settings);
  */
-const getSettings = async (route = 'wp/v2/settings/') => {
+export const getSettings = async (route = 'wp/v2/settings/') => {
 	let args = {};
 	let response = await getRestData(args, route);
 	return response;

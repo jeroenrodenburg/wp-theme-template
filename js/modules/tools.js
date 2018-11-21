@@ -175,115 +175,6 @@ const stringToHTML = (data) => {
 };
 
 /**
- * getValues
- * 
- * Returns an object with all the values of a form
- * 
- * @function
- * @since   1.0
- * @param   {HTMLFormElement} form Form element with elements
- * @returns {Object[]} Array with objects with name/value pairs
- */
-const getValues = (form) => {
-    return [...form.elements].filter((el) => {
-        if (
-            ((
-                el.type !== 'submit' && 
-                el.type !== 'button' && 
-                el.type !== 'fieldset') || 
-                el.checked === true ) && 
-            el.value !== ''
-        ) {
-            return {
-                name: el.name, 
-                value: el.value
-            };
-        }
-    });
-};
-
-/**
- * getSelectedValues
- * 
- * Return an array with the selected fields
- *
- * @function
- * @since   1.0
- * @param   {HTMLFormElement} form Form element with elements
- * @returns {Object[]} Array with objects with name/value pairs
- */
-const getSelectedValues = (form) => {
-    return [...form.elements].filter((el) => {
-        if (
-            el.tagName === 'SELECT' && 
-            el.value !== ''
-        ) {
-            return {
-                name: el.name, 
-                value: el.value
-            };
-        }
-    });
-};
-
-/**
- * getCheckedValues
- * 
- * Return an array with the checked inputs
- *
- * @function
- * @since   1.0
- * @param   {HTMLFormElement} form Form element with elements
- * @returns {Object[]} Array with objects with name/value pairs
- */
-const getCheckedValues = (form) => {
-    return [...form.elements].filter((el) => {
-        if (
-            el.tagName === 'INPUT' && 
-            (el.type === 'checkbox' || 
-            el.type === 'radio') &&
-            el.checked === true
-        ) {
-            return {
-                name: el.name, 
-                value: el.value
-            };
-        }
-    });
-};
-
-/**
- * getValuesPerFieldset
- * 
- * Returns an array with objects with values
- * 
- * @function
- * @since   1.0
- * @param   {HTMLFormElement} form Form element
- * @returns {Array} Array with objects
- */
-const getValuesPerFieldset = (form) => {
-    return [...form.elements]
-        .filter((el) => el.tagName === 'FIELDSET')
-        .reduce((acc, cur) => {
-            acc[cur.name] = [...cur.elements].filter((el) => {
-                if (
-                    (
-                        el.tagName === 'INPUT' || 
-                        el.tagName === 'SELECT' || 
-                        el.tagName === 'TEXTAREA'
-                    ) && 
-                    el.type !== 'submit'
-                ) return {
-                    name: el.name,
-                    value: el,value
-                };
-            });
-            return acc;
-        }, {});
-};
-
-/**
  * debounce
  * 
  * Returns a function, that, as long as it continues to be invoked, will not 
@@ -325,9 +216,7 @@ const debounce = (func, wait, immediate) => {
  * @param   {Number} max Max value
  * @returns {Number} Random number
  */
-const getRandomInt = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 /**
  * cssPropertyValueSupported

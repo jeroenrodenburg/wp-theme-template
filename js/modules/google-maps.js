@@ -26,6 +26,22 @@
  *	SOFTWARE.
  */
 
+
+
+/**
+ * isGoogleMapInstance
+ * 
+ * Checks if the element is an instance of the
+ * google.maps.Map constructor
+ * 
+ * @function
+ * @since	1.0
+ * 
+ * @param	{HTMLElement} element
+ * @returns	{Boolean}
+ */
+const isGoogleMapInstance = element => element && element instanceof google.maps.Map;
+
 /**
  * createMap
  * 
@@ -34,99 +50,149 @@
  * 
  * @function
  * @since 	1.0
+ * 
  * @param 	{(String|HTMLElement)} mapElement The map element to select
  * @param	{Object=} options Options for the google.maps.Map class
- * @returns {<google.maps.Map>}
+ * @returns {Promise} Returns google.maps.Map on resolve
  */
 const createMap = (mapElement, options = {center: {lat: 52.3935744, lng: 4.8944151}, zoom: 8}) => {
+	return new Promise((resolve, reject) => {
 
-	// Get the map elements
-	let element;
-	if (mapElement) {
-		if ('string' === typeof mapElement) {
-			element = document.querySelector(mapElement);
-			if (element === null) return;
-		} else if (mapElement instanceof HTMLElement) {
-			element = mapElement;
-		}
-	} else {
-		return;
-	}
+		/**
+		 * validateMapElement
+		 * 
+		 * Checks if the given map element is valid
+		 * and found or returns a null value.
+		 * 
+		 * @function
+		 * @since	1.0
+		 * 
+		 * @param 	{(String|HTMLElement)} element The map element
+		 * @returns	{(HTMLElement|Null)}
+		 */
+		const validateMapElement = (element) => {
+			if (!element) return null;
+			if ('string' === typeof element) {
+				return document.querySelector(element);
+			} else if (element instanceof HTMLElement) {
+				return element;
+			}
+		};
 
-	// Create new map
-	let map = new google.maps.Map(element, options);
+		/**
+		 * Get the map elements
+		 * @type	{HTMLElement|Null}
+		 */
+		let element = validateMapElement(mapElement);
+		if (element === null) reject('mapElement argument has not been given or has returned null.');
 
-	// Store options
-	map.defaults = options;
+		/**
+		 * Create new map instance
+		 * @type	{<google.maps.Map>}
+		 */
+		let map = new google.maps.Map(element, options);
 
-	// Set array for markers
-	map.markers = [];
+		/**
+		 * Store options
+		 * @property
+		 * @type	{Object}
+		 */
+		map.defaults = options;
 
-	// Set array for polylines
-	map.polylines = [];
+		/**
+		 * Set array for markers
+		 * @property
+		 * @type	{Array}
+		 */
+		map.markers = [];
 
-	// Set array for polygons
-	map.polygons = [];
+		/**
+		 * Set array for polylines
+		 * @property
+		 * @type	{Array}
+		 */
+		map.polylines = [];
 
-	// Set bounds for map
-	map.bounds = new google.maps.LatLngBounds();
-	
-	// Set infowindow for map
-	map.infowindow = null;
+		/**
+		 * Set array for polygons
+		 * @property
+		 * @type	{Array}
+		 */
+		map.polygons = [];
 
-	// Close infowindows on map click
-	google.maps.event.addListener(map, 'click', () => {
-		if (map.infowindow) map.infowindow.close();
-	});
+		/**
+		 * Set bounds for map
+		 * @property
+		 * @type	{Array}
+		 */
+		map.bounds = new google.maps.LatLngBounds();
+		
+		/**
+		 * Set infowindow for map
+		 * @property
+		 * @type	{Null}
+		 */
+		map.infowindow = null;
 
-	// Resize event to keep the center in the middle of the map
-	window.addEventListener('resize', () => {
-		requestAnimationFrame(() => {
-			let center = map.getCenter();
-			google.maps.event.trigger(map, 'resize');
-			map.setCenter(center);
+		/**
+		 * Close infowindows on map click
+		 * @event	click
+		 */
+		google.maps.event.addListener(map, 'click', () => {
+			if (map.infowindow) map.infowindow.close();
 		});
-	}, false);
 
-	// Return the map
-	return map;
+		/**
+		 * Resize event to keep the center in the middle of the map
+		 * @event	resize
+		 */
+		window.addEventListener('resize', () => {
+			requestAnimationFrame(() => {
+				let center = map.getCenter();
+				google.maps.event.trigger(map, 'resize');
+				map.setCenter(center);
+			});
+		}, false);
 
+		// Return the map
+		resolve(map);
+
+	});
 };
 
 /**
  * centerMap
  * 
  * Centers the map on the given bounds or the 
- * default center lat/lng location
+ * default center lat/lng location.
  * 
  * @function
  * @since	1.0
- * @param 	{<google.maps.Map>} map Google maps map instance
- * @returns	{Promise} Returns map on resolve and an error on reject
+ * 
+ * @uses	isGoogleMapInstance
+ * 
+ * @param 	{<google.maps.Map>} map Google maps map instance.
+ * @returns	{<google.maps.Map>} Returns the map instance.
  */
 const centerMap = (map) => {
-	return new Promise((resolve, reject) => {
-		if (map && map instanceof google.maps.Map) {
-			if (!map.bounds.isEmpty()) {
-				map.fitBounds(map.bounds);
-			} else {
-				map.setCenter(map.defaults.center);
-				map.setZoom(map.defaults.zoom);
-			}
-			resolve(map);
-		} else {
-			reject(new Error('map argument is not given'));
-		}
-	});
+	if (!isGoogleMapInstance(map)) throw new Error('map argument is not given');
+	if (!map.bounds.isEmpty()) {
+		map.fitBounds(map.bounds);
+	} else {
+		map.setCenter(map.defaults.center);
+		map.setZoom(map.defaults.zoom);
+	}
+	return map;
 };
 
 /**
  * attachInfoWindow
  * 
- * Adds a InfoWindow to a marker
+ * Adds a InfoWindow to a marker.
  *
  * @function
  * @since 	1.0
+ * 
  * @param 	{<google.maps.Marker>} marker
  * @param 	{String} content
  */
@@ -145,72 +211,70 @@ const attachInfoWindow = (marker, content, map) => {
 /**
  * addMarker
  * 
- * Add a single marker to the map
+ * Add a single marker to the map.
  * 
  * @function
  * @since 	1.0
- * @param 	{Object} position Object with lat and lang properties
- * @param	{(String|Number)} position.lat Latitude of position
- * @param	{(String|Number)} position.lng Longitude of position
- * @param 	{<google.maps.Map>} map Google maps map instance
- * @returns {Promise} returns the map object on resolve
+ * 
+ * @param 	{(Object|<google.maps.LatLng>)} position Object with lat and lang properties.
+ * @param	{(String|Number)} position.lat Latitude of position.
+ * @param	{(String|Number)} position.lng Longitude of position.
+ * @param 	{<google.maps.Map>} map Google maps map instance.
+ * @returns {<google.maps.Map>} Returns the map.
  */
 const addMarker = (position, map) => {
-	return new Promise((resolve, reject) => {
-		if (position && map && map instanceof google.maps.Map) {
+	if (!position || !isGoogleMapInstance(map)) throw new Error('position and/or map arguments not given');
 
-			// Create coordinates
-			const latLng = position instanceof google.maps.LatLng ? 
-				position : 
-				new google.maps.LatLng(position.lat, position.lng);
+	/**
+	 * Create coordinates
+	 * @type	{<google.maps.LatLng>}
+	 */
+	const latLng = position instanceof google.maps.LatLng ? 
+	position : 
+	new google.maps.LatLng(position.lat, position.lng);
 
-			// Create marker
-			const marker = new google.maps.Marker({
-				position: latLng,
-				map: map
-			});
-			
-			// Add position to bounds
-			map.bounds.extend(marker.getPosition());
-	
-			// Add marker to array
-			map.markers.push(marker);
-
-			// Resolve and return map
-			resolve(map);
-
-		} else {
-
-			// Reject with an error
-			reject(new Error('marker and/or map arguments not given'));
-
-		}
+	/**
+	 * Create marker
+	 * @type	{<google.maps.Marker>}
+	 */
+	const marker = new google.maps.Marker({
+		position: latLng,
+		map: map
 	});
+	
+	// Add position to bounds
+	map.bounds.extend(marker.getPosition());
+
+	// Add marker to array
+	map.markers.push(marker);
+
+	// Resolve and return map
+	return map;
+
 };
 
 /**
  * addMarkers
  * 
- * Add multiple markers to the map
+ * Add multiple markers to the map.
  * 
  * @function
  * @since 	1.0
+ * 
  * @uses	addMarker()
- * @param 	{Object[]} markers Objects with lat and lng properties
- * @param	{(String|Number)} markers[].lat Latitude of position
- * @param	{(String|Number)} markers[].lng Longitude of position
- * @param 	{<google.maps.Map>} map Google maps map instance
- * @returns {Promise} returns the map object on resolve
+ * 
+ * @param 	{(Object[]|<google.maps.LatLng>[])} positions Objects with lat and lng properties.
+ * @param	{(String|Number)} markers[].lat Latitude of position.
+ * @param	{(String|Number)} markers[].lng Longitude of position.
+ * @param 	{<google.maps.Map>} map Google maps map instance.
+ * @returns {<google.maps.Map>} Returns the map instance.
  */
-const addMarkers = (markers, map) => {
-	if (markers && map && map instanceof google.maps.Map) {
+const addMarkers = (positions, map) => {
+	// Loop over positions and return the promise from addMarker
+	positions.forEach(position => addMarker(position, map));
 
-		// Loop over markers and return the promise from addMarker
-		let markerPromises = markers.map(marker => addMarker(marker, map));
-
-		// Return Promise
-		return Promise.all(markerPromises);
-	}
+	// Return the map
+	return map;
 };
 
 /**
@@ -218,31 +282,23 @@ const addMarkers = (markers, map) => {
  * 
  * @function
  * @since 	1.0
+ * 
  * @param 	{<google.maps.Map>} map 
  * @returns {Promise} returns the map object on resolve
  */
 const removeMarkers = (map) => {
-	return new Promise((resolve, reject) => {
-		if (map && map instanceof google.maps.Map) {
+	if (!isGoogleMapInstance(map)) throw new Error('map argument not given');
 
-			// Loop over the markers
-			map.markers.forEach((marker) => {
-				marker.setMap(null);
-			});
-
-			// Remove markers from array
-			map.markers = [];
-
-			// Resolve with map
-			resolve(map);
-
-		} else {
-
-			// Reject with an error
-			reject(new Error('map argument not given'));
-
-		}
+	// Loop over the markers
+	map.markers.forEach((marker) => {
+		marker.setMap(null);
 	});
+
+	// Remove markers from array
+	map.markers = [];
+
+	// Return the map
+	return map;
 };
 
 /**
@@ -262,6 +318,7 @@ const removeMarkers = (map) => {
  * 
  * @function
  * @since	1.0
+ * 
  * @param 	{Object} position Objects with lat and lng coordinates
  * @param	{(String|Number)} position.lat Latitude of position
  * @param	{(String|Number)} position.lng Longitude of position
