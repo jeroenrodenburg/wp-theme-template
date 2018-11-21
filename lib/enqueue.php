@@ -18,14 +18,12 @@
  */
 add_filter( 'style_loader_tag', 'custom_style_attributes', 10, 4 );
 function custom_style_attributes( $html, $handle, $href, $media ) {
-	// Handles to perform the task on
-	$handles = array( 'style' );
-	if ( in_array( $handle, $handles) && THEME_DEV_MODE === false ) {
-		return '
-			<link href="' . $href . '" rel="preload" as="style">
-			<link href="' . $href . '" rel="stylesheet" media="' . $media . '">';
-	}
-	return $html;
+    // Handles to perform the task on
+    $handles = array( 'fancybox', 'swiper', 'slick', 'aos', 'style' );
+    if ( in_array( $handle, $handles) ) {
+        return '<link id="' . $handle . '-css" href="' . $href . '" rel="stylesheet" media="none" onload="this.media=\'' . $media . '\'">';
+    }
+    return $html;
 }
 
 /**
@@ -44,22 +42,22 @@ function custom_script_attributes( $tag, $handle, $src ) {
 	// Script that load async
 	$async_attr = 'async';
 	$async_handles = array( 'script' );
-	if ( in_array( $handle, $async_handles ) && THEME_DEV_MODE === false ) {
-		return '<script src="' . $src . '" type="text/javascript" ' . $async_attr . '></script>';
+	if ( in_array( $handle, $async_handles ) ) {
+		return '<script id="' . $handle . '-js" src="' . $src . '" type="text/javascript" ' . $async_attr . '></script>';
 	}
 
 	// Scripts that load defer
 	$defer_attr = 'defer';
 	$defer_handles = array( 'google-maps' );
-	if ( in_array( $handle, $defer_handles ) && THEME_DEV_MODE === false ) {
-		return '<script src="' . $src . '" type="text/javascript" ' . $defer_attr . '></script>';
+	if ( in_array( $handle, $defer_handles ) ) {
+		return '<script id="' . $handle . '-js" src="' . $src . '" type="text/javascript" ' . $defer_attr . '></script>';
 	}
 
 	// Scripts that are ES6 Modules
 	$module_attr = 'module';
 	$module_handles = array();
-	if ( in_array( $handle, $module_handles ) && THEME_DEV_MODE === false ) {
-		return '<script src="' . $src . '" type="' . $module_attr . '"></script>';
+	if ( in_array( $handle, $module_handles ) ) {
+		return '<script id="' . $handle . '-js" src="' . $src . '" type="' . $module_attr . '"></script>';
 	}
 
 	return $tag;
@@ -260,37 +258,6 @@ function theme_scripts() {
 	 */
 	$script_path = THEME_DEV_MODE ? '/js/' : '/dist/js/';
 	wp_register_script( 'script', get_template_directory_uri() . $script_path . 'script.js', false, false, true );
-	wp_add_inline_script( 'script', '
-		/* <![CDATA[ */
-			(function () {
-				if (!("Promise" in window)) {
-					var promiseScript = document.createElement("script");
-					promiseScript.src = "' . get_template_directory_uri() . '/js/polyfills/promise.polyfill.min.js";
-					document.body.appendChild(promiseScript);
-				}
-				if (!("fetch" in window)) {
-					var fetchScript = document.createElement("script");
-					fetchScript.src = "' . get_template_directory_uri() . '/js/polyfills/fetch.polyfill.min.js";
-					document.body.appendChild(fetchScript);
-				}
-				if (!("IntersectionObserver" in window)) {
-					var intersectionScript = document.createElement("script");
-					intersectionScript.src = "' . get_template_directory_uri() . '/js/polyfills/intersectionobserver.polyfill.min.js";
-					document.body.appendChild(intersectionScript);
-				}
-				if (!("DOMParser" in window)) {
-					var domParserScript = document.createElement("script");
-					domParserScript.src = "' . get_template_directory_uri() . '/js/polyfills/domparser.polyfill.min.js";
-					document.body.appendChild(domParserScript);
-				}
-				if (!("scroll" in window) || !("scrollBy" in window) || !("scrollTo" in window)) {
-					var smoothScrollScript = document.createElement("script");
-					smoothScrollScript.src = "' . get_template_directory_uri() . '/js/polyfills/smoothscroll.polyfill.min.js";
-					document.body.appendChild(smoothScrollScript);
-				}
-			}());
-		/* ]]> */
-	', 'before' );
 	wp_localize_script( 'script', 'wp', array( 
 		'ajax' 			=> admin_url( 'admin-ajax.php' ), 
 		'theme' 		=> get_template_directory_uri(),
@@ -298,7 +265,7 @@ function theme_scripts() {
 			'id'			=> get_the_id(),
 			'title'			=> get_the_title(),
 			'type'			=> get_post_type(),
-			'template'		=> get_the_template()
+			'template'		=> basename( get_page_template() )
 		),
 		'rest'			=> esc_url( get_rest_url() ),
 		'nonce'			=> wp_create_nonce( 'wp_rest' )

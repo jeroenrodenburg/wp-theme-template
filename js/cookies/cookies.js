@@ -167,6 +167,7 @@
 	const appendToBody = (items) => {
 		return new Promise((resolve, reject) => {
 			if (!items) reject(false);
+			items.reverse();
 			items.forEach((item) => {
 				document.body.insertBefore(item, document.body.firstElementChild);
 			});
