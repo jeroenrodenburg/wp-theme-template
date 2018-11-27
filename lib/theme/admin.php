@@ -61,8 +61,8 @@ function add_theme_pages() {
 
 	// 404
 	add_theme_page( 
-		__( '404 pagina bewerken', 'text_domain' ), 
-		__( '404', 'text_domain' ), 
+		__( 'Edit 404 page', 'control' ), 
+		__( '404', 'control' ), 
 		'edit_theme_options', 
 		'theme-404', 
 		'theme_page_form' 
@@ -70,8 +70,8 @@ function add_theme_pages() {
 
 	// Archives
 	add_theme_page( 
-		__( 'Archief pagina\'s bewerken', 'text_domain' ), 
-		__( 'Archief', 'text_domain' ), 
+		__( 'Edit archive page', 'control' ), 
+		__( 'Archive', 'control' ), 
 		'edit_theme_options', 
 		'theme-archive', 
 		'theme_page_form' 
@@ -104,13 +104,13 @@ function theme_page_notices() {
 
 				// Set CSS class and message for notice
 				$class = 'notice notice-success is-dismissible';
-				$message = __( 'Pagina is met succes opgeslagen', 'text_domain' );
+				$message = __( 'Page has been succesfully saved', 'control' );
 
 			} else if ( $_GET[ 'message' ] === '2' ) {
 
 				// Set CSS class and message for notice
 				$class = 'notice notice-error is-dismissible';
-				$message = __( 'Er is iets misgegaan', 'text_domain' );
+				$message = __( 'Something went wrong', 'control' );
 
 			}
 			printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
@@ -155,14 +155,14 @@ function theme_page_form() {
 
 						<div id="titlediv">
 							<div id="titlewrap">
-								<label class="screen-reader-text" id="title-prompt-text" for="title">' . __( 'Vul hier de titel in', 'text_domain' ) . '</label>
+								<label class="screen-reader-text" id="title-prompt-text" for="title">' . __( 'Fill in the title', 'control' ) . '</label>
 								<input name="post_title" size="30" value="' . $title . '" id="title" spellcheck="true" autocomplete="off" type="text">
 							</div>					
 						</div>
 						
 						<div id="wp-content-wrap" class="wp-core-ui wp-editor-wrap tmce-active has-dfw" style="padding-top:25px;">';
 							wp_editor( esc_html( $content ), 'post_content' );
-							submit_button( __( 'Opslaan', 'text_domain' ), 'primary' );
+							submit_button( __( 'Save', 'control' ), 'primary' );
 						echo 
 						'</div>
 					</form>

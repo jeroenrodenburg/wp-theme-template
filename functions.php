@@ -22,35 +22,33 @@ define( 'THEME_DEV_MODE', true );
  * 
  */
 $templates = array(
-
-	// Core modifications
-	'lib/customizer.php',			// Customizer modifications
-	'lib/enqueue.php',				// Enqueue CSS and JS
-	'lib/filters.php',				// Filter hooks
-	'lib/rest.php',					// Rest API configuration
-	'lib/cleanup.php',				// Head cleanup
 	
-	// Custom additions
-	'lib/ajax.php',					// Ajax functions
-	'lib/helpers.php',				// Helper functions
-	'lib/meta.php',					// Meta functions
-	'lib/cookie.php',				// Cookie functions
+	// Core
+	'lib/core/ajax.php',				// Ajax functions
+	'lib/core/cleanup.php',				// Head cleanup
+	'lib/core/filters.php',				// Filter hooks
+	'lib/core/helpers.php',				// Helper functions
+	'lib/core/meta.php',				// Meta functions
+	'lib/core/cookie.php',				// Cookie functions
 	
-	// Theme customizations
-	'lib/admin.php',				// Custom admin settings
-	'lib/theme-support.php',		// Theme support configuration
-	'lib/navigation.php',			// Navigation registration and Nav Walkers
-	'lib/post-types.php',			// Post Types registration
-	'lib/taxonomies.php',			// Taxonomies registration
-	'lib/sidebars.php',				// Sidebars registration
-	'lib/widgets.php',				// Widget registration
+	// Theme
+	'lib/theme/theme-support.php',		// Theme support configuration
+	'lib/theme/post-types.php',			// Post Types registration
+	'lib/theme/gutenberg.php',			// Gutenberg modifications
+	'lib/theme/taxonomies.php',			// Taxonomies registration
+	'lib/theme/navigation.php',			// Navigation registration and Nav Walkers
+	'lib/theme/customizer.php',			// Customizer modifications
+	'lib/theme/enqueue.php',			// Enqueue CSS and JS
+	'lib/theme/admin.php',				// Custom admin settings
+	'lib/theme/rest.php',				// Rest API configuration
+	'lib/theme/sidebars.php',			// Sidebars registration
+	'lib/theme/widgets.php',			// Widget registration
 	
-	// Plugin configurations and modifications
-	'lib/gutenberg.php',			// Gutenberg modifications
-	'lib/acf.php',					// Advanced Custom Fields
-	'lib/gf.php',					// Gravity Form modifications
-	'lib/woocommerce.php',			// Woocommerce modifications
-	'lib/wpml.php',					// WPML modifications
+	// Plugin
+	'lib/plugins/acf.php',				// Advanced Custom Fields
+	'lib/plugins/gf.php',				// Gravity Form modifications
+	'lib/plugins/woocommerce.php',		// Woocommerce modifications
+	'lib/plugins/wpml.php',				// WPML modifications
 );
 
 /**

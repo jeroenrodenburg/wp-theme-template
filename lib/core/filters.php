@@ -72,11 +72,11 @@ function custom_password_form() {
     $label = 'pwbox-'.( empty( $post->ID ) ? rand() : $post->ID );
     $o = 
     	'<form class="search" action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" method="post">
-			<p>' . __( "De inhoud is beveiligd met een wachtwoord. Vul het wachtwoord hieronder in om hem te kunnen bekijken:", "text_domain" ) . '</p>
-			<label for="' . $label . '">' . __( "Wachtwoord:", "text_domain" ) . ' </label>
+			<p>' . __( 'The content has been secured with a password. Fill in the password below to view the content:', 'control' ) . '</p>
+			<label for="' . $label . '">' . __( 'Password:', 'control' ) . ' </label>
 			<div class="search__fields">
 				<input name="post_password" id="' . $label . '" type="password" size="20" maxlength="20" />
-				<input type="submit" name="Submit" value="' . esc_attr__( "Verzenden", "text_domain" ) . '" />
+				<input type="submit" name="Submit" value="' . esc_attr__( 'Send', 'control' ) . '" />
 			</div>
 		</form>';
     return $o;
