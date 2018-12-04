@@ -69,13 +69,13 @@ function add_theme_pages() {
 	);
 
 	// Archives
-	add_theme_page( 
-		__( 'Edit archive page', 'control' ), 
-		__( 'Archive', 'control' ), 
-		'edit_theme_options', 
-		'theme-archive', 
-		'theme_page_form' 
-	);
+	// add_theme_page( 
+	// 	__( 'Edit archive page', 'control' ), 
+	// 	__( 'Archive', 'control' ), 
+	// 	'edit_theme_options', 
+	// 	'theme-archive', 
+	// 	'theme_page_form' 
+	// );
 
 }
 
