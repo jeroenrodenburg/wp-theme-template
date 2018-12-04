@@ -40,6 +40,7 @@ $templates = array(
 	'lib/theme/customizer.php',			// Customizer modifications
 	'lib/theme/enqueue.php',			// Enqueue CSS and JS
 	'lib/theme/admin.php',				// Custom admin settings
+	'lib/theme/head.php',				// wp_head meta tags
 	'lib/theme/rest.php',				// Rest API configuration
 	'lib/theme/sidebars.php',			// Sidebars registration
 	'lib/theme/widgets.php',			// Widget registration
