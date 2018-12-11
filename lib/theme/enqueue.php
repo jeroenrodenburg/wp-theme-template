@@ -72,10 +72,10 @@ function custom_script_attributes( $tag, $handle, $src ) {
 add_action( 'wp_enqueue_scripts', 'theme_styles' );
 function theme_styles() {
 
-	// wp_register_style( 'flexgrid', get_template_directory_uri() . '/css/flexgrid/flexgrid.min.css', false, false, 'all' );
+	// wp_register_style( 'flexgrid', get_template_directory_uri() . 'assets/components/css/flexgrid/flexgrid.min.css', false, false, 'all' );
 	// wp_enqueue_style( 'flexgrid' );
 
-	// wp_register_style( 'animate', get_template_directory_uri() . '/css/animate/animate.css', false, false, 'all' );
+	// wp_register_style( 'animate', get_template_directory_uri() . 'assets/components/css/animate/animate.css', false, false, 'all' );
 	// wp_enqueue_style( 'animate' );
 
 	/**

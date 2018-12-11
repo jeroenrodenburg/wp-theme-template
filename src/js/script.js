@@ -26,6 +26,11 @@
  * SOFTWARE.
  */
 
+import '../scss/style.scss';
+import {hello} from "./modules/test";
+
+hello();
+
 (function () {
 	'use strict';
 
