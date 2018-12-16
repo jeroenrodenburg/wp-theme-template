@@ -1,3 +1,29 @@
+/**
+ * Theme Name:   Theme Name
+ * Theme URI:    http://example.com/
+ * Description:  Description
+ * Version:      1.0
+ * Author:       Your Name
+ * Author        URI: http://example.com/
+ * Tags:         one, two
+ */
+
+/* Base */
+@import "base/colors";
+@import "base/variables";
+@import "base/mixins";
+
+/* Sections */
+@import "section/global";
+@import "section/header";
+@import "section/content";
+@import "section/footer";
+
+/* Modules */
+@import "modules/navigation";
+
+
+
 $color: blue;
 
 @mixin autoprefixer-test {
@@ -7,4 +33,10 @@ $color: blue;
 .autoprefixer-test {
 	@include autoprefixer-test;
 	color: $color;
+}
+
+.autoprefixer-test {
+	@include autoprefixer-test;
+	color: $color;
+	display: grid;
 }
