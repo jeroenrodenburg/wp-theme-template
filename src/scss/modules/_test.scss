@@ -1,0 +1,23 @@
+.test {
+    color: $primary-color;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+	@include breakpoint(480){
+		display: flex;
+    }
+    
+    &--alt-color {
+        color: $secondary-color;
+    }
+
+	&__content {
+        grid-column: 1/2;
+        grid-row: 2;
+
+		&--large {
+			padding: 20rem; 
+		}
+    }
+}   

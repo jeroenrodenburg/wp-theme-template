@@ -20,23 +20,4 @@
 @import "section/footer";
 
 /* Modules */
-@import "modules/navigation";
-
-
-
-$color: blue;
-
-@mixin autoprefixer-test {
-	display: flex;
-}
-
-.autoprefixer-test {
-	@include autoprefixer-test;
-	color: $color;
-}
-
-.autoprefixer-test {
-	@include autoprefixer-test;
-	color: $color;
-	display: grid;
-}
+@import "modules/test";
