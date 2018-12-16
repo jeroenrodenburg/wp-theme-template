@@ -3,6 +3,7 @@
 # Folders
 dist
 node_modules
+.vscode
 
 # Random generated files
 .DS_Store
